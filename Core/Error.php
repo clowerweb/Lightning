@@ -30,7 +30,13 @@ class Error {
 			echo '<p>Stack trace: <pre>' . $exception->getTraceAsString() . '</pre></p>';
 			echo '<p>Thrown in "' . $exception->getFile() . '" on line ' . $exception->getLine() . '</p>';
 		} else {
-			$log = dirname(__DIR__) . '/logs/' . date('Y-m-d') . '.txt';
+			$dir = dirname(__DIR__) . '/logs';
+			$log = $dir . '/' . date('Y-m-d') . '.txt';
+
+			if(!file_exists($dir)) {
+				mkdir($dir, 0777, true);
+			}
+
 			ini_set('error_log', $log);
 
 			$message  = 'Uncaught exception: "' . get_class($exception) . '"';

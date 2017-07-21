@@ -9,5 +9,4 @@
 App/config.php
 logs/*
 vendor/*
-cache/*
-!.gitkeep
+**/cache/*
