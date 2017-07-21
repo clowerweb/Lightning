@@ -1,0 +1,12 @@
+# Clean URLs
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+
+# Block access to .twig template files
+<FilesMatch "\.(?:twig)$">
+	Order allow,deny
+	Deny from all
+</FilesMatch>

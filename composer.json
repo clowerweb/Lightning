@@ -1,0 +1,13 @@
+{
+	"require": {
+		"twig/twig": "^2.0",
+		"phpmailer/phpmailer": "~5.2",
+		"ezyang/htmlpurifier": "~4.9"
+	},
+	"autoload": {
+		"psr-4": {
+			"Core\\": "Core/",
+			"App\\": "App/"
+		}
+	}
+}

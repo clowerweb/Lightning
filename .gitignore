@@ -1,0 +1,13 @@
+*.DS_Store
+*.idea
+*.zip
+*.rar
+*.7z
+*.gz
+*.tar
+*.lock
+App/config.php
+logs/*
+vendor/*
+cache/*
+!.gitkeep

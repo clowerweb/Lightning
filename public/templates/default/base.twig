@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{% block title %}{% endblock %}</title>
+		<style type="text/css">
+			h1,h2,h3,h4,h5,h6{margin-bottom:10px}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;font-size:10px;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}h1,h2,h3,h4,h5,h6{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}h1,h2,h3{margin-top:20px}h4,h5,h6{margin-top:10px}h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:18px}h5{font-size:14px}h6{font-size:12px}p{margin:0 0 10px}.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.alert{padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px}.alert-success{color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6}.alert-info{color:#31708f;background-color:#d9edf7;border-color:#bce8f1}.alert-warning{color:#8a6d3b;background-color:#fcf8e3;border-color:#faebcc}.alert-danger{color:#a94442;background-color:#f2dede;border-color:#ebccd1}
+		</style>
+
+		<script type="text/javascript">
+			function downloadCSSOnload() {
+				var el = document.createElement('link');
+
+				el.rel         = 'stylesheet';
+				el.type        = 'text/css';
+				el.href        = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+				el.media       = 'print,screen';
+				el.integrity   = 'sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u';
+				el.crossOrigin = 'anonymous';
+
+				document.body.appendChild(el);
+			}
+
+			if(window.addEventListener)
+				window.addEventListener('load', downloadCSSOnload, false);
+			else if(window.attachEvent)
+				window.attachEvent('onload', downloadCSSOnload);
+			else window.onload = downloadCSSOnload;
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			{% for message in flash_messages %}
+				<div class="alert alert-{{ message.type }}" role="alert">
+					{{ message.body|raw }}
+				</div>
+			{% endfor %}
+
+			{% block body %}{% endblock %}
+		</div>
+
+		{% block scripts %}{% endblock %}
+	</body>
+</html>
