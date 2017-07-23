@@ -32,11 +32,11 @@ class Router {
 
 	/**
 	 * Match the route to the routes in the routes array, setting the $params
-	 * property is a route is found
+	 * property if a route is found
 	 *
 	 * @param string $url - The route URL
 	 *
-	 * @return boolean - True is match found, false if not
+	 * @return boolean - True if match found, false if not
 	 */
 	public function match($url) {
 		foreach($this->routes as $route => $params) {
