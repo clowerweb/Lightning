@@ -157,6 +157,12 @@ class Utilities {
 	 * @return mixed - the slug sting if not empty after processing, false if it is
 	 */
 	public static function slugify($text, $length = 75) {
+		// replace ' with nothing
+		$text = str_replace("'", '', $text);
+
+		// replace " with nothing
+		$text = str_replace('"', '', $text);
+
 		// replace non-alphanumeric with -
 		$text = preg_replace('~[^\pL\d]+~u', '-', $text);
 
