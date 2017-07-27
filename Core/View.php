@@ -46,6 +46,7 @@ class View {
 			$twig = new \Twig_Environment($loader, $opts);
 
 			$twig->addGlobal('flash', Flash::getMessages());
+			$twig->addGlobal('uri',   Utilities::getURI());
 		}
 
 		return $twig->render($template, $args);
