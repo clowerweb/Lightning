@@ -41,10 +41,10 @@ class Error {
 
 			$message  = 'Uncaught exception: "' . get_class($exception) . '"';
 			$message .= ' with message "' . $exception->getMessage() . '"';
-			$message .= "\nStack trace: " . $exception->getTraceAsString();
-			$message .= "\nThrown in \""  . $exception->getFile() . "\" on line " . $exception->getLine();
+			$message .= "\r\nStack trace: " . $exception->getTraceAsString();
+			$message .= "\r\nThrown in \""  . $exception->getFile() . "\" on line " . $exception->getLine();
 
-			error_log($message);
+			error_log($message . "\r\n\r\n");
 			View::renderTemplate("$code.twig");
 		}
 	}

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Core\Utilities;
 use \Core\View;
 use \Core\Controller;
 
@@ -19,7 +20,7 @@ class Home extends Controller {
 	public function indexAction() {
 		// Example of using HTML Purifier to prevent XSS
 		$html = "<h3>Test</h3><script>alert();</script>";
-		$html = View::purifyOutput($html);
+		$html = Utilities::purifyOutput($html);
 
 		View::renderTemplate('Home/index.twig', [
 			'html' => $html

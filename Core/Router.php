@@ -39,6 +39,8 @@ class Router {
 	 * @return boolean - True if match found, false if not
 	 */
 	public function match($url) {
+		$url = rtrim($url,'/');
+
 		foreach($this->routes as $route => $params) {
 			if(preg_match($route, $url, $matches)) {
 				foreach($matches as $key => $match) {
@@ -76,7 +78,7 @@ class Router {
 				$controller_object = new $controller($this->params);
 
 				$action = $this->params['action'];
-				$action = Utilities::convertToCamelCase($action);
+				$action = Utilities::convertToCamelCase($action) . 'Action';
 
 				if(is_callable([$controller_object, $action])) {
 					$controller_object->$action();
