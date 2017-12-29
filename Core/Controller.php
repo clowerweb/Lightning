@@ -27,6 +27,8 @@ abstract class Controller {
 	 * @return void
 	 */
 	public function __call($name, $args) {
+		$name = $name . 'Action';
+
 		if(method_exists($this, $name)) {
 			if($this->before() !== false) {
 				call_user_func_array([$this, $name], $args);
