@@ -51,7 +51,7 @@ class View {
 
 			$twig->addGlobal('flash', Flash::getMessages());
 			$twig->addGlobal('uri',   Utilities::getURI());
-			$twig->addGlobal('template_dir', $tpl_dir);
+			$twig->addGlobal('template_dir', str_replace('/public', '', $tpl_dir));
 			$twig->addGlobal('body_class', $body_class);
 			$twig->addGlobal('current_year', date('Y'));
 			$twig->addGlobal('canonical', $canonical);
