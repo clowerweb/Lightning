@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Exception;
+use \Exception;
 
 /**
  * Controller class
@@ -35,7 +35,7 @@ abstract class Controller {
 				$this->after();
 			}
 		} else {
-			throw new \Exception("Method $name not found in controller " . get_class($this));
+			throw new Exception("Method $name not found in controller " . get_class($this));
 		}
 	}
 

@@ -192,7 +192,7 @@ class Utilities extends Model {
 	}
 
 	/**
-	 * Remove query string vars from a URL. Used mostly for figuring out controller/action/params from the clean URLs
+	 * Remove query string vars from a URL. Used mostly for figuring out controller/action/params for the clean URLs
 	 *
 	 * @param string $url - The URL to remove vars from
 	 *
@@ -271,7 +271,7 @@ class Utilities extends Model {
 	 * @param string $text - the string to convert
 	 * @param integer $length - the length to truncate the slug to
 	 *
-	 * @return mixed - the slug sting if not empty after processing, false if it is
+	 * @return mixed - the slug string if not empty after processing, false if it is
 	 */
 	public static function slugify($text, $length = 75) {
 		// replace ' with nothing
@@ -451,7 +451,7 @@ class Utilities extends Model {
 	}
 
 	/**
-	 * Purges the template cache (directory defined in \App\Config.php)
+	 * Purges the template cache (directory defined in App\Config.php)
 	 *
 	 * @return void
 	 */

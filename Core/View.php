@@ -2,8 +2,8 @@
 
 namespace Core;
 
-use \App\Config;
-use \App\Flash;
+use App\Config;
+use App\Flash;
 
 /**
  * View class

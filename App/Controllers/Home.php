@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use Core\Utilities;
-use \Core\View;
-use \Core\Controller;
+use Core\View;
+use Core\Controller;
 
 /**
  * Home controller
