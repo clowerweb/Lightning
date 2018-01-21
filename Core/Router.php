@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use App\Config;
+
 /**
  * Router class
  *
@@ -39,7 +41,25 @@ class Router {
 	 * @return boolean - True if match found, false if not
 	 */
 	public function match($url) {
-		$url = rtrim($url,'/');
+		$new   = rtrim($url, '/');
+		$rchar = substr($url, -1);
+
+		if(Config::USE_URL_TRAILING_SLASH) {
+			// redirect to url with /
+			if($rchar !== '/') {
+				$url    = $url . '/';
+				$prefix = Utilities::isSSL() ? 'https://' : 'http://';
+				header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . '/' . $url, true, 301);
+				exit;
+			}
+		} else {
+			// redirect to url without /
+			if($rchar === '/') {
+				$prefix = Utilities::isSSL() ? 'https://' : 'http://';
+				header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . '/' . $new, true, 301);
+				exit;
+			}
+		}
 
 		foreach($this->routes as $route => $params) {
 			if(preg_match($route, $url, $matches)) {

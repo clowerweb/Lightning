@@ -21,6 +21,13 @@ class Config {
 	 */
 	const SHOW_ERRORS = false;
 
+    /**
+     * Whether to use a trailing slash for all site URLs
+     * Set to false if you want URLs to look like yoursite.com/some-page
+     * Set to true if you want URLs to look like yoursite.com/some-page/
+     */
+    const USE_URL_TRAILING_SLASH = false;
+
 	/**
 	 * Templates root - if you wish to move the templates directory, change this
 	 * No trailing slash
