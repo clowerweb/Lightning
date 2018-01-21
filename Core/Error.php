@@ -29,7 +29,7 @@ class Error {
 			echo '<h1>Fatal error</h1>';
 			echo '<p>Uncaught exception: "' . get_class($exception) . '"</p>';
 			echo '<p>Message: "' . $exception->getMessage() . '"</p>';
-			echo '<p>Stack trace: <pre>' . $exception->getTraceAsString() . '</pre></p>';
+			echo '<p>Stack trace: <pre>' . static::getFullException($exception) . '</pre></p>';
 			echo '<p>Thrown in "' . $exception->getFile() . '" on line ' . $exception->getLine() . '</p>';
 		} else {
 			$dir = dirname(__DIR__) . '/logs';
@@ -42,12 +42,42 @@ class Error {
 			ini_set('error_log', $log);
 
 			$message  = 'Uncaught exception: "' . get_class($exception) . '"';
-			$message .= ' with message "' . $exception->getMessage() . '"';
-			$message .= "\r\nStack trace: " . $exception->getTraceAsString();
+			$message .= ' with message "'   . $exception->getMessage() . '"';
+			$message .= "\r\nStack trace: " . static::getFullException($exception);
 			$message .= "\r\nThrown in \""  . $exception->getFile() . "\" on line " . $exception->getLine();
 
 			error_log($message . "\r\n\r\n");
 			View::renderTemplate("$code.twig");
 		}
+	}
+	
+	private static function getFullException($exception) {
+		$error = '';
+		$count = 0;
+
+		foreach($exception->getTrace() as $frame) {
+			$args = '';
+
+			if(isset($frame['args'])) {
+				$args = array();
+
+				foreach($frame['args'] as $arg) {
+					if    (is_string($arg))   $args[] = "'$arg'";
+					elseif(is_array($arg))    $args[] = 'Array';
+					elseif(is_null($arg))     $args[] = 'NULL';
+					elseif(is_bool($arg))     $args[] = ($arg) ? 'true' : 'false';
+					elseif(is_object($arg))   $args[] = get_class($arg);
+					elseif(is_resource($arg)) $args[] = get_resource_type($arg);
+					else                      $args[] = $arg;
+				}
+
+				$args = implode(', ', $args);
+			}
+
+			$error .= sprintf("#%s %s(%s): %s(%s)\r\n", $count, $frame['file'], $frame['line'], $frame['function'], $args);
+			$count++;
+		}
+
+		return $error;
 	}
 }
