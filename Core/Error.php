@@ -50,34 +50,37 @@ class Error {
 			View::renderTemplate("$code.twig");
 		}
 	}
-	
+
 	private static function getFullException($exception) {
-		$error = '';
-		$count = 0;
+		$result = '';
+		$errors = $exception->getTrace();
 
-		foreach($exception->getTrace() as $frame) {
-			$args = '';
+		for($i = 0; $i < count($errors); $i++) {
+			$error    = $errors[$i];
+			$args_str = NULL;
+			$file     = $error['file']     ?? NULL;
+			$line     = $error['line']     ?? NULL;
+			$function = $error['function'] ?? NULL;
 
-			if(isset($frame['args'])) {
+			if(isset($error['args'])) {
 				$args = array();
 
-				foreach($frame['args'] as $arg) {
-					if    (is_string($arg))   $args[] = "'$arg'";
-					elseif(is_array($arg))    $args[] = 'Array';
-					elseif(is_null($arg))     $args[] = 'NULL';
+				foreach($error['args'] as $arg) {
+					if    (is_array($arg))    $args[] = 'Array';
 					elseif(is_bool($arg))     $args[] = ($arg) ? 'true' : 'false';
+					elseif(is_null($arg))     $args[] = 'NULL';
 					elseif(is_object($arg))   $args[] = get_class($arg);
 					elseif(is_resource($arg)) $args[] = get_resource_type($arg);
+					elseif(is_string($arg))   $args[] = "'$arg'";
 					else                      $args[] = $arg;
 				}
 
-				$args = implode(', ', $args);
+				$args_str = implode(', ', $args);
 			}
 
-			$error .= sprintf("#%s %s(%s): %s(%s)\r\n", $count, $frame['file'], $frame['line'], $frame['function'], $args);
-			$count++;
+			$result .= sprintf("#%s %s(%s): %s(%s)\r\n", $i, $file, $line, $function, $args_str);
 		}
 
-		return $error;
+		return $result;
 	}
 }
