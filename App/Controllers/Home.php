@@ -17,7 +17,7 @@ class Home extends Controller {
 	 *
 	 * @return void
 	 */
-	public function indexAction() : void {
+	public function indexAction() {
 		// Example of using HTML Purifier to prevent XSS
 		$html = "<h3>Test</h3><script>alert();</script>";
 		$html = Utilities::purifyOutput($html);

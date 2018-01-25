@@ -11,13 +11,13 @@ use App\Config;
  * PHP version 7.0
  */
 class Error {
-	public static function errorHandler(int $level, string $message, string $file, int $line) : void {
+	public static function errorHandler(int $level, string $message, string $file, int $line) {
 		if(error_reporting() !== 0) {
 			throw new ErrorException($message, 0, $level, $file, $line);
 		}
 	}
 
-	public static function exceptionHandler($exception) : void {
+	public static function exceptionHandler($exception) {
 		$code = $exception->getCode();
 
 		if($code !== 404) {

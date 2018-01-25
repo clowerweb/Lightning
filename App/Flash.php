@@ -20,7 +20,7 @@ class Flash {
 	 *
 	 * @return void
 	 */
-	public static function addMessage(string $message, string $type = 'success') : void {
+	public static function addMessage(string $message, string $type = 'success') {
 		// create a notifications array in the session if it doesn't exist
 		if(!isset($_SESSION['flash_notifications'])) {
 			$_SESSION['flash_notifications'] = [];

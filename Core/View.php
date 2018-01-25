@@ -21,7 +21,7 @@ class View {
 	 *
 	 * @return void
 	 */
-	public static function renderTemplate(string $template, array $args = []) : void {
+	public static function renderTemplate(string $template, array $args = []) {
 		echo static::getTemplate($template, $args);
 	}
 

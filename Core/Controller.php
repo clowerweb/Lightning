@@ -26,7 +26,7 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	public function __call(string $name, array $args) : void {
+	public function __call(string $name, array $args) {
 		$name = $name . 'Action';
 
 		if(method_exists($this, $name)) {
@@ -44,14 +44,14 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	protected function before() : void {}
+	protected function before() {}
 
 	/**
 	 * After filter - called after an action method
 	 *
 	 * @return void
 	 */
-	protected function after() : void {}
+	protected function after() {}
 
 	/**
 	 * Redirect to a different page
@@ -61,7 +61,7 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	public function redirect(string $url, int $code = 303) : void {
+	public function redirect(string $url, int $code = 303) {
 		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
 		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
 		exit;

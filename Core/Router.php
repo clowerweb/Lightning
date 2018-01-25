@@ -24,7 +24,7 @@ class Router {
 	 *
 	 * @return void
 	 */
-	public function add(string $route, array $params = []) : void {
+	public function add(string $route, array $params = []) {
 		$route = preg_replace('/\//', '\\/', $route);
 		$route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
 		$route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
@@ -86,7 +86,7 @@ class Router {
 	 *
 	 * @return void
 	 */
-	public function dispatch(string $url) : void {
+	public function dispatch(string $url) {
 		$url = Utilities::removeQueryStringVars($url);
 
 		if($this->match($url)) {

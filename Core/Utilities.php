@@ -452,7 +452,7 @@ class Utilities extends Model {
 	 *
 	 * @return void
 	 */
-	public static function purgeTemplateCache() : void {
+	public static function purgeTemplateCache() {
 		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
 
 		static::delTree($dir);
