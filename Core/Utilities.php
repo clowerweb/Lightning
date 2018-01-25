@@ -80,7 +80,7 @@ class Utilities extends Model {
 	 *
 	 * @return string - the date
 	 */
-	public static function mysqlDate(string $date = NULL) : string {
+	public static function mysqlDate(string $date = '') : string {
 		return strlen($date) ? date("Y-m-d H:i:s", strtotime($date)) : date("Y-m-d H:i:s");
 	}
 
