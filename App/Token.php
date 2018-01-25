@@ -15,7 +15,7 @@ class Token {
 	 *
 	 * @param string $token - optional existing token
 	 */
-	public function __construct($token = null) {
+	public function __construct(string $token = null) {
 		if($token) {
 			$this->token = $token;
 		} else {
@@ -29,7 +29,7 @@ class Token {
 	 *
 	 * @return string - the token value
 	 */
-	public function getValue() {
+	public function getValue() : string {
 		return $this->token;
 	}
 
@@ -38,7 +38,7 @@ class Token {
 	 *
 	 * @return string - the hashed token value
 	 */
-	public function getHash() {
+	public function getHash() : string {
 		// sha256 = 64 characters
 		return hash_hmac('sha256', $this->token, Config::ENCRYPTION_KEY);
 	}

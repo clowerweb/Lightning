@@ -19,7 +19,7 @@ class View {
 	 *
 	 * @return void
 	 */
-	public static function renderTemplate($template, $args = []) {
+	public static function renderTemplate(string $template, array $args = []) : void {
 		echo static::getTemplate($template, $args);
 	}
 
@@ -31,7 +31,7 @@ class View {
 	 *
 	 * @return string - the Twig template
 	 */
-	public static function getTemplate($template, $args = []) {
+	public static function getTemplate(string $template, array $args = []) : string {
 		static $twig = null;
 
 		if($twig === null) {

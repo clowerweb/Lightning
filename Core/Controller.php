@@ -12,7 +12,7 @@ use \Exception;
 abstract class Controller {
 	protected $route_params = [];
 
-	public function __construct($route_params) {
+	public function __construct(array $route_params) {
 		$this->route_params = $route_params;
 	}
 
@@ -26,7 +26,7 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	public function __call($name, $args) {
+	public function __call(string $name, array $args) : void {
 		$name = $name . 'Action';
 
 		if(method_exists($this, $name)) {
@@ -44,14 +44,14 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	protected function before() {}
+	protected function before() : void {}
 
 	/**
 	 * After filter - called after an action method
 	 *
 	 * @return void
 	 */
-	protected function after() {}
+	protected function after() : void {}
 
 	/**
 	 * Redirect to a different page
@@ -61,7 +61,7 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	public function redirect($url, $code = 303) {
+	public function redirect(string $url, int $code = 303) : void {
 		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
 		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
 		exit;

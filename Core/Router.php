@@ -23,7 +23,7 @@ class Router {
 	 *
 	 * @return void
 	 */
-	public function add($route, $params = []) {
+	public function add(string $route, array $params = []) : void {
 		$route = preg_replace('/\//', '\\/', $route);
 		$route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
 		$route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
@@ -40,7 +40,7 @@ class Router {
 	 *
 	 * @return boolean - True if match found, false if not
 	 */
-	public function match($url) {
+	public function match(string $url) : bool {
 		$new    = rtrim($url, '/');
 		$rchar  = substr($url, -1);
 		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
@@ -48,7 +48,7 @@ class Router {
 		if(Config::USE_URL_TRAILING_SLASH) {
 			// redirect to url with /
 			if($rchar !== '/') {
-				$url    = $url . '/';
+				$url = $url . '/';
 				header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . '/' . $url, true, 301);
 				exit;
 			}
@@ -85,7 +85,7 @@ class Router {
 	 *
 	 * @return void
 	 */
-	public function dispatch($url) {
+	public function dispatch(string $url) : void {
 		$url = Utilities::removeQueryStringVars($url);
 
 		if($this->match($url)) {
@@ -118,7 +118,7 @@ class Router {
 	 *
 	 * @return string - The request URL
 	 */
-	protected function getNamespace() {
+	protected function getNamespace() : string {
 		$namespace = 'App\Controllers\\';
 
 		if(array_key_exists('namespace', $this->params)) {

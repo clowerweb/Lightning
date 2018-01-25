@@ -20,7 +20,7 @@ class Flash {
 	 *
 	 * @return void
 	 */
-	public static function addMessage($message, $type = 'success') {
+	public static function addMessage(string $message, string $type = 'success') : void {
 		// create a notifications array in the session if it doesn't exist
 		if(!isset($_SESSION['flash_notifications'])) {
 			$_SESSION['flash_notifications'] = [];
@@ -36,16 +36,15 @@ class Flash {
 	/**
 	 * Get all flash messages
 	 *
-	 * @return mixed - an array of messages if there are any, false if not
+	 * @return array of messages if there are any
 	 */
-	public static function getMessages() {
-		if(isset($_SESSION['flash_notifications'])) {
-			$messages = $_SESSION['flash_notifications'];
+	public static function getMessages() : array {
+		$messages = $_SESSION['flash_notifications'] ?? [];
 
+		if(isset($_SESSION['flash_notifications'])) {
 			unset($_SESSION['flash_notifications']);
-			return $messages;
 		}
 
-		return false;
+		return $messages;
 	}
 }

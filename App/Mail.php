@@ -18,7 +18,7 @@ class Mail {
 	 *
 	 * @return boolean
 	 */
-	public static function send($to, $subject, $text, $html) {
+	public static function send(string $to, string $subject, string $text, string $html) : bool {
 		$mail = new \PHPMailer;
 
 		if(Config::MAIL_SMTP) {

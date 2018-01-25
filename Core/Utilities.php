@@ -16,7 +16,7 @@ class Utilities extends Model {
 	 *
 	 * @return string - the URI
 	 */
-	public static function getURI() {
+	public static function getURI() : string {
 		return $_SERVER['REQUEST_URI'];
 	}
 
@@ -25,7 +25,7 @@ class Utilities extends Model {
 	 *
 	 * @return string - the URI
 	 */
-	public static function getURL() {
+	public static function getURL() : string {
 		return (static::isSSL() ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	}
 
@@ -34,7 +34,7 @@ class Utilities extends Model {
 	 *
 	 * @return string - the path to the root directory
 	 */
-	public static function getAbsRoot() {
+	public static function getAbsRoot() : string {
 		return dirname(__DIR__);
 	}
 
@@ -43,7 +43,7 @@ class Utilities extends Model {
 	 *
 	 * @return boolean - true if it is, false if not
 	 */
-	public static function isSSL() {
+	public static function isSSL() : bool {
 		if(isset($_SERVER['HTTPS'])) {
 			$https = strtolower($_SERVER['HTTPS']);
 
@@ -64,21 +64,19 @@ class Utilities extends Model {
 	 *
 	 * @return boolean - true if it is, false if not
 	 */
-	public static function isAjax() {
+	public static function isAjax() : bool {
 		return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 	}
 
 	/**
 	 * Format any kind of date string to mysql, or just return a mysql compatible date
 	 *
-	 * @param bool|string $date - optional date to convert
+	 * @param string $date - optional date to convert
 	 *
 	 * @return string - the date
 	 */
-	public static function mysqlDate($date = false) {
-		if($date) return date("Y-m-d H:i:s", strtotime($date));
-
-		return date("Y-m-d H:i:s");
+	public static function mysqlDate(string $date = '') : string {
+		return strlen($date) ? date("Y-m-d H:i:s", strtotime($date)) : date("Y-m-d H:i:s");
 	}
 
 	/**
@@ -90,7 +88,7 @@ class Utilities extends Model {
 	 *
 	 * @return string - the converted date
 	 */
-	public static function convertDate($date, $timezone, $format) {
+	public static function convertDate(string $date, string $timezone, string $format) : string {
 		$convert_time = new \DateTime($date);
 		$new_timezone = new \DateTimeZone($timezone);
 
@@ -102,11 +100,11 @@ class Utilities extends Model {
 	/**
 	 * Check if a string or array is empty or blank. Useful for making sure just about anything has a value
 	 *
-	 * @param mixed $item - the array or string to check
+	 * @param mixed $item - the array, object or string to check
 	 *
 	 * @return boolean - true if the item is empty, false if not
 	 */
-	public static function isEmpty($item) {
+	public static function isEmpty($item) : bool {
 		if     (is_array ($item)) return empty($item);
 		else if(is_bool  ($item)) return $item;
 		else if(is_null  ($item)) return true;
@@ -123,18 +121,18 @@ class Utilities extends Model {
 	 *
 	 * @return boolean - true if the value is alpha, false if not
 	 */
-	public static function isAlpha($val) {
+	public static function isAlpha(string $val) : bool {
 		return preg_match("/^[\p{L} ]*$/u", $val);
 	}
 
 	/**
 	 * Check if a value contains only numbers (no letters or special characters)
 	 *
-	 * @param string $val - the value to check
+	 * @param int $val - the value to check
 	 *
 	 * @return boolean - true if the value is numeric, false if not
 	 */
-	public static function isNumeric($val) {
+	public static function isNumeric(int $val) : bool {
 		return is_numeric($val);
 	}
 
@@ -145,7 +143,7 @@ class Utilities extends Model {
 	 *
 	 * @return boolean - true if the value is alphanumeric, false if not
 	 */
-	public static function isAlphanumeric($val) {
+	public static function isAlphanumeric(string $val) : bool {
 		return preg_match("/^[\p{L}\d ]*$/u", $val);
 	}
 
@@ -156,7 +154,7 @@ class Utilities extends Model {
 	 *
 	 * @return string
 	 */
-	public static function convertToStudlyCaps($string) {
+	public static function convertToStudlyCaps(string $string) : string {
 		return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
 	}
 
@@ -167,7 +165,7 @@ class Utilities extends Model {
 	 *
 	 * @return string
 	 */
-	public static function convertToCamelCase($string) {
+	public static function convertToCamelCase(string $string) : string {
 		return lcfirst(static::convertToStudlyCaps($string));
 	}
 
@@ -178,9 +176,9 @@ class Utilities extends Model {
 	 *
 	 * @return string
 	 */
-	public static function convertToTitleCase($str) {
+	public static function convertToTitleCase(string $string) : string {
 		$no_caps = ['a','aboard','about','above','across','after','against','along','amid','among','an','and','anti','around','as','at','before','behind','below','beneath','beside','besides','between','beyond','but','by','concerning','considering','despite','down','during','except','excepting','excluding','following','for','from','in','inside','into','is','like','minus','near','of','off','on','onto','opposite','or','outside','over','past','per','plus','regarding','round','save','since','so','than','the','through','to','toward','towards','under','underneath','unlike','until','up','upon','versus','via','with','within','without','yet'];
-		$words   = explode(' ', $str);
+		$words   = explode(' ', $string);
 		$count   = count($words) - 1;
 
 		foreach ($words as $key => $word) {
@@ -200,7 +198,7 @@ class Utilities extends Model {
 	 *
 	 * @return string
 	 */
-	public static function removeQueryStringVars($url) {
+	public static function removeQueryStringVars(string $url) : string {
 		if($url != '') {
 			$parts = explode('&', $url, 2);
 
@@ -222,23 +220,23 @@ class Utilities extends Model {
 	 *
 	 * @return string - the cleaned string
 	 */
-	public static function stringCleanup($str) {
+	public static function stringCleanup(string $string) : string {
 		// replace line break tags with a space
-		$str = preg_replace('/(<br\s?\/?>)/i', ' ', $str);
+		$string = preg_replace('/(<br\s?\/?>)/i', ' ', $string);
 		// replace </p> paragraph closing tags with a space
-		$str = preg_replace('/(<\/p>)/i', ' ', $str);
+		$string = preg_replace('/(<\/p>)/i', ' ', $string);
 		// replace space entities with actual spaces
-		$str = str_replace('&nbsp;', ' ', $str);
+		$string = str_replace('&nbsp;', ' ', $string);
 		// convert things like "&nbsp;" to characters
-		$str = html_entity_decode($str);
+		$string = html_entity_decode($string);
 		// remove html
-		$str = strip_tags($str);
+		$string = strip_tags($string);
 		// remove spaces from front and back
-		$str = trim($str);
+		$string = trim($string);
 		// find multiple spaces in a row and replace them with just one space
-		$str = preg_replace('/\s+/', ' ', $str);
+		$string = preg_replace('/\s+/', ' ', $string);
 
-		return $str;
+		return $string;
 	}
 
 	/**
@@ -250,8 +248,8 @@ class Utilities extends Model {
 	 *
 	 * @return string - the cleaned string
 	 */
-	public static function removeURLs($str) {
-		return preg_replace('/(https?:\/\/([-\w\.]+[-\w])+(:\d+)?(\/([\w\/_\.#-]*(\?\S+)?[^\.\s])?))/i', '', $str);
+	public static function removeURLs(string $string) : string {
+		return preg_replace('/(https?:\/\/([-\w\.]+[-\w])+(:\d+)?(\/([\w\/_\.#-]*(\?\S+)?[^\.\s])?))/i', '', $string);
 	}
 
 	/**
@@ -263,19 +261,19 @@ class Utilities extends Model {
 	 *
 	 * @return string - the cleaned string
 	 */
-	public static function removeLongWords($str, $len) {
-		return preg_replace("/\S{,$len}/", '', $str);
+	public static function removeLongWords(string $string, int $len) : string {
+		return preg_replace("/\S{,$len}/", '', $string);
 	}
 
 	/**
 	 * Convert a string into a proper slug. It will convert practically any string to a safe and readable URI slug.
 	 *
-	 * @param string $text - the string to convert
+	 * @param string  $text   - the string to convert
 	 * @param integer $length - the length to truncate the slug to
 	 *
-	 * @return mixed - the slug string if not empty after processing, false if it is
+	 * @return string - the slug
 	 */
-	public static function slugify($text, $length = 75) {
+	public static function slugify(string $text, int $length = 75) : string {
 		// replace ' with nothing
 		$text = str_replace("'", '', $text);
 
@@ -303,8 +301,7 @@ class Utilities extends Model {
 		// lowercase
 		$text = strtolower($text);
 
-		// make sure after all processing, there's still something left of it!
-		return static::isEmpty($text) ? false : $text;
+		return $text;
 	}
 
 	/**
@@ -320,9 +317,10 @@ class Utilities extends Model {
 	 * @param string $delimiter    - the delimiter it will use to determine where words start/end (default '\s' (space))
 	 *
 	 * @throws \Exception - if the truncated string would be less than 0 characters
+	 *
 	 * @return string - the truncated string
 	 */
-	public static function truncate($str, $len, $count_ending = false, $ending = '...', $break_words = true, $delimiter = '\s') {
+	public static function truncate(string $str, int $len, bool $count_ending = false, string $ending = '...', bool $break_words = true, string $delimiter = '\s') : string {
 		// we always want to strip html out of truncated strings, otherwise we might get broken or unclosed html
 		$str = trim(strip_tags(html_entity_decode($str)));
 		$len = abs((int)$len);
@@ -358,7 +356,7 @@ class Utilities extends Model {
 	 *
 	 * @return string
 	 */
-	public static function externalLinks($html) {
+	public static function externalLinks(string $html) : string {
 		return preg_replace_callback("#(<a[^>]+?)>#is",
 			function($match) {
 				// get the contents of the href attribute
@@ -398,7 +396,7 @@ class Utilities extends Model {
 	 *
 	 * @return boolean - whether or not the directory was removed
 	 */
-	public static function delTree($dir) {
+	public static function delTree(string $dir) : bool {
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file) {
@@ -417,7 +415,7 @@ class Utilities extends Model {
 	 *
 	 * @return boolean - true if it's unique, false if not
 	 */
-	public static function isUnique($table, $column, $val) {
+	public static function isUnique(string $table, string $column, string $val) : bool {
 		$sql = "
 			SELECT
 				*
@@ -443,9 +441,9 @@ class Utilities extends Model {
 	 *
 	 * @param string $html - the HTML to purify
 	 *
-	 * @return string
+	 * @return string - the purified HTML
 	 */
-	public static function purifyOutput($html) {
+	public static function purifyOutput(string $html) : string {
 		$config   = \HTMLPurifier_Config::createDefault();
 		$purifier = new \HTMLPurifier($config);
 
@@ -457,7 +455,7 @@ class Utilities extends Model {
 	 *
 	 * @return void
 	 */
-	public static function purgeTemplateCache() {
+	public static function purgeTemplateCache() : void {
 		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
 
 		static::delTree($dir);
