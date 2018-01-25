@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use \Exception;
 use App\Config;
 
 /**
@@ -81,7 +82,7 @@ class Router {
 	 *
 	 * @param string $url - The route URL
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -102,13 +103,13 @@ class Router {
 				if(preg_match('/action$/i', $action) == 0) {
 					$controller_object->$action();
 				} else {
-					throw new \Exception("Method $action in controller $controller not found", 404);
+					throw new Exception("Method $action in controller $controller not found", 404);
 				}
 			} else {
-				throw new \Exception("Controller class $controller not found", 404);
+				throw new Exception("Controller class $controller not found", 404);
 			}
 		} else {
-			throw new \Exception("Route not found for $url", 404);
+			throw new Exception("Route not found for $url", 404);
 		}
 	}
 

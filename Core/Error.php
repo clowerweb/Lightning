@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use \ErrorException;
 use App\Config;
 
 /**
@@ -12,7 +13,7 @@ use App\Config;
 class Error {
 	public static function errorHandler(int $level, string $message, string $file, int $line) : void {
 		if(error_reporting() !== 0) {
-			throw new \ErrorException($message, 0, $level, $file, $line);
+			throw new ErrorException($message, 0, $level, $file, $line);
 		}
 	}
 

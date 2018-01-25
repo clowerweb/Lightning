@@ -2,6 +2,8 @@
 
 namespace App;
 
+use \PHPMailer;
+
 /**
  * Mail class
  *
@@ -19,7 +21,7 @@ class Mail {
 	 * @return boolean
 	 */
 	public static function send(string $to, string $subject, string $text, string $html) : bool {
-		$mail = new \PHPMailer;
+		$mail = new PHPMailer;
 
 		if(Config::MAIL_SMTP) {
 			$mail->isSMTP();

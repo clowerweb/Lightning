@@ -2,8 +2,13 @@
 
 namespace Core;
 
-use App\Config;
+use \Exception;
+use \DateTime;
+use \DateTimeZone;
+use \HTMLPurifier;
+use \HTMLPurifier_Config;
 use \PDO;
+use App\Config;
 
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
@@ -89,8 +94,8 @@ class Utilities extends Model {
 	 * @return string - the converted date
 	 */
 	public static function convertDate(string $date, string $timezone, string $format) : string {
-		$convert_time = new \DateTime($date);
-		$new_timezone = new \DateTimeZone($timezone);
+		$convert_time = new DateTime($date);
+		$new_timezone = new DateTimeZone($timezone);
 
 		$convert_time->setTimeZone($new_timezone);
 
@@ -172,7 +177,7 @@ class Utilities extends Model {
 	/**
 	 * Convert a string to Title Case. Can be used to convert any string to a (fairly) proper title (depending on who you ask!)
 	 *
-	 * @param string $str - the string to convert
+	 * @param string $string - the string to convert
 	 *
 	 * @return string
 	 */
@@ -216,7 +221,7 @@ class Utilities extends Model {
 	 * Clean up a string. Useful for things like excerpts or other strings that should have formatting removed. See the
 	 * comments inside for more info. This is NOT for sanitizing!
 	 *
-	 * @param string $str - the string to clean up
+	 * @param string $string - the string to clean up
 	 *
 	 * @return string - the cleaned string
 	 */
@@ -244,7 +249,7 @@ class Utilities extends Model {
 	 * <a> tags, but will remove the href value from them -- remove <a> tags another way. This is for removing raw URLs
 	 * from a string. This is NOT for sanitizing!
 	 *
-	 * @param string $str - the string to remove URLs from
+	 * @param string $string - the string to remove URLs from
 	 *
 	 * @return string - the cleaned string
 	 */
@@ -256,8 +261,8 @@ class Utilities extends Model {
 	 * Finds long words in a string and removes them entirely. Useful for when you want to trim off long words and keep
 	 * them from overflowing in the front end, or taking up too much space on their own.
 	 *
-	 * @param string $str - the string to remove long words from
-	 * @param int    $len - min length of words to remove
+	 * @param string $string - the string to remove long words from
+	 * @param int    $len    - min length of words to remove
 	 *
 	 * @return string - the cleaned string
 	 */
@@ -276,28 +281,20 @@ class Utilities extends Model {
 	public static function slugify(string $text, int $length = 75) : string {
 		// replace ' with nothing
 		$text = str_replace("'", '', $text);
-
 		// replace " with nothing
 		$text = str_replace('"', '', $text);
-
 		// replace non-alphanumeric with -
 		$text = preg_replace('~[^\pL\d]+~u', '-', $text);
-
 		// transliterate encoding (replaces non-English characters with the closest looking English ones)
 		$text = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
-
 		// remove unwanted characters, such as symbols or other weird characters
 		$text = preg_replace('~[^-\w]+~', '', $text);
-
 		// trim dashes from front and back
 		$text = trim($text, '-');
-
 		// remove duplicate dashes
 		$text = preg_replace('~-+~', '-', $text);
-
 		// trim it down to $length characters max without breaking words
 		$text = static::truncate($text, $length, false, false, false, '-');
-
 		// lowercase
 		$text = strtolower($text);
 
@@ -316,7 +313,7 @@ class Utilities extends Model {
 	 * @param bool   $break_words  - if false, it will truncate down to $len without breaking words (default true)
 	 * @param string $delimiter    - the delimiter it will use to determine where words start/end (default '\s' (space))
 	 *
-	 * @throws \Exception - if the truncated string would be less than 0 characters
+	 * @throws Exception - if the truncated string would be less than 0 characters
 	 *
 	 * @return string - the truncated string
 	 */
@@ -327,7 +324,7 @@ class Utilities extends Model {
 		$len = $count_ending ? $len - strlen($ending) : $len;
 
 		if($len < 0) {
-			throw new \Exception('Tried to truncate a string to less than 0 characters.');
+			throw new Exception('Tried to truncate a string to less than 0 characters.');
 		}
 
 		// see if $str is actually longer than $len first
@@ -444,8 +441,8 @@ class Utilities extends Model {
 	 * @return string - the purified HTML
 	 */
 	public static function purifyOutput(string $html) : string {
-		$config   = \HTMLPurifier_Config::createDefault();
-		$purifier = new \HTMLPurifier($config);
+		$config   = HTMLPurifier_Config::createDefault();
+		$purifier = new HTMLPurifier($config);
 
 		return $purifier->purify($html);
 	}

@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use \Twig_Environment;
+use \Twig_Loader_Filesystem;
 use App\Config;
 use App\Flash;
 
@@ -15,7 +17,7 @@ class View {
 	 * Render a template
 	 *
 	 * @param string $template - The template file
-	 * @param array  $args - Associative array of data to display in the view (optional)
+	 * @param array  $args     - Associative array of data to display in the view (optional)
 	 *
 	 * @return void
 	 */
@@ -27,7 +29,7 @@ class View {
 	 * Get the contents of a view template using Twig
 	 *
 	 * @param string $template - The template file
-	 * @param array  $args - Associative array of data to display in the view (optional)
+	 * @param array  $args     - Associative array of data to display in the view (optional)
 	 *
 	 * @return string - the Twig template
 	 */
@@ -37,7 +39,7 @@ class View {
 		if($twig === null) {
 			$opts       = [];
 			$tpl_dir    = Config::TEMPLATE_DIR;
-			$loader     = new \Twig_Loader_Filesystem(dirname(__DIR__) . $tpl_dir);
+			$loader     = new Twig_Loader_Filesystem(dirname(__DIR__) . $tpl_dir);
 			$url        = ltrim(Utilities::getURI(), '/');
 			$body_class = str_replace('/', ' ', $url);
 			$body_class = $body_class ? $body_class : 'home';
@@ -47,7 +49,7 @@ class View {
 				$opts['cache'] = Utilities::getAbsRoot() . Config::CACHE_DIRECTORY;
 			}
 
-			$twig = new \Twig_Environment($loader, $opts);
+			$twig = new Twig_Environment($loader, $opts);
 
 			$twig->addGlobal('flash', Flash::getMessages());
 			$twig->addGlobal('uri',   Utilities::getURI());

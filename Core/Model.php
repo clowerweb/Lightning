@@ -11,7 +11,7 @@ use App\Config;
  * PHP version 7.0
  */
 abstract class Model {
-	protected static function getDB() : object {
+	protected static function getDB() {
 		static $db = null;
 
 		if($db === null) {
