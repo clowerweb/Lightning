@@ -143,12 +143,13 @@ class Utilities extends Model {
 	/**
 	 * Check if a value is alphanumeric (no special characters)
 	 *
-	 * @param string $val - the value to check
+	 * @param string $val                - the value to check
+	 * @param string $special (nullable) - if you want to allow any special characters, put them here
 	 *
 	 * @return boolean - true if the value is alphanumeric, false if not
 	 */
-	public static function isAlphanumeric(string $val) : bool {
-		return preg_match("/^[\p{L}\d ]*$/u", $val);
+	public static function isAlphanumeric(string $val, string $special = '') : bool {
+		return preg_match("/^[\p{L}\d $special]*$/u", $val);
 	}
 
 	/**
