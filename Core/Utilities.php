@@ -143,8 +143,8 @@ class Utilities extends Model {
 	/**
 	 * Check if a value is alphanumeric (no special characters)
 	 *
-	 * @param string $val                - the value to check
-	 * @param string $special (nullable) - if you want to allow any special characters, put them here
+	 * @param string $val     - the value to check
+	 * @param string $special - if you want to allow any special characters, put them here
 	 *
 	 * @return boolean - true if the value is alphanumeric, false if not
 	 */
