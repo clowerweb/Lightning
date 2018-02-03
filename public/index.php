@@ -3,9 +3,12 @@
 declare(strict_types = 1);
 
 /**
- * Please read the config comments on this and don't change it!
+ * Default time zone to use application-wide. It is HIGHLY RECOMMENDED that you LEAVE THIS AS 'UTC', because it is
+ * the universal time, even if you are located in a different time zone. Several utility functions require times to
+ * be in UTC for proper usage, and there are utilities to convert UTC times to other time zones for display. You
+ * probably should not change this!
  */
-date_default_timezone_set(Config::DEFAULT_TIME_ZONE);
+date_default_timezone_set('UTC');
 
 /**
  * Composer autoloader
@@ -22,13 +25,4 @@ set_exception_handler('Core\Error::exceptionHandler');
 /**
  * Routing
  */
-$router = new Core\Router();
-
-// index
-$router->add('', ['controller' => 'Home', 'action' => 'index']);
-// route generic controller/action stuff
-$router->add('{controller}', ['action' => 'index']);
-$router->add('{controller}/{action}');
-$router->add('{controller}/{action}/{token:[\da-f]+}');
-
-$router->dispatch($_SERVER['QUERY_STRING']);
+require_once dirname(__DIR__) . '/App/routes.php';

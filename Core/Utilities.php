@@ -433,34 +433,6 @@ class Utilities extends Model {
 	}
 
 	/**
-	 * Checks if a column in a table is unique or not. Can be used for usernames, email addresses, slugs, etc.
-	 *
-	 * @param string $table  - the table name to check
-	 * @param string $column - the column name to check
-	 * @param string $val    - the value to check against
-	 *
-	 * @return boolean - true if it's unique, false if not
-	 */
-	public static function isUnique(string $table, string $column, string $val) : bool {
-		$sql = "
-			SELECT
-				*
-			FROM
-				$table
-			WHERE
-				$column = :val;
-		";
-
-		$db   = static::getDB();
-		$stmt = $db->prepare($sql);
-
-		$stmt->bindValue(':val', $val, PDO::PARAM_STR);
-		$stmt->execute();
-
-		return static::isEmpty($stmt->fetch()) ? true : false;
-	}
-
-	/**
 	 * Uses HTML Purifier to prevent XSS
 	 * Useful if you want to add a front-end WYSIWYG editor for site visitors to use
 	 * This should be placed on OUTPUT (such as with {{ twig.output|raw }})
