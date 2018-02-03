@@ -435,6 +435,17 @@ class Utilities extends Model {
 	}
 
 	/**
+	 * Purges the template cache (directory defined in App\Config.php)
+	 *
+	 * @return void
+	 */
+	public static function purgeTemplateCache() {
+		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
+
+		static::emptyFolder($dir);
+	}
+
+	/**
 	 * Uses HTML Purifier to prevent XSS
 	 * Useful if you want to add a front-end WYSIWYG editor for site visitors to use
 	 * This should be placed on OUTPUT (such as with {{ twig.output|raw }})
@@ -448,16 +459,5 @@ class Utilities extends Model {
 		$purifier = new HTMLPurifier($config);
 
 		return $purifier->purify($html);
-	}
-
-	/**
-	 * Purges the template cache (directory defined in App\Config.php)
-	 *
-	 * @return void
-	 */
-	public static function purgeTemplateCache() {
-		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
-
-		static::emptyFolder($dir);
 	}
 }
