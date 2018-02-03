@@ -3,6 +3,11 @@
 declare(strict_types = 1);
 
 /**
+ * Please read the config comments on this and don't change it!
+ */
+date_default_timezone_set(Config::DEFAULT_TIME_ZONE);
+
+/**
  * Composer autoloader
  */
 require_once dirname(__DIR__) . '/vendor/autoload.php';

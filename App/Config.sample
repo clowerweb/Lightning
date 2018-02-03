@@ -46,6 +46,14 @@ class Config {
 	 */
 	const CACHE_DIRECTORY = '/cache/files';
 
+    /**
+     * Default time zone to use application-wide. It is HIGHLY RECOMMENDED that you LEAVE THIS AS 'UTC', because it is
+     * the universal time, even if you are located in a different time zone. Several utility functions require times to
+     * be in UTC for proper usage, and there are utilities to convert UTC times to other time zones for display. You
+     * probably should not change this!
+     */
+    const DEFAULT_TIME_ZONE = 'UTC';
+
 	/**
 	 * Encryption key for tokens
 	 * Use a 256-bit (32 characters) key
