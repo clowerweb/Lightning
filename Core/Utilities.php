@@ -103,9 +103,9 @@ class Utilities extends Model {
 	}
 
 	/**
-	 * Check if a string or array is empty or blank. Useful for making sure just about anything has a value
+	 * Check if something is empty, blank, null, false, etc. Useful for making sure just about anything has a value
 	 *
-	 * @param mixed $item - the array, object or string to check
+	 * @param mixed $item - the item to check
 	 *
 	 * @throws Exception - if we haven't handled the type
 	 *
