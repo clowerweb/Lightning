@@ -2,9 +2,9 @@
 
 namespace Core;
 
-use \Exception;
 use \DateTime;
 use \DateTimeZone;
+use \Exception;
 use \HTMLPurifier;
 use \HTMLPurifier_Config;
 use \PDO;
@@ -130,7 +130,7 @@ class Utilities extends Model {
 	 * @return boolean - true if the value is alpha, false if not
 	 */
 	public static function isAlpha(string $val) : bool {
-		return preg_match("/^[\p{L} ]*$/u", $val);
+		return preg_match("/^[\p{L} ]*$/u", $val) ? true : false;
 	}
 
 	/**
@@ -153,7 +153,7 @@ class Utilities extends Model {
 	 * @return boolean - true if the value is alphanumeric, false if not
 	 */
 	public static function isAlphanumeric(string $val, string $special = '') : bool {
-		return preg_match("/^[\p{L}\d $special]*$/u", $val);
+		return preg_match("/^[\p{L}\d $special]*$/u", $val) ? true : false;
 	}
 
 	/**
@@ -298,7 +298,7 @@ class Utilities extends Model {
 		// remove duplicate dashes
 		$text = preg_replace('~-+~', '-', $text);
 		// trim it down to $length characters max without breaking words
-		$text = static::truncate($text, $length, false, false, false, '-');
+		$text = static::truncate($text, $length, false, '', false, '-');
 		// lowercase
 		$text = strtolower($text);
 
@@ -387,24 +387,47 @@ class Utilities extends Model {
 	}
 
 	/**
+	 * Checks if a directory is empty
+	 *
+	 * @param string $dir - the directory to scan
+	 *
+	 * @return bool - true if empty, false if not
+	 */
+	public static function dirIsEmpty(string $dir) : bool {
+		foreach(scandir($dir) as $file) {
+			if(!in_array($file, ['.', '..'])) return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * !!! DANGER, WILL ROBINSON !!!
-	 * Deletes a directory and all files and folders within recursively. Careful with this one! Useful for things like
+	 * Deletes all files and folders within a directory recursively. Careful with this one! Useful for things like
 	 * clearing out your Twig cache folder, purging just about any other folder you want, accidentally deleting your
 	 * entire website, or wiping your entire hard drive. Seriously DO NOT USE THIS IF YOU DON'T KNOW WHAT YOU'RE DOING,
 	 * AND ALWAYS BACK EVERYTHING UP BEFORE YOU PLAY WITH THIS METHOD!!!
 	 *
 	 * @param string $dir - the path to the directory to delete (absolute is best, use Utilities::getAbsRoot() to start)
 	 *
-	 * @return boolean - whether or not the directory was removed
+	 * @return void
 	 */
-	public static function delTree(string $dir) : bool {
+	public static function delTree(string $dir) : void {
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file) {
-			(is_dir("$dir/$file")) ? static::delTree("$dir/$file") : unlink("$dir/$file");
-		}
+			$item = "$dir/$file";
 
-		return rmdir($dir);
+			if(is_dir($item)) {
+				if(!static::dirIsEmpty($item)) {
+					static::delTree($item);
+				}
+
+				rmdir($item);
+			} else {
+				unlink($item);
+			}
+		}
 	}
 
 	/**
