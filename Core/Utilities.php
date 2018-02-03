@@ -414,7 +414,7 @@ class Utilities extends Model {
 	 *
 	 * @return void
 	 */
-	public static function delTree(string $dir) : void {
+	public static function emptyFolder(string $dir) {
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file) {
@@ -422,7 +422,7 @@ class Utilities extends Model {
 
 			if(is_dir($item)) {
 				if(!static::dirIsEmpty($item)) {
-					static::delTree($item);
+					static::emptyFolder($item);
 				}
 
 				rmdir($item);
@@ -484,6 +484,6 @@ class Utilities extends Model {
 	public static function purgeTemplateCache() {
 		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
 
-		static::delTree($dir);
+		static::emptyFolder($dir);
 	}
 }
