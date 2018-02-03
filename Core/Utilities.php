@@ -83,7 +83,7 @@ class Utilities extends Model {
 	 * @return string - the date
 	 */
 	public static function mysqlDate(string $date = '') : string {
-		return strlen($date) ? date("Y-m-d H:i:s", strtotime($date)) : date("Y-m-d H:i:s");
+		return strlen($date) ? date('Y-m-d H:i:s', strtotime($date)) : date('Y-m-d H:i:s');
 	}
 
 	/**
@@ -95,7 +95,10 @@ class Utilities extends Model {
 	 *
 	 * @return string - the converted date
 	 */
-	public static function convertDate(string $date, string $timezone, string $format) : string {
+	public static function convertDate(string $date, string $timezone = '', string $format = '') : string {
+		$timezone = strlen($timezone) ? $timezone : 'UTC';
+		$format   = strlen($format)   ? $format   : 'Y-m-d H:i:s';
+
 		$convert_time = new DateTime($date);
 		$new_timezone = new DateTimeZone($timezone);
 
