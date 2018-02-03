@@ -9,7 +9,6 @@ use \DateTimeZone;
 use \Exception;
 use \HTMLPurifier;
 use \HTMLPurifier_Config;
-use \PDO;
 use App\Config;
 
 /**
