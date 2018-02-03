@@ -107,15 +107,19 @@ class Utilities extends Model {
 	 *
 	 * @param mixed $item - the array, object or string to check
 	 *
+	 * @throws Exception - if we haven't handled the type
+	 *
 	 * @return boolean - true if the item is empty, false if not
 	 */
 	public static function isEmpty($item) : bool {
-		if     (is_array ($item)) return empty($item);
-		else if(is_null  ($item)) return true;
-		else if(is_object($item)) return empty($item->getProperties());
-		else if(is_string($item)) return strlen(trim($item)) ? false : true;
+		if     (is_array ($item))  return empty($item);
+		else if(is_null  ($item))  return true;
+		else if(is_object($item))  return empty($item->getProperties());
+		else if(is_string($item))  return strlen(trim($item)) ? false : true;
+		else if(is_numeric($item)) return false;
+		else if(is_bool($item))    return !$item;
 
-		return true;
+		throw new Exception('Unhandled type: "' . gettype($item) . '"');
 	}
 
 	/**
