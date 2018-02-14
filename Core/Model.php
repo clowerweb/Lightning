@@ -34,6 +34,8 @@ abstract class Model {
 	 * @param string $column - the column name to check
 	 * @param string $val    - the value to check against
 	 *
+	 * @throws \Exception
+	 *
 	 * @return boolean - true if it's unique, false if not
 	 */
 	public static function isUnique(string $table, string $column, string $val) : bool {

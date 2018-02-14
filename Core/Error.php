@@ -13,12 +13,33 @@ use App\Config;
  * PHP version 7.0
  */
 class Error {
+	/**
+	 * Custom error handler
+	 *
+	 * @param int    $level   - the error level
+	 * @param string $message - the message to log
+	 * @param string $file    - the file that threw the error
+	 * @param int    $line    - the line in the file
+	 *
+	 * @throws \ErrorException
+	 *
+	 * @return void
+	 */
 	public static function errorHandler(int $level, string $message, string $file, int $line) {
 		if(error_reporting() !== 0) {
 			throw new ErrorException($message, 0, $level, $file, $line);
 		}
 	}
 
+	/**
+	 * Custom exception handler
+	 *
+	 * @param object $exception - the exception
+	 *
+	 * @throws \Exception
+	 *
+	 * @return void
+	 */
 	public static function exceptionHandler($exception) {
 		$code = $exception->getCode();
 
@@ -54,6 +75,13 @@ class Error {
 		}
 	}
 
+	/**
+	 * Gets the full exception
+	 *
+	 * @param object $exception - the exception
+	 *
+	 * @return string - the message
+	 */
 	private static function getFullException($exception) : string {
 		$result = '';
 		$errors = $exception->getTrace();

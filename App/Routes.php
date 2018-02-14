@@ -17,7 +17,7 @@ class Routes {
 	 *
 	 * @return void
 	 */
-	public static function addRoutes(object $router) : void {
+	public static function addRoutes($router) {
 		// index
 		$router->add('', ['controller' => 'Home', 'action' => 'index']);
 		// route generic controller/action stuff

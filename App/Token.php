@@ -15,15 +15,12 @@ class Token {
 	/**
 	 * Constructor creates a new random token
 	 *
+	 * @throws \Exception if it fails
+	 *
 	 * @param string $token - optional existing token
 	 */
 	public function __construct(string $token = null) {
-		if($token) {
-			$this->token = $token;
-		} else {
-			// 16 bytes = 128 bits = 32 hex characters
-			$this->token = bin2hex(random_bytes(16));
-		}
+		$this->token = $token ? $token : bin2hex(random_bytes(16));
 	}
 
 	/**

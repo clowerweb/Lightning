@@ -21,7 +21,7 @@ class Config {
 	/**
 	 * Error logging - set to true for development, false for production
 	 */
-	const SHOW_ERRORS = false;
+	const SHOW_ERRORS = true;
 
     /**
      * Whether to use a trailing slash for all site URLs
@@ -58,24 +58,11 @@ class Config {
 	 * Mail settings
 	 *********************************************************/
 
-	/**
-	 * Set these if you're using SMTP
-	 * If not, it will work using PHP mail()
-	 */
-	const MAIL_SMTP = false; // Set mailer to use SMTP
-	const MAIL_AUTH = true;  // Enable SMTP authentication
-	const MAIL_HOST = 'smtp1.example.com;smtp2.example.com'; // Specify main and backup SMTP servers
-	const MAIL_USER = 'user@example.com'; // SMTP username
-	const MAIL_PASS = 'secret'; // SMTP password
-	const MAIL_SECU = 'tls';
-	const MAIL_PORT = 587;
-
-	/**
-	 * General mail settings
-	 */
-
 	// The email address you'd like emails to be sent from (this is the email address users see when you send emails from the site)
-	const MAIL_FROM = 'from@yourdomain.com';
+	const MAIL_FROM_EMAIL = 'you@yourdomain.com';
+	// The name you'd like to be displayed when users receive emails
+	const MAIL_FROM_NAME  = 'Your Name';
 	// The email address you'd like to receive notifications to (address to us when the system emails you directly)
-	const MAIL_TO = 'to@yourdomain.com';
+	const MAIL_REPLY_TO   = 'you@yourdomain.com';
 }
+

@@ -4,8 +4,6 @@ declare(strict_types = 1);
 
 namespace App;
 
-use \PHPMailer;
-
 /**
  * Mail class
  *
@@ -22,27 +20,34 @@ class Mail {
 	 *
 	 * @return boolean
 	 */
-	public static function send(string $to, string $subject, string $text, string $html) : bool {
-		$mail = new PHPMailer;
+	public static function send(string $to, string $subject, string $text, ?string $html = null) : bool {
+		// Unique boundary
+		$boundary = md5(uniqid() . microtime());
+		// Add From: header
+		$headers  = "From: " . Config::MAIL_FROM_NAME . " <" . Config::MAIL_FROM_EMAIL . ">\r\n";
+		// Reply to address
+		$headers .= "Reply-to: " . Config::MAIL_REPLY_TO . "\r\n";
+		// Specify MIME version 1.0
+		$headers .= "MIME-Version: 1.0\r\n";
+		// Tell e-mail client this e-mail contains alternate versions
+		$headers .= "Content-Type: multipart/alternative; boundary=\"$boundary\"\r\n\r\n";
+		// Plain text version of message
+		$body  = "--$boundary\r\n" . "Content-Type: text/plain; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+		$body .= chunk_split(base64_encode(strip_tags($text)));
+		// HTML version of message
+		$body .= "--$boundary\r\n" . "Content-Type: text/html; charset=ISO-8859-1\r\n" . "Content-Transfer-Encoding: base64\r\n\r\n";
+		$body .= chunk_split(base64_encode($html));
+		$body .= "--$boundary--";
 
-		if(Config::MAIL_SMTP) {
-			$mail->isSMTP();
-			$mail->Host       = Config::MAIL_HOST;
-			$mail->SMTPAuth   = Config::MAIL_AUTH;
-			$mail->Username   = Config::MAIL_USER;
-			$mail->Password   = Config::MAIL_PASS;
-			$mail->SMTPSecure = Config::MAIL_SECU;
-			$mail->Port       = Config::MAIL_PORT;
+		// Send Email
+		if(is_array($to)) {
+			foreach ($to as $e) {
+				return mail($e, $subject, $body, $headers);
+			}
+		} else {
+			return mail($to, $subject, $body, $headers);
 		}
 
-		$mail->setFrom(Config::MAIL_FROM);
-		$mail->addAddress($to);
-		$mail->addReplyTo(Config::MAIL_FROM);
-		$mail->isHTML(true);
-		$mail->Subject = $subject;
-		$mail->Body    = $html;
-		$mail->AltBody = $text;
-
-		return $mail->send();
+		return false;
 	}
 }
