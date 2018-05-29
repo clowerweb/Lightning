@@ -14,9 +14,18 @@ use App\Config;
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
  *
- * PHP version 7.0
+ * PHP version 7.2
  */
 class Utilities extends Model {
+	/**
+	 * Get the domain with prefix
+	 *
+	 * @return string - the domain
+	 */
+	public static function getDomain() : string {
+		return (static::isSSL() ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
+	}
+
 	/**
 	 * Get the URI without the domain (example: "/pages/about")
 	 *
@@ -161,6 +170,28 @@ class Utilities extends Model {
 	}
 
 	/**
+	 * Check if a value is a URL
+	 *
+	 * @param string $val - the value to check
+	 *
+	 * @return boolean - true if the value is a URL, false if not
+	 */
+	public static function isURL(string $val) : bool {
+		return filter_var($val, FILTER_VALIDATE_URL);
+	}
+
+	/**
+	 * Check if a value is a valid email address
+	 *
+	 * @param string $val - the value to check
+	 *
+	 * @return boolean - true if the value is a valid email, false if not
+	 */
+	public static function isEmail(string $val) : bool {
+		return filter_var($val, FILTER_VALIDATE_EMAIL);
+	}
+
+	/**
 	 * Convert a string with hyphens to StudlyCaps. Used mostly for calling controllers from a URL.
 	 *
 	 * @param string $string - The string to convert
@@ -283,6 +314,8 @@ class Utilities extends Model {
 	 *
 	 * @param string  $text   - the string to convert
 	 * @param integer $length - the length to truncate the slug to
+	 *
+	 * @throws Exception
 	 *
 	 * @return string - the slug
 	 */
