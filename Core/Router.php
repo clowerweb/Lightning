@@ -10,7 +10,7 @@ use App\Config;
 /**
  * Router class
  *
- * PHP version 7.0
+ * PHP version 7.2
  */
 class Router {
 	// Associative array of routes
@@ -41,30 +41,27 @@ class Router {
 	 *
 	 * @param string $url - The route URL
 	 *
+	 * @throws Exception from Utilities if an unhandled type is passed into Utilities::isEmpty()
+	 *
 	 * @return boolean - True if match found, false if not
 	 */
-	public function match(string $url) : bool {
-		$new    = rtrim($url, '/');
-		$rchar  = substr($url, -1);
-		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
+	private function match(string $url) : bool {
+		$new   = rtrim($url, '/');
+		$rchar = substr($url, -1);
 
-		if(Config::USE_URL_TRAILING_SLASH) {
+		if(!Utilities::isEmpty($url) && Config::USE_URL_TRAILING_SLASH && $rchar !== '/') {
 			// redirect to url with /
-			if($rchar !== '/') {
-				$url = $url . '/';
-				header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . '/' . $url, true, 301);
-				exit;
-			}
-		} else {
+			$url = $url . '/';
+			header('Location: ' . Utilities::getDomain() . '/' . $url, true, 301);
+			exit;
+		} elseif(!Utilities::isEmpty($url) && $rchar === '/') {
 			// redirect to url without /
-			if($rchar === '/') {
-				header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . '/' . $new, true, 301);
-				exit;
-			}
+			header('Location: ' . Utilities::getDomain() . '/' . $new, true, 301);
+			exit;
 		}
 
 		foreach($this->routes as $route => $params) {
-			if(preg_match($route, $url, $matches)) {
+			if(preg_match($route, $new, $matches)) {
 				foreach($matches as $key => $match) {
 					if(is_string($key)) {
 						$params[$key] = $match;
@@ -121,7 +118,7 @@ class Router {
 	 *
 	 * @return string - The request URL
 	 */
-	protected function getNamespace() : string {
+	private function getNamespace() : string {
 		$namespace = 'App\Controllers\\';
 
 		if(array_key_exists('namespace', $this->params)) {
