@@ -127,10 +127,13 @@ class Utilities extends Model {
 	public static function isEmpty($item) : bool {
 		if     (is_array ($item))  return empty($item);
 		else if(is_null  ($item))  return true;
-		else if(is_object($item))  return empty($item->getProperties());
 		else if(is_string($item))  return strlen(trim($item)) ? false : true;
 		else if(is_numeric($item)) return false;
 		else if(is_bool($item))    return !$item;
+		else if(is_object($item)) {
+			if(empty((array)$item)) return true;
+			else return (int)$item->length === 0;
+		}
 
 		throw new Exception('Unhandled type: "' . gettype($item) . '"');
 	}
