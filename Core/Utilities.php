@@ -14,9 +14,18 @@ use App\Config;
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
  *
- * PHP version 7.0
+ * PHP version 7.2
  */
 class Utilities extends Model {
+	/**
+	 * Get the domain with prefix
+	 *
+	 * @return string - the domain
+	 */
+	public static function getDomain() : string {
+		return (static::isSSL() ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
+	}
+
 	/**
 	 * Get the URI without the domain (example: "/pages/about")
 	 *
@@ -132,10 +141,13 @@ class Utilities extends Model {
 	public static function isEmpty($item) : bool {
 		if     (is_array ($item))  return empty($item);
 		else if(is_null  ($item))  return true;
-		else if(is_object($item))  return empty($item->getProperties());
 		else if(is_string($item))  return strlen(trim($item)) ? false : true;
 		else if(is_numeric($item)) return false;
 		else if(is_bool($item))    return !$item;
+		else if(is_object($item)) {
+			if(empty((array)$item)) return true;
+			else return (int)$item->length === 0;
+		}
 
 		throw new Exception('Unhandled type: "' . gettype($item) . '"');
 	}
@@ -172,6 +184,28 @@ class Utilities extends Model {
 	 */
 	public static function isAlphanumeric(string $val, string $special = '') : bool {
 		return preg_match("/^[\p{L}\d $special]*$/u", $val) ? true : false;
+	}
+
+	/**
+	 * Check if a value is a URL
+	 *
+	 * @param string $val - the value to check
+	 *
+	 * @return boolean - true if the value is a URL, false if not
+	 */
+	public static function isURL(string $val) : bool {
+		return filter_var($val, FILTER_VALIDATE_URL);
+	}
+
+	/**
+	 * Check if a value is a valid email address
+	 *
+	 * @param string $val - the value to check
+	 *
+	 * @return boolean - true if the value is a valid email, false if not
+	 */
+	public static function isEmail(string $val) : bool {
+		return filter_var($val, FILTER_VALIDATE_EMAIL);
 	}
 
 	/**
@@ -297,6 +331,8 @@ class Utilities extends Model {
 	 *
 	 * @param string  $text   - the string to convert
 	 * @param integer $length - the length to truncate the slug to
+	 *
+	 * @throws Exception
 	 *
 	 * @return string - the slug
 	 */
