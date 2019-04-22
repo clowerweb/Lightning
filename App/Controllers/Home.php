@@ -11,7 +11,7 @@ use Core\Controller;
 /**
  * Home controller
  *
- * PHP version 7.0
+ * PHP version 7.1
  */
 class Home extends Controller {
 	/**

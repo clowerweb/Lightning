@@ -7,7 +7,7 @@ namespace App;
 /**
  * Flash class
  *
- * PHP version 7.0
+ * PHP version 7.1
  */
 class Flash {
 	const SUCCESS = 'success';

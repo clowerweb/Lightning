@@ -7,7 +7,7 @@ namespace App;
 /**
  * Mail class
  *
- * PHP version 7.0
+ * PHP version 7.1
  */
 class Mail {
 	/**

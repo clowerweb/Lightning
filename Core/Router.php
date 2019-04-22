@@ -10,7 +10,7 @@ use App\Config;
 /**
  * Router class
  *
- * PHP version 7.2
+ * PHP version 7.1
  */
 class Router {
 	// Associative array of routes

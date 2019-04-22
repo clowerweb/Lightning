@@ -6,7 +6,7 @@ Lightning aims to be a blazing fast and lightweight PHP MVC framework, implement
 
 **Requirements**
 
-* PHP 7.0+
+* PHP 7.1+
 * Composer (for installation of third party libraries)
 
 **Installing**

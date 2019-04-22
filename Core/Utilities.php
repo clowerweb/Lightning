@@ -14,7 +14,7 @@ use App\Config;
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
  *
- * PHP version 7.2
+ * PHP version 7.1
  */
 class Utilities extends Model {
 	/**
@@ -100,6 +100,8 @@ class Utilities extends Model {
 	 * @param string $date - the date to convert (from UTC/GMT)
 	 * @param string $timezone - the timezone to convert to
 	 * @param string $format - the date format
+	 *
+	 * @throws Exception from DateTime
 	 *
 	 * @return string - the converted date
 	 */

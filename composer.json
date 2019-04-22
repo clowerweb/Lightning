@@ -1,4 +1,9 @@
 {
+	"config": {
+		"platform": {
+			"php": "7.1"
+		}
+	},
 	"require": {
 		"twig/twig": "^2.0",
 		"ezyang/htmlpurifier": "~4.10"
