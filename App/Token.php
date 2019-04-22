@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace App;
 
+use \Exception;
+
 /**
  * Token class
  *
@@ -15,7 +17,7 @@ class Token {
 	/**
 	 * Constructor creates a new random token
 	 *
-	 * @throws \Exception if it fails
+	 * @throws Exception if it fails to generate
 	 *
 	 * @param string $token - optional existing token
 	 */

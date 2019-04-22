@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Core;
 
+use \Exception;
 use \Twig;
 use App\Config;
 use App\Flash;
@@ -20,7 +21,7 @@ class View {
 	 * @param string $template - The template file
 	 * @param array  $args     - Associative array of data to display in the view (optional)
 	 *
-	 * @throws \Exception from Twig\Error
+	 * @throws Exception from Twig\Error
 	 *
 	 * @return void
 	 */
@@ -34,7 +35,7 @@ class View {
 	 * @param string $template - The template file
 	 * @param array  $args     - Associative array of data to display in the view (optional)
 	 *
-	 * @throws \Exception from Twig\Error
+	 * @throws Exception from Twig\Error
 	 *
 	 * @return string - the Twig template
 	 */

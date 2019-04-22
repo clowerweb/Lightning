@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Core;
 
+use \Exception;
 use \ErrorException;
 use App\Config;
 
@@ -21,7 +22,7 @@ class Error {
 	 * @param string $file    - the file that threw the error
 	 * @param int    $line    - the line in the file
 	 *
-	 * @throws \ErrorException
+	 * @throws ErrorException
 	 *
 	 * @return void
 	 */
@@ -36,7 +37,7 @@ class Error {
 	 *
 	 * @param object $exception - the exception
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 *
 	 * @return void
 	 */

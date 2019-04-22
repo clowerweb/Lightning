@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Core;
 
+use \Exception;
 use \PDO;
 use App\Config;
 
@@ -34,7 +35,7 @@ abstract class Model {
 	 * @param string $column - the column name to check
 	 * @param string $val    - the value to check against
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 *
 	 * @return boolean - true if it's unique, false if not
 	 */
