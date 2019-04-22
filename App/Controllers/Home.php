@@ -17,6 +17,8 @@ class Home extends Controller {
 	/**
 	 * Show the index page
 	 *
+	 * @throws \Exception from Twig\Error
+	 *
 	 * @return void
 	 */
 	public function indexAction() {
