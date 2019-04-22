@@ -97,21 +97,25 @@ class Router {
 			$controller = $this->getNamespace() . $controller;
 
 			if(class_exists($controller)) {
-				$controller_object = new $controller($this->params);
-
 				$action = $this->params['action'];
 				$action = Utilities::convertToCamelCase($action);
 
-				if(preg_match('/action$/i', $action) == 0) {
-					$controller_object->$action();
+				if(preg_match('/action$/i', $action) === 0) {
+					$controller_object = new $controller($this->params);
+
+					if(method_exists($controller_object, $action . 'Action')) {
+						$controller_object->$action();
+					} else {
+						throw new Exception("Method '$action' in controller '$controller' is not accessible by routes.", 404);
+					}
 				} else {
-					throw new Exception("Method $action in controller $controller not found", 404);
+					throw new Exception("Method '$action' in controller '$controller' not found.", 404);
 				}
 			} else {
-				throw new Exception("Controller class $controller not found", 404);
+				throw new Exception("Controller class '$controller' not found.", 404);
 			}
 		} else {
-			throw new Exception("Route not found for $url", 404);
+			throw new Exception("Route not found for '$url'.", 404);
 		}
 	}
 

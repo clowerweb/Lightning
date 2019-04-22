@@ -54,18 +54,4 @@ abstract class Controller {
 	 * @return void
 	 */
 	protected function after() {}
-
-	/**
-	 * Redirect to a different page
-	 *
-	 * @param string $url  - The URL to redirect to
-	 * @param int    $code - Optional. The HTTP code. Defaults to 303 "See Other"
-	 *
-	 * @return void
-	 */
-	public function redirect(string $url, int $code = 303) {
-		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
-		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
-		exit;
-	}
 }

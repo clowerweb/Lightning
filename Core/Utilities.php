@@ -107,6 +107,20 @@ class Utilities extends Model {
 	}
 
 	/**
+	 * Redirect to a different page
+	 *
+	 * @param string $url  - The URL to redirect to
+	 * @param int    $code - Optional. The HTTP code. Defaults to 303 "See Other"
+	 *
+	 * @return void
+	 */
+	public function redirect(string $url, int $code = 303) {
+		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
+		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
+		exit;
+	}
+
+	/**
 	 * Check if something is empty, blank, null, false, etc. Useful for making sure just about anything has a value
 	 *
 	 * @param mixed $item - the item to check
