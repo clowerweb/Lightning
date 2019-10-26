@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
-use \Core\View;
-use \Core\Controller;
-use \App\Flash;
-use \App\Models\User;
-use \App\Models\Settings;
+use \Exception;
+use Core\View;
+use Core\Controller;
+use Core\Utilities;
+use App\Flash;
+use App\Models\User;
+use App\Models\Settings;
 
 /**
  * Register controller
@@ -33,6 +35,8 @@ class Register extends Controller {
 
 	/**
 	 * Show the registration index
+     *
+     * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -49,7 +53,7 @@ class Register extends Controller {
 	/**
 	 * Save a new user
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -64,7 +68,7 @@ class Register extends Controller {
 					Utilities::redirect('/register/success');
 				} else {
 					$email = $_POST['email'];
-					throw new \Exception("Failed to send activation email to $email");
+					throw new Exception("Failed to send activation email to $email");
 				}
 			// validation errors
 			} else {
@@ -80,6 +84,8 @@ class Register extends Controller {
 
 	/**
 	 * Show the registration success page
+     *
+     * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -110,6 +116,8 @@ class Register extends Controller {
 
 	/**
 	 * Show the activation success page
+     *
+     * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -119,6 +127,8 @@ class Register extends Controller {
 
 	/**
 	 * Show the activation failed page
+     *
+     * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -129,7 +139,7 @@ class Register extends Controller {
 	/**
 	 * Resend the user's activation email
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -157,6 +167,8 @@ class Register extends Controller {
 
 	/**
 	 * Show the activation email resent page
+     *
+     * @throws Exception
 	 *
 	 * @return void
 	 */
