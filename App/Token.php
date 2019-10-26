@@ -9,7 +9,7 @@ use \Exception;
 /**
  * Token class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Token {
 	protected $token;

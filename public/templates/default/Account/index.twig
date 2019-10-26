@@ -1,0 +1,335 @@
+{% extends "base.twig" %}
+
+{% block title %}Your Account - PlayPico.com{% endblock %}
+
+{% block body %}
+    <div class="container clearfix">
+        <h3 class="page-title">Your Account</h3>
+
+        <div class="alert" role="alert" style="display: none; margin-bottom: 30px"></div>
+
+        <div class="tabs">
+            <ul role="tablist" id="tabs">
+                <li class="tab active" role="tab">
+                    <a href="#lexaloffle-info" data-toggle="true">Lexaloffle Info</a>
+                </li>
+
+                <li class="tab" role="tab">
+                    <a href="#basic-info" data-toggle="true">Basic Info</a>
+                </li>
+
+                <li class="tab" role="tab">
+                    <a href="#location-info" data-toggle="true">Location &amp; Timezone Settings</a>
+                </li>
+
+                <li class="tab" role="tab">
+                    <a href="#social-info" data-toggle="true">Social Media</a>
+                </li>
+
+                <li class="tab" role="tab">
+                    <a href="#bio-info" data-toggle="true">Biography</a>
+                </li>
+
+                <li class="tab" role="tab">
+                    <a href="#password-info" data-toggle="true">Update Password</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="panels">
+            <form id="tab-content" method="post" action="/account/update">
+                <div class="tab-panel active" role="tabpanel" id="lexaloffle-info">
+                    <h3>Lexaloffle BBS Info</h3>
+
+                    {% if not user.is_verified %}
+                        <p>
+                            If you'd like to optionally link your PlayPico and Lexaloffle accounts, you can do so here.
+                            <strong>This is not required, but provides several benefits, especially for game authors.</strong>
+                        </p>
+
+                        <h4>Why get verified?</h4>
+
+                        <p>As a verified author, you're able to manage your games on PlayPico in several ways:</p>
+
+                        {#<ul>
+                            <li>Manually update your games on PlayPico from the Lexaloffle BBS</li>
+                            <li>Manage your game titles and descriptions on PlayPico</li>
+                            <li>See various analytical data about your games (views, likes, shares, etc.)</li>
+                            <li>Remove one or all of your games from PlayPico</li>
+                            <li>Request that none of your games are added to PlayPico in the future</li>
+                        </ul>#}
+                        <ul>
+                            <li>
+                                Add your social media, official website, and Patreon to your profile, which is shown
+                                every time a user clicks on your name to see your games list.
+                            </li>
+                            <li>
+                                Add additional information about yourself, including additional links.
+                            </li>
+                            <li>
+                                Get a fancy checkmark next to your name in all places that it appears on the site, showing
+                                other users that you are verified and have additional links and information about yourself
+                                here.
+                            </li>
+                            <li>
+                                Many more features are planned, including the ability to update your games manually from
+                                the BBS instead of waiting for the auto-updater, edit your own game descriptions just for
+                                PlayPico, see various analytical data about your games (views, likes, shares, etc.),
+                                enable comments on your games' pages, remove one or more of your games from PlayPico,
+                                and block any of your future games from being added to PlayPico.
+                            </li>
+                        </ul>
+
+                        <h3>How to get verified</h3>
+
+                        <h4>Step 1</h4>
+
+                        <p>Sign into your Lexaloffle account on the <a href="https://www.lexaloffle.com/pico-8.php">Official Lexaloffle Website</a>.</p>
+
+                        <hr />
+
+                        <h4>Step 2</h4>
+
+                        <p>Go to your profile page:</p>
+                        <p><img src="{{ template_dir }}/img/profile.png" width="281" height="311" alt="Profile illustration" /></p>
+
+                        <hr />
+
+                        <h4>Step 3</h4>
+
+                        <p>Copy your profile URL:</p>
+                        <p><img src="{{ template_dir }}/img/profile-address.png" width="407" height="35" alt="Profile address illustration" /></p>
+
+                        <p>
+                            <label for="profile-url">Paste your profile URL below:</label>
+                            <input type="url" id="profile-url" />
+                        </p>
+
+                        <hr />
+
+                        <h4>Step 4</h4>
+
+                        <p><a href="https://www.lexaloffle.com/settings.php#m" target="_blank">Click here to go to your settings page on Lexaloffle</a>.</p>
+                        <p>Under "Profile", click "About:", and paste the following string (<strong>YOU DO NOT NEED TO REMOVE ANYTHING YOU ALREADY HAVE THERE! JUST PASTE THIS STRING AT THE BOTTOM, UNDER ANY EXISTING CONTENT YOU MAY ALREADY HAVE THERE</strong>):</p>
+                        <p>
+                            <label for="profile-token" class="sr">Profile verification token</label>
+                            <input type="text" id="profile-token" value="{{ profile_token }}" readonly />
+                        </p>
+
+                        <hr />
+
+                        <h4>Step 5</h4>
+
+                        <p>Save your Lexaloffle settings, and then click the button below:</p>
+
+                        <button type="button" class="btn" id="account-verification" style="margin-bottom: 15px">Get Verified</button>
+
+                        <p>
+                            <strong>
+                                After the verification process, you can delete the token from your Lexaloffle profile,
+                                as it is no longer needed.
+                            </strong>
+                        </p>
+                    {% else %}
+                        <h4>Your Lexaloffle account has been verified.</h4>
+                    {% endif %}
+                </div>
+
+                <div class="tab-panel" role="tabpanel" id="basic-info">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" value="{{ user.username }}" disabled />
+                    </div>
+
+                    <div>
+                        <label for="name">Real name:</label>
+                        <input type="text" id="name" name="name" value="{{ user.name }}" />
+                    </div>
+
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" />
+                    </div>
+
+                    <button type="submit" class="btn save-profile">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Save
+                    </button>
+                </div>
+
+                <div class="tab-panel" role="tabpanel" id="location-info">
+                    <div>
+                        <label for="country">Country:</label>
+                        <select id="country" name="country">
+                            {% for country in countries %}
+                                <option value="{{ country }}"{% if country == user.country %} selected{% endif %}>
+                                    {{ country }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="timezone">Time zone:</label>
+
+                        <select id="timezone" name="timezone">
+                            {% for timezone in timezones %}
+                                <option value="{{ timezone.zone }}"{% if timezone.zone == user.timezone %} selected{% endif %}>
+                                    {{ timezone.diff_from_GMT }} ({{ timezone.pretty }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn save-profile">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Save
+                    </button>
+                </div>
+
+                <div class="tab-panel" role="tabpanel" id="social-info">
+                    <div>
+                        <label for="website">Website:</label>
+                        <input type="text" id="website" name="website" value="{{ user.website }}" />
+                    </div>
+
+                    <div>
+                        <label for="facebook">Facebook:</label>
+                        <input type="text" id="facebook" name="facebook" value="{{ user.facebook }}" />
+                    </div>
+
+                    <div>
+                        <label for="twitter">Twitter:</label>
+                        <input type="text" id="twitter" name="twitter" value="{{ user.twitter }}" />
+                    </div>
+
+                    <div>
+                        <label for="instagram">Instagram:</label>
+                        <input type="text" id="instagram" name="instagram" value="{{ user.instagram }}" />
+                    </div>
+
+                    <div>
+                        <label for="linkedin">LinkedIn:</label>
+                        <input type="text" id="linkedin" name="linkedin" value="{{ user.linkedin }}" />
+                    </div>
+
+                    <div>
+                        <label for="patreon">Patreon:</label>
+                        <input type="text" id="patreon" name="patreon" value="{{ user.patreon }}" />
+                    </div>
+
+                    <button type="submit" class="btn save-profile">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Save
+                    </button>
+                </div>
+
+                <div class="tab-panel" role="tabpanel" id="bio-info">
+                    <div>
+                        <label for="bio">Bio:</label>
+                        <textarea id="bio" name="bio">{{ user.bio }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn save-profile">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Save
+                    </button>
+                </div>
+
+                <div class="tab-panel" role="tabpanel" id="password-info">
+                    <div>
+                        <label for="current-password">Current password:</label>
+                        <input type="password" id="current-password" name="current_password" />
+                    </div>
+
+                    <div>
+                        <label for="new-password">New password:</label>
+                        <input type="password" id="new-password" name="new_password" />
+                    </div>
+
+                    <button type="submit" class="btn save-profile">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.8.2/tinymce.min.js" integrity="sha256-2DEM8ybpCSGNF32f4l2CcIx5gTWZvKIQn+3bZDL4Qkc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea',
+            height: 300,
+            menubar: false,
+            plugins: ['emoticons image link lists'],
+            toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image | emoticons'
+        });
+
+        (($) => {
+            $('#profile-token').on('focus click', function() {
+                $(this)[0].select();
+            });
+
+            $('#tab-content').on('submit', function(e) {
+                const $this = $(this);
+
+                e.preventDefault();
+                $('.save-profile > i').removeClass('fa-arrow-right').addClass('fa-spinner spin');
+                tinyMCE.triggerSave();
+
+                $.ajax({
+                    type: 'post',
+                    url: '/account/update',
+                    data: $this.serialize(),
+                    success: function(res) {
+                        if(res === '1') {
+                            $('.save-profile > i').removeClass('fa-spinner spin').addClass('fa-arrow-right');
+                            $('.alert')
+                                .removeClass('alert-danger')
+                                .addClass('alert-success')
+                                .text('Your profile was saved successfully.').slideDown();
+
+                            setTimeout(() => {
+                                $('.alert').slideUp();
+                            }, 5000);
+                        } else {
+                            const ERRORS = JSON.parse(res);
+                            let $error_list = $('<ul></ul>');
+
+                            $('.save-profile > i').removeClass('fa-spinner spin').addClass('fa-arrow-right');
+
+                            ERRORS.forEach((error) => {
+                                $error_list.append(`<li>${error}</li>`);
+                            });
+
+                            $('.alert')
+                                .removeClass('alert-success')
+                                .addClass('alert-danger')
+                                .html('<strong>Please fix the following errors:</strong>').append($error_list).slideDown();
+                        }
+                    }
+                });
+            });
+
+            $('#account-verification').on('click', () => {
+                const PROFILE_URL = $('#profile-url').val();
+
+                if(PROFILE_URL) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/account/verify',
+                        data: { 'url': PROFILE_URL },
+                        success: function(res) {
+                            console.clear();
+                            console.log(res);
+
+                            if(res === '1') {
+                                window.location.reload();
+                            } else {
+                                alert('Error: Please check that your PlayPico username matches your Lexaloffle username (case insensitive), and that the token provided in Step 4 is somewhere in your Lexaloffle profile.');
+                            }
+                        }
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

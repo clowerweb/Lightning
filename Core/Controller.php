@@ -9,7 +9,7 @@ use \Exception;
 /**
  * Controller class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 abstract class Controller {
 	protected $route_params = [];

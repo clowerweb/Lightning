@@ -27,6 +27,8 @@ set_exception_handler('Core\Error::exceptionHandler');
 /**
  * Routing
  */
-$router = new Core\Router();
-
-Routes::addRoutes($router);
+try {
+    Routes::addRoutes();
+} catch (Exception $e) {
+    echo $e;
+}

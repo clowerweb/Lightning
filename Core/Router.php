@@ -10,7 +10,7 @@ use App\Config;
 /**
  * Router class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Router {
 	// Associative array of routes
@@ -28,8 +28,8 @@ class Router {
 	 */
 	public function add(string $route, array $params = []) {
 		$route = preg_replace('/\//', '\\/', $route);
-		$route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
-		$route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
+		$route = preg_replace('/{([a-z]+)}/', '(?P<\1>[a-z-]+)', $route);
+		$route = preg_replace('/{([a-z]+):([^}]+)}/', '(?P<\1>\2)', $route);
 		$route = '/^' . $route . '$/i';
 
 		$this->routes[$route] = $params;

@@ -4,30 +4,24 @@ declare(strict_types = 1);
 
 namespace App\Controllers;
 
-use Core\Utilities;
+use \Exception;
 use Core\View;
 use Core\Controller;
 
 /**
  * Home controller
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Home extends Controller {
 	/**
 	 * Show the index page
 	 *
-	 * @throws \Exception from Twig\Error
+	 * @throws Exception from Twig\Error
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		// Example of using HTML Purifier to prevent XSS
-		$html = "<h3>Test</h3><script>alert();</script>";
-		$html = Utilities::purifyOutput($html);
-
-		View::renderTemplate('Home/index.twig', [
-			'html' => $html
-		]);
+		View::renderTemplate('Home/index.twig');
 	}
 }

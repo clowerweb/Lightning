@@ -14,7 +14,7 @@ use App\Config;
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Utilities extends Model {
 	/**
@@ -125,7 +125,7 @@ class Utilities extends Model {
 	 *
 	 * @return void
 	 */
-	public function redirect(string $url, int $code = 303) {
+	public static function redirect(string $url, int $code = 303) {
 		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
 		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
 		exit;

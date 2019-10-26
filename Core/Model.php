@@ -11,7 +11,7 @@ use App\Config;
 /**
  * Model class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 abstract class Model {
 	protected static function getDB() {

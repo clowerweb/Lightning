@@ -1,0 +1,6 @@
+Reset password
+
+Someone requested a password reset for your account on {{ settings.site_name }}. If this was not you, please ignore
+this email, otherwise please visit or paste this link to reset your password:
+
+ {{ url }}

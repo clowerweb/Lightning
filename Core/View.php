@@ -12,7 +12,7 @@ use App\Flash;
 /**
  * View class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class View {
 	/**

@@ -11,7 +11,7 @@ use App\Config;
 /**
  * Error class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Error {
 	/**
@@ -35,13 +35,13 @@ class Error {
 	/**
 	 * Custom exception handler
 	 *
-	 * @param object $exception - the exception
+	 * @param Exception $exception - the exception
 	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public static function exceptionHandler($exception) {
+	public static function exceptionHandler(Exception $exception) {
 		$code = $exception->getCode();
 
 		if($code !== 404) {
@@ -79,11 +79,11 @@ class Error {
 	/**
 	 * Gets the full exception
 	 *
-	 * @param object $exception - the exception
+	 * @param Exception $exception - the exception
 	 *
 	 * @return string - the message
 	 */
-	private static function getFullException($exception) : string {
+	private static function getFullException(Exception $exception) : string {
 		$result = '';
 		$errors = $exception->getTrace();
 
