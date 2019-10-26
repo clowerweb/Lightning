@@ -35,13 +35,13 @@ class Error {
 	/**
 	 * Custom exception handler
 	 *
-	 * @param Exception $exception - the exception
+	 * @param object $exception - the exception
 	 *
 	 * @throws Exception
 	 *
 	 * @return void
 	 */
-	public static function exceptionHandler(Exception $exception) {
+	public static function exceptionHandler(object $exception) {
 		$code = $exception->getCode();
 
 		if($code !== 404) {
@@ -79,11 +79,11 @@ class Error {
 	/**
 	 * Gets the full exception
 	 *
-	 * @param Exception $exception - the exception
+	 * @param object $exception - the exception
 	 *
 	 * @return string - the message
 	 */
-	private static function getFullException(Exception $exception) : string {
+	private static function getFullException(object $exception) : string {
 		$result = '';
 		$errors = $exception->getTrace();
 
