@@ -6,12 +6,12 @@ Lightning aims to be a blazing fast and lightweight PHP MVC framework, implement
 
 **Requirements**
 
-* PHP 7.1+
+* PHP 7.2+
 * Composer
 
 **Installing**
 
-* `cd` to the project directory and run `composer update`
+* `cd` to the project directory and run `composer install`
 
 **Features Overview**
 
@@ -29,9 +29,9 @@ Lightning aims to be a blazing fast and lightweight PHP MVC framework, implement
 ***Basic Usage***
 
 * Download or clone the repo
-* Open a command line, `cd` to the project directory, and run `composer update`
+* Open a command line, `cd` to the project directory, and run `composer install`
 * Rename `/App/Config.sample` to `Config.php`
-* The basic installation should now run from any server running PHP 7.1+
+* The basic installation should now run from any server running PHP 7.2+
 
 All settings are found in Config.php and should be relatively straightforward.
 
