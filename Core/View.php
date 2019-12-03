@@ -7,6 +7,7 @@ use App\Config;
 use App\Flash;
 use App\Models\Settings;
 use App\Auth;
+use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
@@ -68,9 +69,15 @@ class View {
 
             $twig = new Environment($loader, $opts);
 
+            if(Config::SHOW_ERRORS) {
+                $opts['debug'] = true;
+                $twig->addExtension(new DebugExtension());
+            }
+
             $twig->addGlobal('user', Auth::getUser());
             $twig->addGlobal('flash_messages', Flash::getMessages());
             $twig->addGlobal('uri', Utilities::getURI());
+            $twig->addGlobal('base_url', Utilities::getDomain());
             $twig->addGlobal('template_dir', str_replace('/public', '', $tpl_dir));
             $twig->addGlobal('settings', $settings);
             $twig->addGlobal('body_class', $body_class);

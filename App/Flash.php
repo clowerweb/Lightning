@@ -30,8 +30,8 @@ class Flash {
 
 		// add the message to the notifications array
 		$_SESSION['flash_notifications'][] = [
-			'type' => $type,
-			'body' => $message
+            'body' => $message,
+			'type' => $type
 		];
 	}
 

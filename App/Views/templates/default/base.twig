@@ -5,18 +5,20 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>{% block title %}{% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="{{ base_url }}/assets/css/main.css"/>
 	</head>
 	<body class="{{ body_class }}">
 		<a href="#main" class="sr">Skip to content</a>
 
-		<div class="container">
-			{% for message in flash %}
-				<div class="alert alert-{{ message.type }}" role="alert">
-					{{ message.body|raw }}
-				</div>
-			{% endfor %}
-		</div>
+		{% if flash_messages is not empty %}
+			<div class="container">
+				{% for message in flash_messages %}
+					<div class="alert alert-{{ message.type }}" role="alert">
+						{{ message.body|raw }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
 
 		<header id="header">
 			{% block header %}{% endblock %}
@@ -30,7 +32,8 @@
 			{% block footer %}{% endblock %}
 		</footer>
 
-		<script type="text/javascript" src="./assets/js/main.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="{{ base_url }}/assets/js/main.js"></script>
 		{% block scripts %}{% endblock %}
 	</body>
 </html>

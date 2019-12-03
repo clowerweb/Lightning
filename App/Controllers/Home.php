@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Controllers;
 
+use App\Auth;
+use App\Flash;
+use Core\Utilities;
 use \Exception;
 use Core\View;
 use Core\Controller;
@@ -14,6 +17,18 @@ use Core\Controller;
  * PHP version 7.2
  */
 class Home extends Controller {
+    private $user;
+
+    /*public function before() {
+        $this->user = Auth::getUser();
+
+        if(! $this->user || ! $this->user->role == '1') {
+            Flash::addMessage("You don't have permission to do that.", Flash::INFO);
+            Auth::rememberRequestedPage();
+            Utilities::redirect('/login');
+        }
+    }*/
+
 	/**
 	 * Show the index page
 	 *
@@ -22,6 +37,8 @@ class Home extends Controller {
 	 * @return void
 	 */
 	public function indexAction() {
-		View::renderTemplate('Home/index.twig');
+		View::renderTemplate('Home/index.twig', [
+		    'user' => $this->user
+        ]);
 	}
 }

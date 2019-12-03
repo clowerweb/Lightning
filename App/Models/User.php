@@ -171,11 +171,6 @@ class User extends Model {
         if(preg_match('/.*\d+.*/i', $this->password) == 0) {
             $this->errors[] = 'Password needs at least one number';
         }
-
-        if(!$this->terms || $this->terms != 'on') {
-            echo $this->terms;
-            $this->errors[] = 'You must agree to the Privacy Policy and Terms of Service.';
-        }
     }
 
     /**
@@ -388,8 +383,8 @@ class User extends Model {
     protected function sendPasswordResetEmail() : void {
         $prefix = Utilities::isSSL() ? 'https://' : 'http://';
         $url    = $prefix . $_SERVER['HTTP_HOST'] . '/password/reset/' . $this->password_reset_token;
-        $text   = View::getTemplate('Pages/Password/reset-email.txt',  ['url' => $url]);
-        $html   = View::getTemplate('Pages/Password/reset-email.twig', ['url' => $url]);
+        $text   = View::getTemplate('Password/reset-email.txt',  ['url' => $url]);
+        $html   = View::getTemplate('Password/reset-email.twig', ['url' => $url]);
 
         Mail::send($this->email, 'Password reset', $text, $html);
     }
@@ -487,8 +482,8 @@ class User extends Model {
     public function sendActivationEmail() : bool {
         $prefix = Utilities::isSSL() ? 'https://' : 'http://';
         $url    = $prefix . $_SERVER['HTTP_HOST'] . '/register/activate/' . $this->activation_token;
-        $text   = View::getTemplate('Pages/Register/activation-email.txt',  ['url' => $url]);
-        $html   = View::getTemplate('Pages/Register/activation-email.twig', ['url' => $url]);
+        $text   = View::getTemplate('Register/activation-email.txt',  ['url' => $url]);
+        $html   = View::getTemplate('Register/activation-email.twig', ['url' => $url]);
 
         return Mail::send($this->email, 'Account activation', $text, $html);
     }

@@ -31,12 +31,6 @@ class Config {
     const USE_URL_TRAILING_SLASH = false;
 
 	/**
-	 * Templates root - if you wish to move the templates directory, change this
-	 * No trailing slash
-	 */
-	const TEMPLATE_DIR = '/public/templates/default';
-
-	/**
 	 * True to enable Twig template caching, false to disable
 	 */
 	const TEMPLATE_CACHING = false;

@@ -21,11 +21,6 @@
 
 		<form method="post" action="/register" id="form-register">
 			<div>
-				<label for="username">Username:</label>
-				<input type="text" id="username" name="username" placeholder="Username" value="{{ user.username }}" autofocus required />
-			</div>
-
-			<div>
 				<label for="email">Email:</label>
 				<input type="email" id="email" name="email" placeholder="Email" value="{{ user.email }}" required />
 			</div>
@@ -36,22 +31,6 @@
 			</div>
 			<div id="password-error-container"></div>
 
-			<div>
-				<label>
-					<input type="checkbox" name="age" {% if age %}checked="checked"{% endif %} />
-					I certify that I am at least 13 years of age or older</a>
-				</label>
-			</div>
-			<div id="age-error-container"></div>
-
-			<div>
-				<label>
-					<input type="checkbox" name="terms" {% if terms %}checked="checked"{% endif %} />
-					I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/terms" target="_blank">Terms of Service</a>
-				</label>
-			</div>
-			<div id="terms-error-container"></div>
-
 			<button type="submit" class="btn">Sign up</button>
 		</form>
 	</div>
@@ -59,15 +38,27 @@
 
 {% block scripts %}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js" integrity="sha256-F6h55Qw6sweK+t7SiOJX+2bpSAa3b/fnlrVCJvmEj1A=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="{{ template_dir }}/js/forms.js"></script>
 	<script type="text/javascript">
 	$(function() {
+		$.validator.addMethod('validPassword',
+			function(value) {
+				if(value != '') {
+					if(value.match(/.*[a-z]+.*/i) == null) {
+						return false;
+					}
+
+					if(value.match(/.*\d+.*/) == null) {
+						return false;
+					}
+				}
+
+				return true;
+			},
+			'Must contain at least one letter and one number'
+		);
+
 		$('#form-register').validate({
 			rules: {
-				username: {
-					required: true,
-					remote: '/account/validate-username'
-				},
 				email: {
 					required: true,
 					email: true,
@@ -77,12 +68,6 @@
 					required: true,
 					minlength: 6,
 					validPassword: true
-				},
-				age: {
-					required: true
-				},
-				terms: {
-					required: true
 				}
 			},
 			messages: {
@@ -96,10 +81,6 @@
 			errorPlacement: function(error, element) {
 				if(element.attr('name') === 'password')
 					error.appendTo('#password-error-container');
-				else if(element.attr('name') === 'terms')
-					error.appendTo('#terms-error-container');
-				else if(element.attr('name') === 'age')
-					error.appendTo('#age-error-container');
 				else
 					error.insertAfter(element);
 			}
