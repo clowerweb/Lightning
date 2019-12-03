@@ -13,7 +13,7 @@ use Core\Utilities;
 /**
  * User model
  *
- * PHP version 7.0
+ * PHP version 7.2
  */
 class User extends Model {
     // Public properties

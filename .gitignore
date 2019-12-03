@@ -10,3 +10,4 @@ App/config.php
 logs/*
 vendor/*
 **/cache/*
+node_modules/*

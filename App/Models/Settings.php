@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use PDO;
-use \Core\Model;
+use Core\Model;
 
 /**
  * Settings model
  *
- * PHP version 7.0
+ * PHP version 7.2
  */
 class Settings extends Model {
 	/**

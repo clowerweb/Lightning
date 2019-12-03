@@ -13,7 +13,7 @@ use Twig\Environment;
 /**
  * View class
  *
- * PHP version 7.0
+ * PHP version 7.2
  */
 class View {
     /**
@@ -46,7 +46,7 @@ class View {
         if($twig === null) {
             $opts       = [];
             $settings   = Settings::getSettings();
-            $tpl_dir    = '/public/templates/' .  $settings['site_theme'];
+            $tpl_dir    = '/App/Views/templates/' .  $settings['site_theme'];
             $loader     = new FilesystemLoader(dirname(__DIR__) . $tpl_dir);
             $uri_path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $segments   = explode('/', $uri_path);
