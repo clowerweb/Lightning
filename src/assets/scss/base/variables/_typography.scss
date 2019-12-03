@@ -1,0 +1,13 @@
+$base-font-size: 16;
+$base-line-height: 1;
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Aladin&display=swap");
+
+$primary-fallback-font-stack: Helvetica, Arial, sans-serif;
+$primary-font: Roboto;
+$primary-font-stack: $primary-font, $primary-fallback-font-stack;
+
+$secondary-fallback-font-stack: cursive;
+$secondary-font: Aladin;
+$secondary-font-stack: $secondary-font, $secondary-fallback-font-stack;
