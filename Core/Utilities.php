@@ -125,11 +125,17 @@ class Utilities extends Model {
 	 *
 	 * @return void
 	 */
-	public static function redirect(string $url, int $code = 303) {
-		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
-		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
-		exit;
-	}
+    public static function redirect(string $url, int $code = 303) {
+        $prefix = Utilities::isSSL() ? 'https://' : 'http://';
+        $host   = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+        $port   = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PORT);
+        $full   = $prefix . $host;
+        $full   .= $port ? ":${port}" : '';
+        $full   .= $url;
+
+        header('Location: ' . $full, true, $code);
+        exit;
+    }
 
 	/**
 	 * Check if something is empty, blank, null, false, etc. Useful for making sure just about anything has a value
