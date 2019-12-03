@@ -8,15 +8,27 @@
 		<link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
 	</head>
 	<body class="{{ body_class }}">
+		<a href="#main" class="sr">Skip to content</a>
+
 		<div class="container">
 			{% for message in flash %}
 				<div class="alert alert-{{ message.type }}" role="alert">
 					{{ message.body|raw }}
 				</div>
 			{% endfor %}
-
-			{% block body %}{% endblock %}
 		</div>
+
+		<header id="header">
+			{% block header %}{% endblock %}
+		</header>
+
+		<main id="main">
+			{% block body %}{% endblock %}
+		</main>
+
+		<footer id="footer">
+			{% block footer %}{% endblock %}
+		</footer>
 
 		<script type="text/javascript" src="./assets/js/main.js"></script>
 		{% block scripts %}{% endblock %}
