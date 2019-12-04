@@ -125,8 +125,10 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('bs-init', function () {
-        browserSync({
-            proxy: 'http://lightning.local',
+        browserSync.init({
+            socket: {
+                domain: "localhost:3000"
+            }
         })
     });
 

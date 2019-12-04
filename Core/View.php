@@ -84,6 +84,7 @@ class View {
             $twig->addGlobal('current_year', Date('Y'));
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
+            $twig->addGlobal('dev', Config::SHOW_ERRORS);
         }
 
         return $twig->render($template, $args);
