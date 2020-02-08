@@ -1,7 +1,7 @@
 <template>
     <div id="test">
-        <img src="../assets/img/logo.png" height="400" width="400" alt="Vue logo"/>
-        <img src="../assets/img/PlayStation-Vue-Logo.jpg" height="627" width="1200" alt="PS Vue logo"/>
+        <img src="/src/assets/img/logo.png" height="400" width="400" alt="Vue logo"/>
+        <img src="/src/assets/img/PlayStation-Vue-Logo.jpg" height="627" width="1200" alt="PS Vue logo"/>
 
         <p>
             <span :style="`color: ${color}`">
@@ -19,11 +19,11 @@
 </script>
 
 <style lang="scss" scoped>
-    p {
+    /*p {
         margin-bottom: 50px;
 
         span {
             color: $color-blue;
         }
-    }
+    }*/
 </style>

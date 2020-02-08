@@ -23,6 +23,11 @@ module.exports = {
   css: {
     sourceMap: true,
     extract: false,
+    loaderOptions: {
+      sass: {
+        prependData: `@import "@/scss/main";`
+      }
+    }
   },
 
   devServer: {
