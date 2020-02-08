@@ -28,7 +28,10 @@ html {
     font-size: rem($base-font-size);
     font-weight: normal;
     line-height: $base-line-height;
-    overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 a,

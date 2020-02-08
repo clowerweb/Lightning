@@ -1,6 +1,5 @@
 const path = require("path");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
-const whitelister = require("purgecss-whitelister");
 const glob = require("glob-all");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 
@@ -16,9 +15,10 @@ config = {
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: 'http://lightning.local/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : `${config.protocol}://${config.host}:${config.port}`,
   outputDir: 'public/assets',
   filenameHashing: false,
+  productionSourceMap: false,
 
   css: {
     sourceMap: true,
@@ -48,8 +48,15 @@ module.exports = {
       }),
       new FileManagerPlugin({
         onEnd: {
-          // Delete unnecessary index.html file
-          delete: ["./public/assets/index.html"],
+          // Delete unnecessary files
+          delete: [
+            "./public/assets/assets",
+            "./public/assets/.htaccess",
+            "./public/assets/favicon.ico",
+            "./public/assets/index.html",
+            "./public/assets/index.php",
+            "./public/assets/nginx-config.txt",
+          ],
         },
       }),
     ],
