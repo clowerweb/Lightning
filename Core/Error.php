@@ -6,7 +6,6 @@ namespace Core;
 
 use \Exception;
 use \ErrorException;
-use App\Config;
 
 /**
  * Error class
@@ -50,7 +49,7 @@ class Error {
 
 		http_response_code($code);
 
-		if(Config::SHOW_ERRORS) {
+		if(getenv('SHOW_ERRORS')) {
 			echo '<h1>Fatal error</h1>';
 			echo '<p>Uncaught exception: "' . get_class($exception) . '"</p>';
 			echo '<p>Message: "' . $exception->getMessage() . '"</p>';

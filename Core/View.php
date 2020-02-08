@@ -3,7 +3,6 @@
 namespace Core;
 
 use \Exception;
-use App\Config;
 use App\Flash;
 use App\Models\Settings;
 use App\Auth;
@@ -63,13 +62,13 @@ class View {
                 }
             }
 
-            if(Config::TEMPLATE_CACHING) {
-                $opts['cache'] = dirname(__DIR__) . $tpl_dir . Config::CACHE_DIRECTORY;
+            if(getenv('TEMPLATE_CACHING')) {
+                $opts['cache'] = dirname(__DIR__) . $tpl_dir . getenv('CACHE_DIRECTORY');
             }
 
             $twig = new Environment($loader, $opts);
 
-            if(Config::SHOW_ERRORS) {
+            if(getenv('SHOW_ERRORS')) {
                 $opts['debug'] = true;
                 $twig->addExtension(new DebugExtension());
             }
@@ -83,7 +82,7 @@ class View {
             $twig->addGlobal('current_year', Date('Y'));
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
-            $twig->addGlobal('dev', Config::SHOW_ERRORS);
+            $twig->addGlobal('dev', getenv('SHOW_ERRORS'));
         }
 
         return $twig->render($template, $args);

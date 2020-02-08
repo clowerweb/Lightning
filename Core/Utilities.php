@@ -9,7 +9,6 @@ use \DateTimeZone;
 use \Exception;
 use \HTMLPurifier;
 use \HTMLPurifier_Config;
-use App\Config;
 
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
@@ -487,12 +486,12 @@ class Utilities extends Model {
 	}
 
 	/**
-	 * Purges the template cache (directory defined in App\Config.php)
+	 * Purges the template cache (directory defined in .env)
 	 *
 	 * @return void
 	 */
 	public static function purgeTemplateCache() {
-		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
+		$dir = static::getAbsRoot() . getenv('CACHE_DIRECTORY');
 
 		static::emptyFolder($dir);
 	}

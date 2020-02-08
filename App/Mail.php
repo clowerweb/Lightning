@@ -24,9 +24,9 @@ class Mail {
 		// Unique boundary
 		$boundary = md5(uniqid() . microtime());
 		// Add From: header
-		$headers  = "From: " . Config::MAIL_FROM_NAME . " <" . Config::MAIL_FROM_EMAIL . ">\r\n";
+		$headers  = "From: " . getenv('MAIL_FROM_NAME') . " <" . getenv('MAIL_FROM_EMAIL') . ">\r\n";
 		// Reply to address
-		$headers .= "Reply-to: " . Config::MAIL_REPLY_TO . "\r\n";
+		$headers .= "Reply-to: " . getenv('MAIL_REPLY_TO') . "\r\n";
 		// Specify MIME version 1.0
 		$headers .= "MIME-Version: 1.0\r\n";
 		// Tell e-mail client this e-mail contains alternate versions

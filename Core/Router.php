@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Core;
 
 use \Exception;
-use App\Config;
 
 /**
  * Router class
@@ -49,7 +48,7 @@ class Router {
 		$new   = rtrim($url, '/');
 		$rchar = substr($url, -1);
 
-		if(!Utilities::isEmpty($url) && Config::USE_URL_TRAILING_SLASH && $rchar !== '/') {
+		if(!Utilities::isEmpty($url) && getenv('USE_URL_TRAILING_SLASH') && $rchar !== '/') {
 			// redirect to url with /
 			$url = $url . '/';
 			header('Location: ' . Utilities::getDomain() . '/' . $url, true, 301);
