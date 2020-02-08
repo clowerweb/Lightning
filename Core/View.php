@@ -62,13 +62,13 @@ class View {
                 }
             }
 
-            if(getenv('TEMPLATE_CACHING')) {
+            if(strtolower(getenv('TEMPLATE_CACHING')) === 'true') {
                 $opts['cache'] = dirname(__DIR__) . $tpl_dir . getenv('CACHE_DIRECTORY');
             }
 
             $twig = new Environment($loader, $opts);
 
-            if(getenv('SHOW_ERRORS')) {
+            if(strtolower(getenv('ENVIRONMENT')) !== 'production') {
                 $opts['debug'] = true;
                 $twig->addExtension(new DebugExtension());
             }
@@ -82,7 +82,7 @@ class View {
             $twig->addGlobal('current_year', Date('Y'));
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
-            $twig->addGlobal('dev', getenv('SHOW_ERRORS'));
+            $twig->addGlobal('dev', strtolower(getenv('ENVIRONMENT')) === 'dev');
         }
 
         return $twig->render($template, $args);
