@@ -7,36 +7,36 @@
 		<title>{% block title %}{% endblock %}</title>
 	</head>
 	<body class="{{ body_class }}">
-		<a href="#main" class="sr">Skip to content</a>
+		<div id="app">
+			<a href="#main" class="sr">Skip to content</a>
 
-		{% if flash_messages is not empty %}
-			<div class="container">
-				{% for message in flash_messages %}
-					<div class="alert alert-{{ message.type }}" role="alert">
-						{{ message.body|raw }}
-					</div>
-				{% endfor %}
-			</div>
-		{% endif %}
+			{% if flash_messages is not empty %}
+				<section id="flash-messages" class="container">
+					{% for message in flash_messages %}
+						<div class="alert alert-{{ message.type }}" role="alert">
+							{{ message.body|raw }}
+						</div>
+					{% endfor %}
+				</section>
+			{% endif %}
 
-		<header id="header">
-			{% block header %}{% endblock %}
-		</header>
+			<header id="header">
+				{% block header %}{% endblock %}
+			</header>
 
-		<main id="main">
-			<div id="app">
-				{% block body %}{% endblock %}
-			</div>
-		</main>
+			<main id="main">
+					{% block body %}{% endblock %}
+			</main>
 
-		<footer id="footer">
-			{% block footer %}{% endblock %}
-		</footer>
+			<footer id="footer">
+				{% block footer %}{% endblock %}
+			</footer>
+		</div>
 
-		<script type="module" src="{{ base_url }}/assets/js/app.js"></script>
-		<script nomodule src="{{ base_url }}/assets/js/app-legacy.js"></script>
-		<script type="module" src="{{ base_url }}/assets/js/chunk-vendors.js"></script>
-		<script nomodule src="{{ base_url }}/assets/js/chunk-vendors-legacy.js"></script>
+		<script type="module" src="http://localhost:8080/js/app.js"></script>
+		<script nomodule src="http://localhost:8080/js/app-legacy.js"></script>
+		<script type="module" src="http://localhost:8080/js/chunk-vendors.js"></script>
+		<script nomodule src="http://localhost:8080/js/chunk-vendors-legacy.js"></script>
 		{% block scripts %}{% endblock %}
 	</body>
 </html>
