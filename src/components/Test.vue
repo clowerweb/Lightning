@@ -1,7 +1,13 @@
 <template>
-    <p>
-        <span><slot></slot></span> module hot reloaded!!
-    </p>
+    <div id="test">
+        <img src="../assets/img/PlayStation-Vue-Logo.jpg" height="627" width="1200" alt="PS Vue logo"/>
+
+        <p>
+            <span :style="`color: ${color}`">
+                <slot></slot>
+            </span> module hot reloaded!!
+        </p>
+    </div>
 </template>
 
 <script>

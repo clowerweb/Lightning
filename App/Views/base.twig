@@ -5,7 +5,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>{% block title %}{% endblock %}</title>
-		<link rel="stylesheet" type="text/css" href="{{ base_url }}/assets/css/app.css"/>
 	</head>
 	<body class="{{ body_class }}">
 		<a href="#main" class="sr">Skip to content</a>
@@ -34,10 +33,10 @@
 			{% block footer %}{% endblock %}
 		</footer>
 
-		<script type="module" src="http://localhost:8080/js/app.js"></script>
-		<script nomodule src="http://localhost:8080/js/app-legacy.js"></script>
-		<script type="module" src="http://localhost:8080/js/chunk-vendors.js"></script>
-		<script nomodule src="http://localhost:8080/js/chunk-vendors-legacy.js"></script>
+		<script type="module" src="{{ base_url }}/assets/js/app.js"></script>
+		<script nomodule src="{{ base_url }}/assets/js/app-legacy.js"></script>
+		<script type="module" src="{{ base_url }}/assets/js/chunk-vendors.js"></script>
+		<script nomodule src="{{ base_url }}/assets/js/chunk-vendors-legacy.js"></script>
 		{% block scripts %}{% endblock %}
 	</body>
 </html>

@@ -16,12 +16,13 @@ config = {
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: 'http://localhost:8080/',
+  publicPath: 'http://lightning.local/',
   outputDir: 'public/assets',
   filenameHashing: false,
 
   css: {
     sourceMap: true,
+    extract: false,
   },
 
   devServer: {
