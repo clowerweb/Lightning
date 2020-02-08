@@ -47,7 +47,7 @@ class View {
             $opts       = [];
             $settings   = Settings::getSettings();
             $domain     = Utilities::getDomain();
-            $dev        = strtolower(getenv('ENVIRONMENT')) !== 'production';
+            $dev        = strtolower(getenv('ENVIRONMENT')) !== 'prod';
             $assets_url = $dev ? 'http://localhost:8080' : $domain . '/assets';
             $tpl_dir    = '/App/Views/';
             $loader     = new FilesystemLoader(dirname(__DIR__) . $tpl_dir);
