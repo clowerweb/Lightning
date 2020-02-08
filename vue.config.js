@@ -15,7 +15,7 @@ config = {
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: process.env.NODE_ENV === 'production' ? '/' : `${config.protocol}://${config.host}:${config.port}`,
+  publicPath: process.env.NODE_ENV === 'production' ? '/assets' : `${config.protocol}://${config.host}:${config.port}`,
   outputDir: 'public/assets',
   filenameHashing: false,
   productionSourceMap: false,
