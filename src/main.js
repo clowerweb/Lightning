@@ -1,6 +1,6 @@
+import "./scss/main.scss";
 import Vue from "vue";
 import Components from "./components";
-import "./app.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 

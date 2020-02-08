@@ -1,6 +1,6 @@
 <template>
     <p>
-        <span :style="`color: ${color}`"><slot></slot></span> module hot reloaded!!
+        <span><slot></slot></span> module hot reloaded!!
     </p>
 </template>
 
@@ -12,13 +12,13 @@
 </script>
 
 <style lang="scss" scoped>
-    $color: green;
+    @import "../scss/main";
 
     p {
         margin-bottom: 50px;
 
         span {
-            color: $color;
+            color: $color-blue;
         }
     }
 </style>

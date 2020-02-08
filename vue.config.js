@@ -12,15 +12,6 @@ config = {
   host: "localhost",
   port: 8080,
   watchDir: "App/Views",
-  // Whitelist selectors to stop purgecss from removing them from your CSS
-  // You can pass in whole stylesheets to whitelist everything from thirdparty libs
-  // Accepts string paths, array of strings, globby strings, or array of globby strings:
-  // ['./node_modules/lib1/*.css', './node_modules/lib2/*.scss']
-  purgecssWhitelist: [],
-  // Whitelist based on a regular expression.
-  // Ex: [/red$/] (selectors ending in 'red' will remain)
-  // https://www.purgecss.com/whitelisting
-  purgecssWhitelistPatterns: [],
 };
 
 module.exports = {
@@ -48,12 +39,11 @@ module.exports = {
     plugins: [
       new PurgecssPlugin({
         paths: glob.sync([
+          path.join(__dirname, "./src/**/*.scss"),
           path.join(__dirname, "./App/Views/**/*.twig"),
           path.join(__dirname, "./src/**/*.vue"),
           path.join(__dirname, "./src/**/*.js"),
         ]),
-        whitelist: whitelister(config.purgecssWhitelist),
-        whitelistPatterns: config.purgecssWhitelistPatterns,
       }),
       new FileManagerPlugin({
         onEnd: {

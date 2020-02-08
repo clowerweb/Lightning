@@ -1,7 +1,7 @@
 {
   "name": "@clowerweb/lightning",
   "version": "2.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "vue-cli-service build --modern",
     "dev": "vue-cli-service serve"
