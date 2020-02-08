@@ -5,7 +5,6 @@
 *.7z
 *.gz
 *.tar
-*.lock
 *.env
 App/config.php
 logs/*
