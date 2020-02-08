@@ -1,0 +1,16 @@
+{% extends "base.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block header %}
+	<h1>Welcome to {{ settings.site_name }}</h1>
+{% endblock %}
+
+{% block body %}
+	<p>Thanks for using Lightning!!</p>
+	<test :color="'red'">{{ settings.site_name }}</test>
+{% endblock %}
+
+{% block footer %}
+	<p>{{ settings.site_tagline }}</p>
+{% endblock %}

@@ -1,19 +1,34 @@
 {
-    "name": "Lightning",
-    "version": "1.0.0",
-    "private": true,
-    "devDependencies": {
-        "browser-sync": "^2.26.7",
-        "grunt": "^1.0.4",
-        "grunt-autoprefixer": "^3.0.4",
-        "grunt-contrib-concat": "^1.0.1",
-        "grunt-contrib-cssmin": "^3.0.0",
-        "grunt-contrib-sass": "^1.0.0",
-        "grunt-contrib-uglify": "^4.0.1",
-        "grunt-contrib-watch": "^1.1.0",
-        "grunt-notify": "^0.4.5"
-    },
-    "dependencies": {
-        "grunt-contrib-uglify-es": "github:gruntjs/grunt-contrib-uglify#harmony"
-    }
+  "name": "@clowerweb/lightning",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build --modern",
+    "dev": "vue-cli-service serve"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.2",
+    "@vue/cli-service": "^4.1.2",
+    "babel-preset-vue": "^2.0.2",
+    "dotenv": "^8.2.0",
+    "filemanager-webpack-plugin": "^2.0.5",
+    "glob-all": "^3.1.0",
+    "node-sass": "^4.13.1",
+    "purgecss-webpack-plugin": "^2.0.5",
+    "purgecss-whitelister": "^2.4.0",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "core-js": "^3.6.4",
+    "vue": "^2.6.11",
+    "vue-axios": "^2.1.5",
+    "lodash": "^4.17.15"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }

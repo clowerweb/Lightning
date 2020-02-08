@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="{{ base_url }}/assets/css/app.css"/>
+	</head>
+	<body class="{{ body_class }}">
+		<a href="#main" class="sr">Skip to content</a>
+
+		{% if flash_messages is not empty %}
+			<div class="container">
+				{% for message in flash_messages %}
+					<div class="alert alert-{{ message.type }}" role="alert">
+						{{ message.body|raw }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<header id="header">
+			{% block header %}{% endblock %}
+		</header>
+
+		<main id="main">
+			<div id="app">
+				{% block body %}{% endblock %}
+			</div>
+		</main>
+
+		<footer id="footer">
+			{% block footer %}{% endblock %}
+		</footer>
+
+		<script type="module" src="http://localhost:8080/js/app.js"></script>
+		<script nomodule src="http://localhost:8080/js/app-legacy.js"></script>
+		<script type="module" src="http://localhost:8080/js/chunk-vendors.js"></script>
+		<script nomodule src="http://localhost:8080/js/chunk-vendors-legacy.js"></script>
+		{% block scripts %}{% endblock %}
+	</body>
+</html>

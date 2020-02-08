@@ -47,7 +47,7 @@ class View {
         if($twig === null) {
             $opts       = [];
             $settings   = Settings::getSettings();
-            $tpl_dir    = '/App/Views/templates/' .  $settings['site_theme'];
+            $tpl_dir    = '/App/Views/';
             $loader     = new FilesystemLoader(dirname(__DIR__) . $tpl_dir);
             $uri_path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $segments   = explode('/', $uri_path);
@@ -78,7 +78,6 @@ class View {
             $twig->addGlobal('flash_messages', Flash::getMessages());
             $twig->addGlobal('uri', Utilities::getURI());
             $twig->addGlobal('base_url', Utilities::getDomain());
-            $twig->addGlobal('template_dir', str_replace('/public', '', $tpl_dir));
             $twig->addGlobal('settings', $settings);
             $twig->addGlobal('body_class', $body_class);
             $twig->addGlobal('current_year', Date('Y'));
