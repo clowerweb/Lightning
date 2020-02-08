@@ -46,6 +46,9 @@ class View {
         if($twig === null) {
             $opts       = [];
             $settings   = Settings::getSettings();
+            $domain     = Utilities::getDomain();
+            $dev        = strtolower(getenv('ENVIRONMENT')) !== 'production';
+            $assets_url = $dev ? 'http://localhost:8080' : $domain . '/assets';
             $tpl_dir    = '/App/Views/';
             $loader     = new FilesystemLoader(dirname(__DIR__) . $tpl_dir);
             $uri_path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -68,21 +71,24 @@ class View {
 
             $twig = new Environment($loader, $opts);
 
-            if(strtolower(getenv('ENVIRONMENT')) !== 'production') {
+            if($dev) {
                 $opts['debug'] = true;
                 $twig->addExtension(new DebugExtension());
             }
 
+
+
             $twig->addGlobal('user', Auth::getUser());
             $twig->addGlobal('flash_messages', Flash::getMessages());
             $twig->addGlobal('uri', Utilities::getURI());
-            $twig->addGlobal('base_url', Utilities::getDomain());
+            $twig->addGlobal('base_url', $domain);
+            $twig->addGlobal('assets_url', $assets_url);
             $twig->addGlobal('settings', $settings);
             $twig->addGlobal('body_class', $body_class);
             $twig->addGlobal('current_year', Date('Y'));
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
-            $twig->addGlobal('dev', strtolower(getenv('ENVIRONMENT')) === 'dev');
+            $twig->addGlobal('dev', $dev);
         }
 
         return $twig->render($template, $args);
