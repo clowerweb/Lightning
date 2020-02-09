@@ -93,16 +93,15 @@ form {
       margin-right: rem(15);
     }
 
-    input:not([type="checkbox"]),
-    input:not([type="radio"]),
-    input:not([type="button"]),
-    input:not([type="radio"]),
+    input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),
     select,
     textarea {
       border: rem(1) solid $color-gray-l;
       border-radius: rem(4);
+      max-width: 100%;
       padding: rem(5) rem(10);
       transition: all $speed-fast;
+      width: rem(290);
     }
 
   }
