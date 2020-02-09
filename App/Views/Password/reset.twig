@@ -1,12 +1,14 @@
 {% extends "base.twig" %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Reset Your Password{% endblock %}
 
 {% block body %}
 	<div class="container">
-		<h2>Reset your password</h2>
+		<h3 class="page-title">Reset your password</h3>
+
 		{% if user.errors is not empty %}
 			<p><strong>Errors:</strong></p>
+
 			<ul>
 				{% for error in user.errors %}
 					<li>{{ error }}</li>
@@ -16,30 +18,15 @@
 
 		<form id="reset-password" method="post" action="/password/reset-password">
 			<input type="hidden" id="token" name="token" value="{{ token }}" />
+
 			<div class="form-group">
 				<label for="password">New password:</label>
 				<input type="password" id="password" class="form-control" name="password" placeholder="Password" autofocus required />
 			</div>
-			<button type="submit" class="btn btn-default">Reset password</button>
+
+			<button type="submit" class="btn btn-primary">Reset password</button>
 		</form>
 	</div>
 {% endblock %}
 
-{% block scripts %}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="{{ template_dir }}/js/bootstrap-show-password.min.js"></script>
-<script type="text/javascript" src="{{ template_dir }}/js/forms.js"></script>
-<script type="text/javascript">
-$(function() {
-	$('#reset-password').validate({
-		rules: {
-			password: {
-				required: true,
-				minlength: 6,
-				validPassword: true
-			}
-		}
-	});
-});
-</script>
-{% endblock %}
+{% block scripts %}{% endblock %}

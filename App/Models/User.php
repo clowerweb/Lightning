@@ -27,6 +27,7 @@ class User extends Model {
     public $expire;
     public $registered_date;
     public $name;
+    public $role;
     // Private properties
     private $password_reset_token;
     private $password_reset_expiry;
@@ -56,6 +57,7 @@ class User extends Model {
 				`id`,
 				`name`,
 				`email`,
+				`role`,
 				`is_active`,
 				`registered_date`
 			FROM
@@ -210,6 +212,7 @@ class User extends Model {
 				`password_reset_expiry`,
 				`activation_hash`,
 				`resend_token`,
+				`role`,
 				`is_active`,
 				`registered_date`
 			FROM
@@ -266,6 +269,7 @@ class User extends Model {
 				`password_reset_expiry`,
 				`activation_hash`,
 				`resend_token`,
+				`role`,
 				`is_active`,
 				`registered_date`
 			FROM
@@ -408,6 +412,7 @@ class User extends Model {
 				`password_reset_hash`,
 				`password_reset_expiry`,
 				`activation_hash`,
+				`role`,
 				`resend_token`,
 				`is_active`
 			FROM
@@ -567,6 +572,7 @@ class User extends Model {
 				`password_reset_expiry`,
 				`activation_hash`,
 				`resend_token`,
+				`role`,
 				`is_active`
 			FROM
 				`users`

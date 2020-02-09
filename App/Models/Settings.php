@@ -21,7 +21,6 @@ class Settings extends Model {
 			SELECT
 				`site_name`,
 				`site_tagline`,
-				`site_theme`,
 				`allow_registration`,
 				`default_timezone`
 			FROM
@@ -51,7 +50,6 @@ class Settings extends Model {
 			SET
 				`site_name`          = :site_name,
 				`site_tagline`       = :site_tagline,
-				`site_theme`         = :site_theme,
 				`allow_registration` = :allow_registration,
 				`default_timezone`   = :default_timezone
 			WHERE
@@ -63,7 +61,6 @@ class Settings extends Model {
 
 		$stmt->bindValue(':site_name',          $data['site_name'],        PDO::PARAM_STR);
 		$stmt->bindValue(':site_tagline',       $data['site_tagline'],     PDO::PARAM_STR);
-		$stmt->bindValue(':site_theme',         $data['site_theme'],       PDO::PARAM_STR);
 		$stmt->bindValue(':allow_registration', $allow_registration,       PDO::PARAM_INT);
 		$stmt->bindValue(':default_timezone',   $data['default_timezone'], PDO::PARAM_STR);
 

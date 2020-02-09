@@ -35,8 +35,4 @@ $dotenv->load();
 /**
  * Routing
  */
-try {
-    Routes::addRoutes();
-} catch (Exception $e) {
-    echo $e;
-}
+Routes::addRoutes();

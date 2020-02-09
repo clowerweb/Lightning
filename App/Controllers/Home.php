@@ -20,13 +20,19 @@ class Home extends Controller {
     private $user;
 
     public function before(): void {
-        $this->user = Auth::getUser();
+    	// Uncomment this if this application requires registered users to access
+        /*$this->user = Auth::getUser();
 
         if(! $this->user || ! $this->user->role == '1') {
-            Flash::addMessage("Please sign in.", Flash::INFO);
+        	if(! $this->user) {
+				Flash::addMessage("Please sign in.", Flash::INFO);
+			} else if(! $this->user->role == '1') {
+				Flash::addMessage("You don't have permission to do that.", Flash::INFO);
+			}
+
             Auth::rememberRequestedPage();
             Utilities::redirect('/login');
-        }
+        }*/
     }
 
 	/**

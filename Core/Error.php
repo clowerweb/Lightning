@@ -25,7 +25,7 @@ class Error {
 	 *
 	 * @return void
 	 */
-	public static function errorHandler(int $level, string $message, string $file, int $line) {
+	public static function errorHandler(int $level, string $message, string $file, int $line): void {
 		if(error_reporting() !== 0) {
 			throw new ErrorException($message, 0, $level, $file, $line);
 		}
@@ -40,7 +40,7 @@ class Error {
 	 *
 	 * @return void
 	 */
-	public static function exceptionHandler(object $exception) {
+	public static function exceptionHandler(object $exception): void {
 		$code = $exception->getCode();
 
 		if($code !== 404) {
@@ -55,22 +55,10 @@ class Error {
 			echo '<p>Message: "' . $exception->getMessage() . '"</p>';
 			echo '<p>Stack trace: <pre>' . static::getFullException($exception) . '</pre></p>';
 			echo '<p>Thrown in "' . $exception->getFile() . '" on line ' . $exception->getLine() . '</p>';
+
+			static::logErrors($exception);
 		} else {
-			$dir = dirname(__DIR__) . '/logs';
-			$log = $dir . '/' . date('Y-m-d') . '.txt';
-
-			if(!file_exists($dir)) {
-				mkdir($dir, 0777, true);
-			}
-
-			ini_set('error_log', $log);
-
-			$message  = 'Uncaught exception: "' . get_class($exception) . '"';
-			$message .= ' with message "'   . $exception->getMessage() . '"';
-			$message .= "\r\nStack trace: " . static::getFullException($exception);
-			$message .= "\r\nThrown in \""  . $exception->getFile() . "\" on line " . $exception->getLine();
-
-			error_log($message . "\r\n\r\n");
+            static::logErrors($exception);
 			View::renderTemplate("$code.twig");
 		}
 	}
@@ -82,7 +70,7 @@ class Error {
 	 *
 	 * @return string - the message
 	 */
-	private static function getFullException(object $exception) : string {
+	private static function getFullException(object $exception): string {
 		$result = '';
 		$errors = $exception->getTrace();
 
@@ -114,4 +102,29 @@ class Error {
 
 		return $result;
 	}
+
+    /**
+     * Logs the errors
+     *
+     * @param object $exception - the exception
+     *
+     * @return void
+     */
+	private static function logErrors(object $exception): void {
+        $dir = dirname(__DIR__) . '/logs';
+        $log = $dir . '/' . date('Y-m-d') . '.txt';
+
+        if(!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        ini_set('error_log', $log);
+
+        $message  = 'Uncaught exception: "' . get_class($exception) . '"';
+        $message .= ' with message "'   . $exception->getMessage() . '"';
+        $message .= "\r\nStack trace: " . static::getFullException($exception);
+        $message .= "\r\nThrown in \""  . $exception->getFile() . "\" on line " . $exception->getLine();
+
+        error_log($message . "\r\n\r\n");
+    }
 }
