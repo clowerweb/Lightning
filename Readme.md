@@ -10,10 +10,11 @@ Lightning aims to be a blazing fast and lightweight PHP MVC framework, implement
 
 **Installing**
 
-* Download or clone the repo
-* Open a command line, `cd` to the project directory, and run `composer install`
-* Rename `.env.example` to `.env` and input your server configuration and preferences
-* Run `npm install` and `composer install`
+1. Download or clone the repo
+2. Open a command line, `cd` to the project directory, and run `composer install`
+3. Rename `.env.example` to `.env` and input your server configuration and preferences
+4. Run `npm install` and `composer install`
+5. Import the database from the `_dev` folder
 
 All settings are found in `.env` and should be relatively straightforward.
 
