@@ -16,7 +16,7 @@ a:visited {
   &:focus,
   &:hover,
   &:target {
-    color: $color-blue-l;
+    color: $color-blue-d;
   }
 
 }
@@ -49,6 +49,60 @@ a:visited {
     background-color: $color-red-l;
     border-color: $color-red;
     color: $color-red;
+  }
+
+}
+
+.page-title {
+  margin-bottom: rem(30);
+}
+
+form {
+
+  > div {
+
+    margin-bottom: rem(15);
+
+    label {
+      font-weight: 700;
+      margin-right: rem(15);
+    }
+
+    input:not([type="checkbox"]),
+    input:not([type="radio"]),
+    input:not([type="button"]),
+    input:not([type="radio"]),
+    select,
+    textarea {
+      border: rem(1) solid $color-gray-l;
+      border-radius: rem(4);
+      padding: rem(5) rem(10);
+      transition: all $speed-fast;
+    }
+
+  }
+
+}
+
+.btn {
+
+  border: rem(1) solid transparent;
+  border-radius: rem(4);
+  padding: rem(5) rem(10);
+
+  &-primary {
+
+    background-color: $color-blue;
+    border-color: $color-blue-l;
+    color: $color-white;
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:target {
+      background-color: $color-blue-d;
+    }
+
   }
 
 }

@@ -3,14 +3,14 @@ $color-black:    #000;
 
 $color-gray:     #aaa;
 $color-gray-d:   darken($color-gray, 47%);
-$color-gray-l:   lighten($color-gray, 35%);
+$color-gray-l:   lighten($color-gray, 20%);
 
 $color-green:    #004000;
 $color-green-d:  darken($color-green, 35%);
 $color-green-l:  lighten($color-green, 80%);
 
 $color-blue:     #00a3d9;
-$color-blue-d:   darken($color-blue, 35%);
+$color-blue-d:   darken($color-blue, 12%);
 $color-blue-l:   lighten($color-blue, 50%);
 
 $color-purple:   #d900d9;

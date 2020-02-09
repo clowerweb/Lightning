@@ -23,7 +23,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn">Log in</button> <a href="/password/forgot">Forgot password?</a>
+            <button type="submit" class="btn btn-primary">Log in</button> <a href="/password/forgot">Forgot password?</a>
         </form>
     </div>
 </template>
@@ -34,3 +34,9 @@
         props: ['allow_registration', 'email', 'remembered']
     };
 </script>
+
+<style lang="scss" scoped>
+    button[type="submit"] {
+        margin-right: rem(15);
+    }
+</style>
