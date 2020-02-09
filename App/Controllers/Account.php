@@ -7,7 +7,6 @@ namespace App\Controllers;
 use App\Auth;
 use App\Models\User;
 use App\Flash;
-use App\Token;
 use Core\Controller;
 use Core\Utilities;
 use Core\View;
