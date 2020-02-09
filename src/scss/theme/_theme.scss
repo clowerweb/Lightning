@@ -1,0 +1,22 @@
+body {
+  padding-top: rem(102);
+}
+
+p {
+  margin-bottom: rem(30);
+}
+
+a,
+a:link,
+a:visited {
+
+  color: $color-blue;
+
+  &:active,
+  &:focus,
+  &:hover,
+  &:target {
+    color: $color-blue-l;
+  }
+
+}

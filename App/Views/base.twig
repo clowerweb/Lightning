@@ -20,7 +20,11 @@
 				</section>
 			{% endif %}
 
-			<page-header :site_name="{{ settings.site_name|json_encode }}" :user="{{ curruser|json_encode }}"></page-header>
+			<page-header
+				:site_name="{{ site_name|json_encode }}"
+				:site_tagline="{{ site_tagline|json_encode }}"
+				:user="{{ curruser|json_encode }}">
+			</page-header>
 
 			<main id="main">
 				{% block body %}{% endblock %}

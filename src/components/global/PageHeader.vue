@@ -5,7 +5,9 @@
                 <a href="/">{{ site_name }}</a>
             </h1>
 
-            <nav role="navigation">
+            <h2 v-if="site_tagline">{{ site_tagline }}</h2>
+
+            <nav role="navigation" class="text-right">
                 <ul>
                     <li v-if="user">
                         <a href="/logout">Log Out</a>
@@ -22,12 +24,42 @@
 <script>
     export default {
         name: 'page-header',
-        props: ['site_name', 'user']
+        props: ['site_name', 'site_tagline', 'user']
     };
 </script>
 
 <style scoped lang="scss">
     #header {
-        margin-bottom: rem(40);
+
+        background-color: $color-white;
+        box-shadow: 0 0 rem(10) rgba(0, 0, 0, 1);
+        left: 0;
+        max-width: 100%;
+        padding: rem(15) 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+
+        > .container {
+
+            align-items: center;
+            display: flex;
+
+            > h2 {
+                align-self: flex-end;
+                color: $color-gray;
+                font-size: rem(20);
+                margin-left: rem(20);
+            }
+
+            > nav {
+                flex: 1;
+                max-width: 100%;
+                width: 100%;
+            }
+
+        }
+
     }
 </style>

@@ -2,18 +2,20 @@
 
 {% block title %}Home{% endblock %}
 
-{% block header %}
-	<h1>Welcome to {{ settings.site_name }}</h1>
-{% endblock %}
-
 {% block body %}
-	<p>
-		Thanks for using Lightning!
-	</p>
+	<div class="text-center">
+		<im
+			:src="'logo.png'"
+			height="400"
+			width="400"
+			style="margin-bottom: 30px"
+			alt="Lightning logo">
+		</im>
+	</div>
 
-	<test :color="'red'">{{ settings.site_name }}</test>
+	<test>If this is blue, SCSS works!</test>
 {% endblock %}
 
 {% block footer %}
-	<p>{{ settings.site_tagline }}</p>
+	<p class="text-center">Powered by <a href="https://github.com/clowerweb/Lightning" target="_blank">Lightning</a></p>
 {% endblock %}
