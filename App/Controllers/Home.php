@@ -19,15 +19,15 @@ use Core\Controller;
 class Home extends Controller {
     private $user;
 
-    /*public function before() {
+    public function before(): void {
         $this->user = Auth::getUser();
 
         if(! $this->user || ! $this->user->role == '1') {
-            Flash::addMessage("You don't have permission to do that.", Flash::INFO);
+            Flash::addMessage("Please sign in.", Flash::INFO);
             Auth::rememberRequestedPage();
             Utilities::redirect('/login');
         }
-    }*/
+    }
 
 	/**
 	 * Show the index page

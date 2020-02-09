@@ -24,7 +24,7 @@ class Register extends Controller {
 	 *
 	 * @return void
 	 */
-	public function before() {
+	public function before(): void {
 		$this->settings = Settings::getSettings();
 
 		if(!$this->settings['allow_registration']) {
