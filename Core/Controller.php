@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Core;
 
+use App\Auth;
+use App\Flash;
 use \Exception;
 
 /**
@@ -46,12 +48,27 @@ abstract class Controller {
 	 *
 	 * @return void
 	 */
-	protected function before() {}
+	protected function before(): void {}
 
 	/**
 	 * After filter - called after an action method
 	 *
 	 * @return void
 	 */
-	protected function after() {}
+	protected function after(): void {}
+
+    /**
+     * Require the user to be logged in before giving access to the requested page.
+     * Remember the requested page for later, then redirect to the login page.
+     *
+     * @return void
+     */
+    public function requireLogin(): void {
+        if (! Auth::getUser()) {
+            Flash::addMessage('Please login to access that page', Flash::INFO);
+            Auth::rememberRequestedPage();
+
+            Utilities::redirect('/login', 303);
+        }
+    }
 }

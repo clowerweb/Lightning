@@ -19,7 +19,6 @@ class User extends Model {
     // Public properties
     public $errors = [];
     public $id;
-    public $username;
     public $password;
     public $email;
     public $terms;
@@ -50,7 +49,7 @@ class User extends Model {
      *
      * @return array
      */
-    public static function getAll() {
+    public static function getAll(): array {
         $db   = static::getDB();
         $stmt = $db->query("
 			SELECT
@@ -73,7 +72,7 @@ class User extends Model {
      *
      * @return boolean - true if user saved successfully, false if not
      */
-    public function save() {
+    public function save(): bool {
         $this->validate();
 
         if(empty($this->errors)) {
@@ -123,14 +122,14 @@ class User extends Model {
         return false;
     }
 
-    public static function updateProfile(int $user_id, array $data) : bool {
+    public static function updateProfile(int $user_id, array $data): bool {
         $sql = "
 			UPDATE
 				`users`
 			SET
-				`name`      = :name,
-				`email`     = :email,
-				`password`  = :password
+				`name`     = :name,
+				`email`    = :email,
+				`password` = :password
 			WHERE
 				`id` = :user_id
 		";
@@ -151,7 +150,7 @@ class User extends Model {
      *
      * @return void
      */
-    public function validate() : void {
+    public function validate(): void {
         if(filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errors[] = 'Invalid email.';
         }
@@ -181,7 +180,7 @@ class User extends Model {
      *
      * @return boolean - true if record exists, false if it's unique
      */
-    public static function emailExists(string $email, bool $ignore = null) {
+    public static function emailExists(string $email, bool $ignore = null): bool {
         $user = static::findByEmail($email);
 
         if($user) {
@@ -293,7 +292,7 @@ class User extends Model {
      *
      * @return boolean - true if the login was remembered, false if not
      */
-    public function rememberLogin() : bool {
+    public function rememberLogin(): bool {
         $token = new Token();
 
         $this->token  = $token->getValue();
@@ -330,7 +329,7 @@ class User extends Model {
      *
      * @return void
      */
-    public static function sendPasswordReset(string $email) {
+    public static function sendPasswordReset(string $email): void {
         $user = static::findByEmail($email);
 
         if($user) {
@@ -347,7 +346,7 @@ class User extends Model {
      *
      * @return boolean
      */
-    protected function startPasswordReset() : bool {
+    protected function startPasswordReset(): bool {
         $token = new Token();
         $this->password_reset_token = $token->getValue();
 
@@ -380,7 +379,7 @@ class User extends Model {
      *
      * @return void
      */
-    protected function sendPasswordResetEmail() : void {
+    protected function sendPasswordResetEmail(): void {
         $prefix = Utilities::isSSL() ? 'https://' : 'http://';
         $url    = $prefix . $_SERVER['HTTP_HOST'] . '/password/reset/' . $this->password_reset_token;
         $text   = View::getTemplate('Password/reset-email.txt',  ['url' => $url]);
@@ -440,7 +439,7 @@ class User extends Model {
      *
      * @return boolean - true if the update was successful, false if not
      */
-    public function resetPassword(string $password) : bool {
+    public function resetPassword(string $password): bool {
         $this->password = $password;
 
         $this->terms = true;
@@ -479,7 +478,7 @@ class User extends Model {
      *
      * @return boolean - true if mail sent, false if not
      */
-    public function sendActivationEmail() : bool {
+    public function sendActivationEmail(): bool {
         $prefix = Utilities::isSSL() ? 'https://' : 'http://';
         $url    = $prefix . $_SERVER['HTTP_HOST'] . '/register/activate/' . $this->activation_token;
         $text   = View::getTemplate('Register/activation-email.txt',  ['url' => $url]);
@@ -497,7 +496,7 @@ class User extends Model {
      *
      * @return integer - 1 activation successful, 0 if not
      */
-    public static function activate(string $value) : int {
+    public static function activate(string $value): int {
         $token = new Token($value);
 
         $sql = "
@@ -527,7 +526,7 @@ class User extends Model {
      *
      * @return boolean - true if the update succeeded, false if not
      */
-    public function updateActivationHash() : bool {
+    public function updateActivationHash(): bool {
         $token = new Token();
 
         $this->activation_token = $token->getValue();
