@@ -15,6 +15,7 @@ use \Exception;
  */
 abstract class Controller {
 	protected $route_params = [];
+	private $user;
 
 	public function __construct(array $route_params) {
 		$this->route_params = $route_params;
@@ -71,4 +72,25 @@ abstract class Controller {
             Utilities::redirect('/login', 303);
         }
     }
+
+	/**
+	 * Require the user to be logged in before giving access to the requested page.
+	 * Remember the requested page for later, then redirect to the login page.
+	 *
+	 * @return void
+	 */
+	public function requireAdmin(): void {
+		$this->user = Auth::getUser();
+
+		if(! $this->user || ! $this->user->role == '1') {
+			if(! $this->user) {
+				Flash::addMessage("Please sign in.", Flash::INFO);
+			} else if(! $this->user->role == '1') {
+				Flash::addMessage("You don't have permission to do that.", Flash::INFO);
+			}
+
+			Auth::rememberRequestedPage();
+			Utilities::redirect('/login');
+		}
+	}
 }
