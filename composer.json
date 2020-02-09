@@ -4,8 +4,9 @@
 		"ezyang/htmlpurifier": "^4.12",
 		"ext-pdo": "*",
 		"ext-iconv": "*",
-		"vlucas/phpdotenv": "^4.1"
-	},
+		"vlucas/phpdotenv": "^4.1",
+      	"ext-json": "*"
+    },
 	"autoload": {
 		"psr-4": {
 			"Core\\": "Core/",
