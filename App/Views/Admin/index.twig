@@ -1,0 +1,7 @@
+{% extends "admin-base.twig" %}
+
+{% block title %}Admin - {{ settings.site_name }}{% endblock %}
+
+{% block body %}
+    <settings-form :settings="{{ settings|json_encode }}"></settings-form>
+{% endblock %}
