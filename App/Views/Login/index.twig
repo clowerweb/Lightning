@@ -5,9 +5,13 @@
 {% block body %}
 	<div class="container">
 		<h3 class="page-title">Sign In</h3>
-		<p>
-			<strong>Don't have an account? <a href="/register">Register</a></strong>
-		</p>
+
+		{% if settings.allow_registration %}
+			<p>
+				<strong>Don't have an account? <a href="/register">Register</a></strong>
+			</p>
+		{% endif %}
+
 		<form method="post" action="/login">
 			<div>
 				<label for="email">Email address:</label>
