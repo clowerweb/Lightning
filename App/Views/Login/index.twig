@@ -3,35 +3,11 @@
 {% block title %}Sign In - {{ site_name }}{% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h3 class="page-title">Sign In</h3>
-
-		{% if settings.allow_registration %}
-			<p>
-				<strong>Don't have an account? <a href="/register">Register</a></strong>
-			</p>
-		{% endif %}
-
-		<form method="post" action="/login">
-			<div>
-				<label for="email">Email address:</label>
-				<input type="email" id="email" name="email" placeholder="Email address" value="{{ email }}" autofocus />
-			</div>
-
-			<div>
-				<label for="password">Password:</label>
-				<input type="password" id="password" name="password" placeholder="Password" />
-			</div>
-
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" name="remember_me" {% if remember %} checked="checked"{% endif %} /> Remember me
-				</label>
-			</div>
-
-			<button type="submit" class="btn">Log in</button> <a href="/password/forgot">Forgot password?</a>
-		</form>
-	</div>
+	<login-form
+		:allow_registration="{{ settings.allow_registration|json_encode }}"
+		:email="{{ email|json_encode }}"
+		:remembered="{{ remember|json_encode }}">
+	</login-form>
 {% endblock %}
 
 {% block scripts %}{% endblock %}
