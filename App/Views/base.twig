@@ -11,7 +11,7 @@
 			<a href="#main" class="sr">Skip to content</a>
 
 			{% if flash_messages is not empty %}
-				<section id="flash-messages" class="container">
+				<section class="container">
 					{% for message in flash_messages %}
 						<div class="alert alert-{{ message.type }}" role="alert">
 							{{ message.body|raw }}

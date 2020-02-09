@@ -50,7 +50,8 @@
                 align-self: flex-end;
                 color: $color-gray;
                 font-size: rem(20);
-                margin-left: rem(20);
+                margin-left: rem(15);
+                padding-bottom: rem(2);
             }
 
             > nav {
