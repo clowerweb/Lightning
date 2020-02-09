@@ -9,12 +9,11 @@ use \DateTimeZone;
 use \Exception;
 use \HTMLPurifier;
 use \HTMLPurifier_Config;
-use App\Config;
 
 /**
  * Utilities class. Has useful methods for getting/processing/validating/formatting data
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Utilities extends Model {
 	/**
@@ -125,11 +124,11 @@ class Utilities extends Model {
 	 *
 	 * @return void
 	 */
-	public function redirect(string $url, int $code = 303) {
-		$prefix = Utilities::isSSL() ? 'https://' : 'http://';
-		header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
-		exit;
-	}
+    public static function redirect(string $url, int $code = 303) {
+        $prefix = Utilities::isSSL() ? 'https://' : 'http://';
+        header('Location: ' . $prefix . $_SERVER['HTTP_HOST'] . $url, true, $code);
+        exit;
+    }
 
 	/**
 	 * Check if something is empty, blank, null, false, etc. Useful for making sure just about anything has a value
@@ -487,12 +486,12 @@ class Utilities extends Model {
 	}
 
 	/**
-	 * Purges the template cache (directory defined in App\Config.php)
+	 * Purges the template cache (directory defined in .env)
 	 *
 	 * @return void
 	 */
 	public static function purgeTemplateCache() {
-		$dir = static::getAbsRoot() . Config::CACHE_DIRECTORY;
+		$dir = static::getAbsRoot() . getenv('CACHE_DIRECTORY');
 
 		static::emptyFolder($dir);
 	}

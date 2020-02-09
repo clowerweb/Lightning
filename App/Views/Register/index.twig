@@ -1,0 +1,90 @@
+{% extends "base.twig" %}
+
+{% block title %}Register - {{ site_name }}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h3 class="page-title">Register</h3>
+
+		{% if user.errors is not empty %}
+			<p>Errors:</p>
+			<ul>
+				{% for error in user.errors %}
+					<li>{{ error }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		<p>
+			<strong>Already have an account? <a href="/login">Login</a></strong>
+		</p>
+
+		<form method="post" action="/register" id="form-register">
+			<div>
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" placeholder="Email" value="{{ user.email }}" required />
+			</div>
+
+			<div>
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" placeholder="Password" required />
+			</div>
+			<div id="password-error-container"></div>
+
+			<button type="submit" class="btn">Sign up</button>
+		</form>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js" integrity="sha256-F6h55Qw6sweK+t7SiOJX+2bpSAa3b/fnlrVCJvmEj1A=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+	$(function() {
+		$.validator.addMethod('validPassword',
+			function(value) {
+				if(value != '') {
+					if(value.match(/.*[a-z]+.*/i) == null) {
+						return false;
+					}
+
+					if(value.match(/.*\d+.*/) == null) {
+						return false;
+					}
+				}
+
+				return true;
+			},
+			'Must contain at least one letter and one number'
+		);
+
+		$('#form-register').validate({
+			rules: {
+				email: {
+					required: true,
+					email: true,
+					remote: '/account/validate-email'
+				},
+				password: {
+					required: true,
+					minlength: 6,
+					validPassword: true
+				}
+			},
+			messages: {
+				username: {
+					remote: 'That username is already in use'
+				},
+				email: {
+					remote: 'That email address is already in use'
+				}
+			},
+			errorPlacement: function(error, element) {
+				if(element.attr('name') === 'password')
+					error.appendTo('#password-error-container');
+				else
+					error.insertAfter(element);
+			}
+		});
+	});
+	</script>
+{% endblock %}

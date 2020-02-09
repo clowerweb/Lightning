@@ -6,12 +6,11 @@ namespace Core;
 
 use \Exception;
 use \ErrorException;
-use App\Config;
 
 /**
  * Error class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Error {
 	/**
@@ -41,7 +40,7 @@ class Error {
 	 *
 	 * @return void
 	 */
-	public static function exceptionHandler($exception) {
+	public static function exceptionHandler(object $exception) {
 		$code = $exception->getCode();
 
 		if($code !== 404) {
@@ -50,7 +49,7 @@ class Error {
 
 		http_response_code($code);
 
-		if(Config::SHOW_ERRORS) {
+		if(strtolower(getenv('ENVIRONMENT')) !== 'prod') {
 			echo '<h1>Fatal error</h1>';
 			echo '<p>Uncaught exception: "' . get_class($exception) . '"</p>';
 			echo '<p>Message: "' . $exception->getMessage() . '"</p>';
@@ -83,7 +82,7 @@ class Error {
 	 *
 	 * @return string - the message
 	 */
-	private static function getFullException($exception) : string {
+	private static function getFullException(object $exception) : string {
 		$result = '';
 		$errors = $exception->getTrace();
 

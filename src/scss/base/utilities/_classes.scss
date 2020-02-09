@@ -1,0 +1,66 @@
+.media-responsive {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    padding: 0 0 56.25%;
+    position: relative;
+
+    iframe,
+    embed,
+    object,
+    video {
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.sr {
+    border: 0;
+    height: rem(1);
+    left: rem(-99999);
+    margin: 0;
+    max-height: rem(1);
+    max-width: rem(1);
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: rem(1);
+}
+
+.container {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 rem(15);
+    width: 100%;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.hidden {
+    visibility: hidden !important;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}

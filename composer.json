@@ -1,9 +1,10 @@
 {
 	"require": {
-		"twig/twig": "^2.0",
-		"ezyang/htmlpurifier": "~4.10",
+		"twig/twig": "^3.0",
+		"ezyang/htmlpurifier": "^4.12",
 		"ext-pdo": "*",
-		"ext-iconv": "*"
+		"ext-iconv": "*",
+		"vlucas/phpdotenv": "^4.1"
 	},
 	"autoload": {
 		"psr-4": {

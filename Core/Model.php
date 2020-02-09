@@ -6,21 +6,20 @@ namespace Core;
 
 use \Exception;
 use \PDO;
-use App\Config;
 
 /**
  * Model class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 abstract class Model {
 	protected static function getDB() {
 		static $db = null;
 
 		if($db === null) {
-			$dsn  = 'mysql:host=' . Config::DB_HOST;
-			$dsn .= ';dbname='    . Config::DB_NAME . ';';
-			$db   = new PDO($dsn, Config::DB_USER, Config::DB_PASS);
+			$dsn  = 'mysql:host=' . getenv('DB_HOST');
+			$dsn .= ';dbname='    . getenv('DB_NAME') . ';';
+			$db   = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'));
 
 			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}

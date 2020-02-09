@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+session_start();
+
 use App\Routes;
 
 /**
@@ -24,9 +26,17 @@ error_reporting(E_ALL);
 set_error_handler('Core\Error::errorHandler');
 set_exception_handler('Core\Error::exceptionHandler');
 
+/*
+ * Dotnev
+ */
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
+$dotenv->load();
+
 /**
  * Routing
  */
-$router = new Core\Router();
-
-Routes::addRoutes($router);
+try {
+    Routes::addRoutes();
+} catch (Exception $e) {
+    echo $e;
+}

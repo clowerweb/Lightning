@@ -1,70 +1,95 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace Core;
 
 use \Exception;
-use \Twig;
-use App\Config;
 use App\Flash;
+use App\Models\Settings;
+use App\Auth;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 /**
  * View class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class View {
-	/**
-	 * Render a template
-	 *
-	 * @param string $template - The template file
-	 * @param array  $args     - Associative array of data to display in the view (optional)
-	 *
-	 * @throws Exception from Twig\Error
-	 *
-	 * @return void
-	 */
-	public static function renderTemplate(string $template, array $args = []) {
-		echo static::getTemplate($template, $args);
-	}
+    /**
+     * Render a template
+     *
+     * @param string $template - The template file
+     * @param array  $args - Associative array of data to display in the view (optional)
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public static function renderTemplate($template, $args = []) {
+        echo static::getTemplate($template, $args);
+    }
 
-	/**
-	 * Get the contents of a view template using Twig
-	 *
-	 * @param string $template - The template file
-	 * @param array  $args     - Associative array of data to display in the view (optional)
-	 *
-	 * @throws Exception from Twig\Error
-	 *
-	 * @return string - the Twig template
-	 */
-	public static function getTemplate(string $template, array $args = []) : string {
-		static $twig = null;
+    /**
+     * Get the contents of a view template using Twig
+     *
+     * @param string $template - The template file
+     * @param array  $args - Associative array of data to display in the view (optional)
+     *
+     * @throws Exception
+     *
+     * @return string - the Twig template
+     */
+    public static function getTemplate($template, $args = []) {
+        static $twig = null;
 
-		if($twig === null) {
-			$opts       = [];
-			$tpl_dir    = Config::TEMPLATE_DIR;
-			$loader     = new Twig\Loader\FilesystemLoader(dirname(__DIR__) . $tpl_dir);
-			$url        = ltrim(Utilities::getURI(), '/');
-			$body_class = str_replace('/', ' ', $url);
-			$body_class = $body_class ? $body_class : 'home';
-			$canonical  = rtrim(Utilities::getURL(), '/');
+        if($twig === null) {
+            $opts       = [];
+            $settings   = Settings::getSettings();
+            $domain     = Utilities::getDomain();
+            $dev        = strtolower(getenv('ENVIRONMENT')) !== 'prod';
+            $assets_url = $dev ? 'http://localhost:8080' : $domain . '/assets';
+            $tpl_dir    = '/App/Views/';
+            $loader     = new FilesystemLoader(dirname(__DIR__) . $tpl_dir);
+            $uri_path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $segments   = explode('/', $uri_path);
+            $body_class = '';
 
-			if(Config::TEMPLATE_CACHING) {
-				$opts['cache'] = Utilities::getAbsRoot() . Config::CACHE_DIRECTORY;
-			}
+            $opts['debug'] = $dev;
 
-			$twig = new Twig\Environment($loader, $opts);
+            foreach ($segments as $segment) {
+                if(Utilities::isEmpty($segments[1])) {
+                    $body_class = 'home';
+                }
 
-			$twig->addGlobal('flash', Flash::getMessages());
-			$twig->addGlobal('uri',   Utilities::getURI());
-			$twig->addGlobal('template_dir', str_replace('/public', '', $tpl_dir));
-			$twig->addGlobal('body_class', $body_class);
-			$twig->addGlobal('current_year', date('Y'));
-			$twig->addGlobal('canonical', $canonical);
-		}
+                if(!Utilities::isEmpty($segment)) {
+                    $body_class .= $segment . ' ';
+                }
+            }
 
-		return $twig->render($template, $args);
-	}
+            if(strtolower(getenv('TEMPLATE_CACHING')) === 'true') {
+                $opts['cache'] = dirname(__DIR__, 1) . getenv('CACHE_DIRECTORY');
+            }
+
+            $twig = new Environment($loader, $opts);
+
+            $twig->addGlobal('flash_messages', Flash::getMessages());
+            $twig->addGlobal('uri', Utilities::getURI());
+            $twig->addGlobal('base_url', $domain);
+            $twig->addGlobal('assets_url', $assets_url);
+            $twig->addGlobal('settings', $settings);
+            $twig->addGlobal('body_class', $body_class);
+            $twig->addGlobal('current_year', Date('Y'));
+            $twig->addGlobal('site_name', $settings['site_name']);
+            $twig->addGlobal('site_tagline', $settings['site_tagline']);
+            $twig->addGlobal('dev', $dev);
+            $twig->addGlobal('curruser', Auth::getUser());
+
+            if($dev) {
+                $twig->addExtension(new DebugExtension());
+            }
+        }
+
+        return $twig->render($template, $args);
+    }
 }

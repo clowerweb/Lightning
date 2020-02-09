@@ -1,0 +1,33 @@
+{% extends "base.twig" %}
+
+{% block title %}Sign In - {{ site_name }}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h3 class="page-title">Sign In</h3>
+		<p>
+			<strong>Don't have an account? <a href="/register">Register</a></strong>
+		</p>
+		<form method="post" action="/login">
+			<div>
+				<label for="email">Email address:</label>
+				<input type="email" id="email" name="email" placeholder="Email address" value="{{ email }}" autofocus />
+			</div>
+
+			<div>
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" placeholder="Password" />
+			</div>
+
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="remember_me" {% if remember %} checked="checked"{% endif %} /> Remember me
+				</label>
+			</div>
+
+			<button type="submit" class="btn">Log in</button> <a href="/password/forgot">Forgot password?</a>
+		</form>
+	</div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

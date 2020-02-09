@@ -1,0 +1,7 @@
+//---
+// Convert pixels to ems.
+// @param $px-size		Target size in px
+//---
+@function em($pixels, $context: $base-font-size) {
+  @return #{ $pixels / $context }em;
+}

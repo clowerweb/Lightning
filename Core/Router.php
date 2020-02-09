@@ -5,12 +5,11 @@ declare(strict_types = 1);
 namespace Core;
 
 use \Exception;
-use App\Config;
 
 /**
  * Router class
  *
- * PHP version 7.1
+ * PHP version 7.2
  */
 class Router {
 	// Associative array of routes
@@ -28,8 +27,8 @@ class Router {
 	 */
 	public function add(string $route, array $params = []) {
 		$route = preg_replace('/\//', '\\/', $route);
-		$route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
-		$route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
+		$route = preg_replace('/{([a-z]+)}/', '(?P<\1>[a-z-]+)', $route);
+		$route = preg_replace('/{([a-z]+):([^}]+)}/', '(?P<\1>\2)', $route);
 		$route = '/^' . $route . '$/i';
 
 		$this->routes[$route] = $params;
@@ -49,7 +48,7 @@ class Router {
 		$new   = rtrim($url, '/');
 		$rchar = substr($url, -1);
 
-		if(!Utilities::isEmpty($url) && Config::USE_URL_TRAILING_SLASH && $rchar !== '/') {
+		if(!Utilities::isEmpty($url) && strtolower(getenv('USE_URL_TRAILING_SLASH')) === 'true' && $rchar !== '/') {
 			// redirect to url with /
 			$url = $url . '/';
 			header('Location: ' . Utilities::getDomain() . '/' . $url, true, 301);

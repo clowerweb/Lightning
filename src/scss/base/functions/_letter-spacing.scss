@@ -1,0 +1,3 @@
+@function letter-spacing($val) {
+  @return ($val / 1000) * 1em;
+}

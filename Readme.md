@@ -6,16 +6,22 @@ Lightning aims to be a blazing fast and lightweight PHP MVC framework, implement
 
 **Requirements**
 
-* PHP 7.1+
+* PHP 7.2+
 * Composer
 
 **Installing**
 
-* `cd` to the project directory and run `composer update`
+* Download or clone the repo
+* Open a command line, `cd` to the project directory, and run `composer install`
+* Rename `/App/Config.sample` to `Config.php` and input your server configuration and preferences
+* Run `npm install` if you'd like to use Grunt and Browsersync
+
+All settings are found in `Config.php` and should be relatively straightforward.
 
 **Features Overview**
 
 * Flexible routing system which handles clean URLs and implements a `/controller/action/[optional prarameter]` scheme. This can be easily configured to suit most needs.
+* User account system with registration, login, "Remember Me", and "Forgot Password" functionality.
 * Flash message alert system for displaying messages to users.
 * Mailing system with both text/plain and HTML email support.
 * Secure token generation and verification system.
@@ -25,14 +31,5 @@ Lightning aims to be a blazing fast and lightweight PHP MVC framework, implement
 * Allow your users to use an HTML WYSIWYG editor with confidence, as HTML Purifier is included to allow only safe HTML output and prevent XSS attacks. The example template has a demonstration of this in action.
 
 **Reference Docs**
-
-***Basic Usage***
-
-* Download or clone the repo
-* Open a command line, `cd` to the project directory, and run `composer update`
-* Rename `/App/Config.sample` to `Config.php`
-* The basic installation should now run from any server running PHP 7.1+
-
-All settings are found in Config.php and should be relatively straightforward.
 
 ***Framework Methods and Usage coming soon!***
