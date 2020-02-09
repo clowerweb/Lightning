@@ -53,6 +53,31 @@ a:visited {
 
 }
 
+.errors {
+
+  margin-bottom: rem(50);
+
+  strong {
+    display: block;
+    margin-bottom: rem(20);
+  }
+
+  ul {
+    list-style: inside;
+  }
+
+  li {
+
+    margin-bottom: rem(15);
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+  }
+
+}
+
 .page-title {
   margin-bottom: rem(30);
 }
