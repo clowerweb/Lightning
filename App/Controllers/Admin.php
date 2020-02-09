@@ -39,10 +39,14 @@ class Admin extends Controller {
 	}
 
 	public function saveSettingsAction() {
-		if(Settings::saveSettings($_POST)) {
-			Flash::addMessage('Settings saved.', Flash::SUCCESS);
-		} else {
-			Flash::addMessage('An unknown error occurred.', Flash::ERROR);
+		$data = $_POST ?? null;
+
+		if($data) {
+			if(Settings::saveSettings($data)) {
+				Flash::addMessage('Settings saved.', Flash::SUCCESS);
+			} else {
+				Flash::addMessage('An unknown error occurred.', Flash::ERROR);
+			}
 		}
 
 		Utilities::redirect('/admin');
