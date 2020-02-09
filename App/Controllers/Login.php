@@ -23,7 +23,7 @@ class Login extends Controller {
      *
      * @return void
      */
-	public function indexAction() {
+	public function indexAction(): void {
 		$data = $_POST ?? null;
 
 		if($data) {
@@ -40,7 +40,7 @@ class Login extends Controller {
 	 *
 	 * @return void
 	 */
-	private function create() {
+	private function create(): void {
 		if(isset($_POST['email'])) {
 			$user     = User::authenticate($_POST['email'], $_POST['password']);
 			$remember = isset($_POST['remember_me']);
@@ -71,7 +71,7 @@ class Login extends Controller {
 	 *
 	 * @return void
 	 */
-	public function destroyAction() {
+	public function destroyAction(): void {
 		Auth::logout();
 		Utilities::redirect('/login/show-logout-message');
 	}
@@ -81,7 +81,7 @@ class Login extends Controller {
 	 *
 	 * @return void
 	 */
-	public function showLogoutMessageAction() {
+	public function showLogoutMessageAction(): void {
 		Flash::addMessage('You have successfully been logged out');
 		Utilities::redirect('/');
 	}

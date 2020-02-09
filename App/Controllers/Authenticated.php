@@ -15,7 +15,7 @@ abstract class Authenticated extends Controller {
 	 *
 	 * @return void
 	 */
-	protected function before() {
+	protected function before(): void {
 		$this->requireLogin();
 	}
 }

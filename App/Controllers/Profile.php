@@ -2,25 +2,26 @@
 
 namespace App\Controllers;
 
+use Core\Utilities;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use Exception;
 
 /**
  * Profile controller
  *
  * PHP version 7.2
  */
-class Profile extends Authenticated
-{
+class Profile extends Authenticated {
+    private $user;
 
     /**
      * Before filter - called before each action method
      *
      * @return void
      */
-    protected function before()
-    {
+    protected function before(): void {
         parent::before();
 
         $this->user = Auth::getUser();
@@ -29,10 +30,11 @@ class Profile extends Authenticated
     /**
      * Show the profile
      *
+     * @throws Exception
+     *
      * @return void
      */
-    public function showAction()
-    {
+    public function showAction(): void {
         View::renderTemplate('Profile/show.twig', [
             'user' => $this->user
         ]);
@@ -41,10 +43,11 @@ class Profile extends Authenticated
     /**
      * Show the form for editing the profile
      *
+     * @throws Exception
+     *
      * @return void
      */
-    public function editAction()
-    {
+    public function editAction(): void {
         View::renderTemplate('Profile/edit.twig', [
             'user' => $this->user
         ]);
@@ -53,22 +56,18 @@ class Profile extends Authenticated
     /**
      * Update the profile
      *
+     * @throws Exception
+     *
      * @return void
      */
-    public function updateAction()
-    {
+    public function updateAction(): void {
         if ($this->user->updateProfile($_POST)) {
-
             Flash::addMessage('Changes saved');
-
             Utilities::redirect('/profile/show');
-
         } else {
-
             View::renderTemplate('Profile/edit.twig', [
                 'user' => $this->user
             ]);
-
         }
     }
 }

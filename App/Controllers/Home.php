@@ -36,7 +36,7 @@ class Home extends Controller {
 	 *
 	 * @return void
 	 */
-	public function indexAction() {
+	public function indexAction(): void {
 		View::renderTemplate('Home/index.twig', [
 		    'user' => $this->user
         ]);
