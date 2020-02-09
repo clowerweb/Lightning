@@ -20,10 +20,9 @@
 				</section>
 			{% endif %}
 
-			<page-header :site_name="{{ settings.site_name|json_encode }}"></page-header>
+			<page-header :site_name="{{ settings.site_name|json_encode }}" :user="{{ curruser|json_encode }}"></page-header>
 
 			<main id="main">
-                {{ dump(user, base_url) }}
 				{% block body %}{% endblock %}
 			</main>
 

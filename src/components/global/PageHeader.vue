@@ -7,8 +7,11 @@
 
             <nav role="navigation">
                 <ul>
-                    <li>
-                        <a href="#!">About</a>
+                    <li v-if="user">
+                        <a href="/logout">Log Out</a>
+                    </li>
+                    <li v-else>
+                        <a href="/login">Log In</a>
                     </li>
                 </ul>
             </nav>
@@ -19,12 +22,12 @@
 <script>
     export default {
         name: 'page-header',
-        props: ['site_name']
+        props: ['site_name', 'user']
     };
 </script>
 
 <style scoped lang="scss">
-    h1 {
+    #header {
         margin-bottom: rem(40);
     }
 </style>

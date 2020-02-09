@@ -68,12 +68,11 @@ class View {
             }
 
             if(strtolower(getenv('TEMPLATE_CACHING')) === 'true') {
-                $opts['cache'] = dirname(__DIR__) . $tpl_dir . getenv('CACHE_DIRECTORY');
+                $opts['cache'] = dirname(__DIR__, 1) . getenv('CACHE_DIRECTORY');
             }
 
             $twig = new Environment($loader, $opts);
 
-            $twig->addGlobal('user', Auth::getUser());
             $twig->addGlobal('flash_messages', Flash::getMessages());
             $twig->addGlobal('uri', Utilities::getURI());
             $twig->addGlobal('base_url', $domain);
@@ -84,6 +83,7 @@ class View {
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
             $twig->addGlobal('dev', $dev);
+            $twig->addGlobal('curruser', Auth::getUser());
 
             if($dev) {
                 $twig->addExtension(new DebugExtension());
