@@ -58,7 +58,6 @@ module.exports = {
             "./public/assets/favicon.ico",
             "./public/assets/index.html",
             "./public/assets/index.php",
-            "./public/assets/nginx-config.txt",
           ],
         },
       }),
