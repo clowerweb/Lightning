@@ -3,7 +3,6 @@
 *.zip
 *.rar
 *.7z
-*.gz
 *.tar
 *.env
 App/config.php
