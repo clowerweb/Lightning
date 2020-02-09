@@ -99,6 +99,8 @@ class Register extends Controller {
 
 	/**
 	 * Activate a new account
+     *
+     * @throws Exception
 	 *
 	 * @return void
 	 */
@@ -153,13 +155,13 @@ class Register extends Controller {
 						Utilities::redirect('/register/activation-resent');
 					}
 
-					throw new \Exception("Failed to resend activation email to $user->email");
+					throw new Exception("Failed to resend activation email to $user->email");
 				}
 
-				throw new \Exception("Failed to update activation hash for $user->email");
+				throw new Exception("Failed to update activation hash for $user->email");
 			}
 
-			throw new \Exception("Failed to find user by resend token");
+			throw new Exception("Failed to find user by resend token");
 		}
 
 		Utilities::redirect('/register');
