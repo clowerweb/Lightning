@@ -1,29 +1,30 @@
 <template>
-    <div id="test">
-        <img src="/src/assets/img/logo.png" height="400" width="400" alt="Vue logo"/>
-        <img src="/src/assets/img/PlayStation-Vue-Logo.jpg" height="627" width="1200" alt="PS Vue logo"/>
+    <header id="header">
+        <div class="container">
+            <h1>
+                <a href="/">{{ site_name }}</a>
+            </h1>
 
-        <p>
-            <span :style="`color: ${color}`">
-                <slot></slot>
-            </span> module hot reloaded!!
-        </p>
-    </div>
+            <nav role="navigation">
+                <ul>
+                    <li>
+                        <a href="#!">About</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 </template>
 
 <script>
     export default {
-        name: 'test',
-        props: ['color']
+        name: 'page-header',
+        props: ['site_name']
     };
 </script>
 
-<style lang="scss" scoped>
-    /*p {
-        margin-bottom: 50px;
-
-        span {
-            color: $color-blue;
-        }
-    }*/
+<style scoped lang="scss">
+    h1 {
+        margin-bottom: rem(40);
+    }
 </style>

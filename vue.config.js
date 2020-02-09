@@ -2,11 +2,9 @@ const path = require("path");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 const glob = require("glob-all");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
+const production = process.env.NODE_ENV === "production";
 
-modern = process.env.VUE_CLI_MODERN_MODE;
-production = process.env.NODE_ENV === "production";
-
-config = {
+const config = {
   protocol: "http",
   host: "localhost",
   port: 8080,
@@ -15,7 +13,7 @@ config = {
 
 module.exports = {
   runtimeCompiler: true,
-  publicPath: process.env.NODE_ENV === 'prod' ? '/assets' : `${config.protocol}://${config.host}:${config.port}`,
+  publicPath: production ? '/assets' : `${config.protocol}://${config.host}:${config.port}`,
   outputDir: 'public/assets',
   filenameHashing: false,
   productionSourceMap: false,

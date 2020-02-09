@@ -55,6 +55,8 @@ class View {
             $segments   = explode('/', $uri_path);
             $body_class = '';
 
+            $opts['debug'] = $dev;
+
             foreach ($segments as $segment) {
                 if(Utilities::isEmpty($segments[1])) {
                     $body_class = 'home';
@@ -71,13 +73,6 @@ class View {
 
             $twig = new Environment($loader, $opts);
 
-            if($dev) {
-                $opts['debug'] = true;
-                $twig->addExtension(new DebugExtension());
-            }
-
-
-
             $twig->addGlobal('user', Auth::getUser());
             $twig->addGlobal('flash_messages', Flash::getMessages());
             $twig->addGlobal('uri', Utilities::getURI());
@@ -89,6 +84,10 @@ class View {
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
             $twig->addGlobal('dev', $dev);
+
+            if($dev) {
+                $twig->addExtension(new DebugExtension());
+            }
         }
 
         return $twig->render($template, $args);
