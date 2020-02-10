@@ -132,6 +132,58 @@ form {
 
 }
 
+table {
+
+  thead {
+
+    background-color: $color-blue;
+    color: $color-white;
+
+    &:last-of-type {
+
+      th {
+        border-bottom: rem(1) solid $color-blue-d;
+      }
+
+    }
+
+  }
+
+  th,
+  td {
+
+    border-left: rem(1) solid transparent;
+    border-top: rem(1) solid transparent;
+    padding: rem(5) rem(7);
+
+  }
+
+  th {
+
+    border-color: $color-blue-d;
+
+    &:last-of-type {
+      border-right: rem(1) solid $color-blue-d;
+    }
+
+  }
+
+  tr:last-of-type > td {
+    border-bottom: rem(1) solid $color-gray-l;
+  }
+
+  td {
+
+    border-color: $color-gray-l;
+
+    &:last-of-type {
+      border-right: rem(1) solid $color-gray-l;
+    }
+
+  }
+
+}
+
 @include md-up {
 
   form {

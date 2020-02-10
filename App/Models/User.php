@@ -46,28 +46,6 @@ class User extends Model {
     }
 
     /**
-     * Get all users as an associative array
-     *
-     * @return array
-     */
-    public static function getAll(): array {
-        $db   = static::getDB();
-        $stmt = $db->query("
-			SELECT
-				`id`,
-				`name`,
-				`email`,
-				`role`,
-				`is_active`,
-				`registered_date`
-			FROM
-				`users`;
-		");
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Save a new user to the users table
      *
      * @throws Exception
