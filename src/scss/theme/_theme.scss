@@ -89,8 +89,9 @@ form {
     margin-bottom: rem(15);
 
     label {
+      display: block;
       font-weight: 700;
-      margin-right: rem(15);
+      margin: 0 rem(15) rem(15) 0;
     }
 
     input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),
@@ -125,6 +126,23 @@ form {
     &:hover,
     &:target {
       background-color: $color-blue-d;
+    }
+
+  }
+
+}
+
+@include md-up {
+
+  form {
+
+    > div {
+
+      label {
+        display: inline;
+        margin-bottom: 0;
+      }
+
     }
 
   }
