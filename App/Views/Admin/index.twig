@@ -3,5 +3,12 @@
 {% block title %}Admin - {{ settings.site_name }}{% endblock %}
 
 {% block body %}
-    <settings-form :settings="{{ settings|json_encode }}"></settings-form>
+    <div id="wrapper">
+        <admin-sidebar></admin-sidebar>
+
+        <div class="tab-panes">
+            <users-list></users-list>
+            <settings-form :settings="{{ settings|json_encode }}"></settings-form>
+        </div>
+    </div>
 {% endblock %}

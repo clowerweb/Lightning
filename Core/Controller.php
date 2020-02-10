@@ -58,20 +58,20 @@ abstract class Controller {
 	 */
 	protected function after(): void {}
 
-    /**
-     * Require the user to be logged in before giving access to the requested page.
-     * Remember the requested page for later, then redirect to the login page.
-     *
-     * @return void
-     */
-    public function requireLogin(): void {
-        if (! Auth::getUser()) {
-            Flash::addMessage('Please login to access that page', Flash::INFO);
-            Auth::rememberRequestedPage();
+	/**
+	 * Require the user to be logged in before giving access to the requested page.
+	 * Remember the requested page for later, then redirect to the login page.
+	 *
+	 * @return void
+	 */
+	public function requireLogin(): void {
+		if (! Auth::getUser()) {
+			Flash::addMessage('Please login to access that page', Flash::INFO);
+			Auth::rememberRequestedPage();
 
-            Utilities::redirect('/login', 303);
-        }
-    }
+			Utilities::redirect('/login', 303);
+		}
+	}
 
 	/**
 	 * Require the user to be logged in before giving access to the requested page.

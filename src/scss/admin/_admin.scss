@@ -1,0 +1,64 @@
+body.admin {
+
+  height: 100vh;
+
+  #app {
+    height: 100%;
+  }
+
+  #main {
+    height: 100%;
+  }
+
+  #wrapper {
+
+    display: flex;
+    height: 100%;
+
+    #sidebar {
+
+      background-color: $color-blue;
+      flex-basis: 100%;
+      height: calc(100% + 40px);
+      margin-top: rem(-40);
+      max-width: rem(200);
+      padding: rem(40) 0;
+      width: 100%;
+
+      a,
+      a:link,
+      a:visited {
+
+        color: $color-white;
+        display: block;
+        padding: rem(5) rem(15);
+
+        &.active,
+        &:active,
+        &:focus,
+        &:hover,
+        &:target {
+          background-color: $color-blue-d;
+        }
+
+      }
+
+    }
+
+    > .tab-panes {
+
+      [role="tabpanel"] {
+
+        display: none;
+
+        &.active {
+          display: block;
+        }
+
+      }
+
+    }
+
+  }
+
+}

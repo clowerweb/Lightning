@@ -1,5 +1,10 @@
 <template>
-    <div class="container">
+    <div :class="isActive ? 'active' : null"
+         class="container"
+         id="settings"
+         role="tabpanel"
+         aria-labelledby="settings-tab"
+    >
         <h3 class="page-title">Site settings</h3>
 
         <form method="post" action="/admin/save-settings">
@@ -33,6 +38,16 @@
 <script>
     export default {
         name: 'settings-form',
-        props: ['settings']
+        props: ['settings'],
+        data() {
+            return {
+                isActive: window.location.hash === '#settings'
+            }
+        },
+        mounted() {
+            window.addEventListener('hashchange', () => {
+                this.isActive = window.location.hash === '#settings';
+            }, false);
+        }
     };
 </script>

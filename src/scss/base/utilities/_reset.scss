@@ -25,7 +25,7 @@ html {
     background-color: $color-white;
     color: $color-black;
     font-family: $primary-font-stack;
-    font-size: rem($base-font-size);
+    font-size: $base-font-size + px;
     font-weight: normal;
     line-height: $base-line-height;
 }

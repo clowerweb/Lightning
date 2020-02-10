@@ -1,4 +1,5 @@
 import "./scss/main.scss";
+import "./js/main";
 import Vue from "vue";
 import Components from "./components";
 import axios from "axios";
