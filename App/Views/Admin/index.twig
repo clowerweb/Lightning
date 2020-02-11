@@ -7,6 +7,16 @@
         <admin-sidebar></admin-sidebar>
 
         <div class="tab-panes">
+            {% if flash_messages is not empty %}
+                <section class="container">
+                    {% for message in flash_messages %}
+                        <div class="alert alert-{{ message.type }}" role="alert">
+                            {{ message.body|raw }}
+                        </div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
             <users-list></users-list>
             <settings-form :settings="{{ settings|json_encode }}"></settings-form>
         </div>

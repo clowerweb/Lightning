@@ -10,16 +10,6 @@
 		<div id="app">
 			<a href="#main" class="sr">Skip to content</a>
 
-			{% if flash_messages is not empty %}
-				<section class="container">
-					{% for message in flash_messages %}
-						<div class="alert alert-{{ message.type }}" role="alert">
-							{{ message.body|raw }}
-						</div>
-					{% endfor %}
-				</section>
-			{% endif %}
-
 			<page-header
 				:site_name="'Admin'"
 				:site_tagline="{{ site_tagline|json_encode }}"
