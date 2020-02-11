@@ -32,14 +32,19 @@ class Users extends Model {
 		$db   = static::getDB();
 		$stmt = $db->query("
 			SELECT
-				`id`,
-				`name`,
-				`email`,
-				`role`,
-				`is_active`,
-				`registered_date`
+				u.`id`,
+				u.`name`,
+				u.`email`,
+				u.`is_active`,
+				u.`registered_date`,
+				r.`id` AS role_id,
+				r.`name` AS role
 			FROM
-				`users`;
+				`users` AS u
+			JOIN
+				`roles` as r
+			ON
+			    r.`id` = u.`role`;
 		");
 
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);

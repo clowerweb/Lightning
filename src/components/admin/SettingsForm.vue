@@ -1,9 +1,10 @@
 <template>
-    <div :class="isActive ? 'active' : null"
-         class="container"
-         id="settings"
-         role="tabpanel"
-         aria-labelledby="settings-tab"
+    <article
+        :class="isActive ? 'active' : null"
+        class="container"
+        id="settings"
+        role="tabpanel"
+        aria-labelledby="settings-tab"
     >
         <h3 class="page-title">Site settings</h3>
 
@@ -32,7 +33,7 @@
 
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
-    </div>
+    </article>
 </template>
 
 <script>

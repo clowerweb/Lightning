@@ -82,10 +82,10 @@ abstract class Controller {
 	public function requireAdmin(): void {
 		$this->user = Auth::getUser();
 
-		if(! $this->user || ! $this->user->role == '1') {
+		if(! $this->user || $this->user->role !== '1') {
 			if(! $this->user) {
 				Flash::addMessage("Please sign in.", Flash::INFO);
-			} else if(! $this->user->role == '1') {
+			} else if($this->user->role !== '1') {
 				Flash::addMessage("You don't have permission to do that.", Flash::INFO);
 			}
 

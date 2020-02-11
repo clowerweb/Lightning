@@ -134,6 +134,19 @@ form {
 
 table {
 
+  &.full {
+
+    width: 100%;
+
+    thead,
+    tbody,
+    tfoot,
+    tr {
+      width: 100%;
+    }
+
+  }
+
   thead {
 
     background-color: $color-blue;
@@ -151,11 +164,9 @@ table {
 
   th,
   td {
-
     border-left: rem(1) solid transparent;
     border-top: rem(1) solid transparent;
     padding: rem(5) rem(7);
-
   }
 
   th {

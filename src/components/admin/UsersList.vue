@@ -1,5 +1,5 @@
 <template>
-    <div
+    <article
         :class="isActive ? 'active' : null"
         class="container"
         id="users"
@@ -8,7 +8,7 @@
     >
         <h3 class="page-title">Users</h3>
 
-        <table v-if="users.length">
+        <table v-if="users.length" class="full">
             <thead>
                 <tr>
                     <th>Email</th>
@@ -28,7 +28,7 @@
         </table>
 
         <p v-else><strong>There are no registered users.</strong></p>
-    </div>
+    </article>
 </template>
 
 <script>

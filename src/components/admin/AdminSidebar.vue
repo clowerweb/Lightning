@@ -5,20 +5,6 @@
                 <li>
                     <a
                         @click="setActive"
-                        :class="activeItem === '#users' ? 'active' : null"
-                        href="#users"
-                        id="users-tab"
-                        role="tab"
-                        aria-controls="users"
-                        :aria-selected="activeItem === '#users' ? 'true' : 'false'"
-                    >
-                        Users
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        @click="setActive"
                         :class="activeItem === '#settings' ? 'active' : null"
                         href="#settings"
                         id="settings-tab"
@@ -27,6 +13,20 @@
                         :aria-selected="activeItem === '#settings' ? 'true' : 'false'"
                     >
                         Settings
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        @click="setActive"
+                        :class="activeItem === '#users' ? 'active' : null"
+                        href="#users"
+                        id="users-tab"
+                        role="tab"
+                        aria-controls="users"
+                        :aria-selected="activeItem === '#users' ? 'true' : 'false'"
+                    >
+                        Users
                     </a>
                 </li>
             </ul>
