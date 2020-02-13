@@ -14,8 +14,13 @@
 <script>
     export default {
         name: 'flash-messages',
-        props: ['messages']
-    }
+        props: {
+            messages: {
+                type: Array,
+                required: true
+            }
+        }
+    };
 </script>
 
 <style scoped lang="scss">

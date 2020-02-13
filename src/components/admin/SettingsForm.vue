@@ -39,7 +39,12 @@
 <script>
     export default {
         name: 'settings-form',
-        props: ['settings'],
+        props: {
+            settings: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {
                 isActive: window.location.hash === '#settings'

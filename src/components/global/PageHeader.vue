@@ -9,7 +9,7 @@
 
             <nav role="navigation" class="text-right">
                 <ul>
-                    <li v-if="user">
+                    <li v-if="user_exists">
                         <a href="/logout">Log Out</a>
                     </li>
                     <li v-else>
@@ -24,7 +24,26 @@
 <script>
     export default {
         name: 'page-header',
-        props: ['site_name', 'site_tagline', 'user']
+        props: {
+            site_name: {
+                type: String,
+                required: true
+            },
+            site_tagline: {
+                type: String,
+                required: false
+            },
+            user: {
+                type: Object,
+                required: true,
+                default: {}
+            }
+        },
+        computed: {
+            user_exists: function() {
+                return Object.keys(this.user).length > 0;
+            }
+        }
     };
 </script>
 

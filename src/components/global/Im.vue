@@ -5,7 +5,12 @@
 <script>
     export default {
         name: 'im',
-        props: ['src'],
+        props: {
+            src: {
+                type: String,
+                required: true
+            }
+        },
         computed: {
             source() {
                 return require('@/assets/img/' + this.src);
