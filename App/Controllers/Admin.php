@@ -11,6 +11,7 @@ use App\Flash;
 use Core\Utilities;
 use Core\Controller;
 use Core\View;
+use App\Models\Roles;
 
 /**
  * Admin controller
@@ -34,7 +35,7 @@ class Admin extends Controller {
 	 */
 	public function indexAction(): void {
 		View::renderTemplate('Admin/index.twig', [
-			'user' => $this->user
+			'roles' => Roles::getRoles()
 		]);
 	}
 

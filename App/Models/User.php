@@ -57,15 +57,22 @@ class User extends Model {
 
         if(empty($this->errors)) {
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+            $settings  = Settings::getSettings();
+            $is_active = 0;
 
-            // account activation token
-            $token = new Token();
-            $this->activation_hash  = $token->getHash();
-            $this->activation_token = $token->getValue();
+            if($settings['require_activation']) {
+				// account activation token
+				$token = new Token();
+				$this->activation_hash  = $token->getHash();
+				$this->activation_token = $token->getValue();
 
-            // for resending activation emails
-            $resend = new Token();
-            $this->resend_token = $resend->getValue();
+				// for resending activation emails
+				$resend = new Token();
+				$this->resend_token = $resend->getValue();
+			} else {
+				$this->activation_hash = null;
+				$is_active = 1;
+			}
 
             $this->registered_date = date('Y-m-d H:i:s');
 
@@ -76,6 +83,7 @@ class User extends Model {
 						`password`,
 						`activation_hash`,
 						`resend_token`,
+						`is_active`,
 						`registered_date`
 					)
 				VALUES (
@@ -83,6 +91,7 @@ class User extends Model {
 					:password,
 					:hash,
 					:resend_token,
+					:is_active,
 					:registered_date
 				);
 			";
@@ -94,6 +103,7 @@ class User extends Model {
             $stmt->bindValue(':password',        $this->password,        PDO::PARAM_STR);
             $stmt->bindValue(':hash',            $this->activation_hash, PDO::PARAM_STR);
             $stmt->bindValue(':resend_token',    $this->resend_token,    PDO::PARAM_STR);
+            $stmt->bindValue(':is_active',       $is_active,             PDO::PARAM_INT);
             $stmt->bindValue(':registered_date', $this->registered_date, PDO::PARAM_STR);
 
             return $stmt->execute();
@@ -474,12 +484,13 @@ class User extends Model {
      * Activate the new user account with the token
      *
      * @param string $value - activation token from the URL
+     * @param int    $user  - user id (only for admins to manually activate users)
      *
      * @throws Exception
      *
      * @return integer - 1 activation successful, 0 if not
      */
-    public static function activate(string $value): int {
+    public static function activate(?string $value, ?int $user = null): int {
         $token = new Token($value);
 
         $sql = "
@@ -489,14 +500,23 @@ class User extends Model {
 				`is_active`       = 1,
 				`activation_hash` = NULL,
 				`resend_token`    = NULL
-			WHERE
-				`activation_hash` = :hash;
 		";
+
+        if(!$user) {
+        	$sql .= "WHERE `activation_hash` = :hash;";
+		} else {
+			$sql .= "WHERE `users`.id = :user_id;";
+		}
 
         $db   = static::getDB();
         $stmt = $db->prepare($sql);
 
-        $stmt->bindValue(':hash', $token->getHash(), PDO::PARAM_STR);
+		if(!$user) {
+			$stmt->bindValue(':hash', $token->getHash(), PDO::PARAM_STR);
+		} else {
+			$stmt->bindValue(':user_id', $user, PDO::PARAM_INT);
+		}
+
         $stmt->execute();
 
         return $stmt->rowCount();

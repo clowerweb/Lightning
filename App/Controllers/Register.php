@@ -59,17 +59,22 @@ class Register extends Controller {
 	 */
 	private function create() {
 		if(!empty($_POST)) {
-			$user = new User($_POST);
+			$user     = new User($_POST);
+			$settings = Settings::getSettings();
 
 			if($user->save()) {
-				$_SESSION['resend_token'] = $user->resend_token;
+				if($settings['require_activation']) {
+					$_SESSION['resend_token'] = $user->resend_token;
 
-				if($user->sendActivationEmail()) {
-					Utilities::redirect('/register/success');
-				} else {
-					$email = $_POST['email'];
-					throw new Exception("Failed to send activation email to $email");
+					if($user->sendActivationEmail()) {
+						Utilities::redirect('/register/success');
+					} else {
+						$email = $_POST['email'];
+						throw new Exception("Failed to send activation email to $email");
+					}
 				}
+
+				Utilities::redirect('/register/success');
 			// validation errors
 			} else {
 				View::renderTemplate('Register/index.twig', [

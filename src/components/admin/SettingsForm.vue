@@ -27,6 +27,13 @@
             </div>
 
             <div>
+                <label>
+                    Require Email Activation?
+                    <input type="checkbox" name="require_activation" :checked="settings.require_activation === '1'"/>
+                </label>
+            </div>
+
+            <div>
                 <label for="timezone">Default Timezone:</label>
                 <input type="text" id="timezone" name="default_timezone" :value="settings.default_timezone"/>
             </div>

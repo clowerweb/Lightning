@@ -3,10 +3,10 @@
         <div
             v-for="message in messages"
             class="alert"
-            :class="`alert-${message.type}`"
+            :class="`alert-${getType(message)}`"
             role="alert"
+            v-html="getBody(message)"
         >
-            {{ message.body }}
         </div>
     </section>
 </template>
@@ -16,8 +16,21 @@
         name: 'flash-messages',
         props: {
             messages: {
-                type: Array,
+                type: Array|null,
                 required: true
+            },
+            type: {
+                type: String,
+                required: false
+            }
+        },
+        methods: {
+            getType(message) {
+                return this.type ? this.type : message.type ? message.type : 'warning';
+            },
+
+            getBody(message) {
+                return message.body ? message.body : message;
             }
         }
     };

@@ -53,28 +53,30 @@ a:visited {
 form {
 
   > div {
-
     margin-bottom: rem(15);
-
-    label {
-      display: block;
-      font-weight: 700;
-      margin: 0 rem(15) rem(15) 0;
-    }
-
-    input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),
-    select,
-    textarea {
-      border: rem(1) solid $color-gray-l;
-      border-radius: rem(4);
-      max-width: 100%;
-      padding: rem(5) rem(10);
-      transition: all $speed-fast;
-      width: rem(290);
-    }
-
   }
 
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  margin: 0 rem(15) rem(15) 0;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]),
+select,
+textarea {
+  border: rem(1) solid $color-gray-l;
+  border-radius: rem(4);
+  max-width: 100%;
+  padding: rem(5) rem(10);
+  transition: all $speed-fast;
+  width: rem(290);
+}
+
+select {
+  width: rem(150);
 }
 
 .btn {
@@ -87,13 +89,44 @@ form {
 
     background-color: $color-blue;
     border-color: $color-blue-l;
-    color: $color-white;
+    color: $color-white !important;
 
     &:active,
     &:focus,
     &:hover,
     &:target {
       background-color: $color-blue-d;
+    }
+
+  }
+
+  &-success {
+
+    background-color: $color-green;
+    border-color: $color-green;
+    color: $color-white !important;
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:target {
+      background-color: $color-green-d;
+    }
+
+  }
+
+  &-error {
+
+    background-color: $color-red;
+    border-color: $color-red;
+    color: $color-white !important;
+
+    &:active,
+    &:focus,
+    &:hover,
+    &:target {
+      background-color: $color-red-d;
+      border-color: $color-red-d;
     }
 
   }
@@ -157,6 +190,27 @@ table {
 
     &:last-of-type {
       border-right: rem(1) solid $color-gray-l;
+    }
+
+  }
+
+}
+
+.toasted-container {
+
+  .toasted {
+
+    .action {
+
+      color: $color-white !important;
+
+      &:active,
+      &:focus,
+      &:hover,
+      &:target {
+        color: $color-black !important;
+      }
+
     }
 
   }

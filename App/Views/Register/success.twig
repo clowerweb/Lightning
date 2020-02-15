@@ -8,10 +8,15 @@
 
 		<p>Success! Thanks for signing up.</p>
 
-		<p>
-			Please check your email to activate your account.
-			{% if resend_token is not null %}
-				<a href="/register/resend-activation/{{ resend_token }}">Resend activation email</a>.</p>
-			{% endif %}
+		{% if settings.require_activation %}
+			<p>
+				Please check your email to activate your account.
+				{% if resend_token is not null %}
+					<a href="/register/resend-activation/{{ resend_token }}">Resend activation email</a>.
+				{% endif %}
+			</p>
+		{% else %}
+			<p>You can now <a href="/login">log in</a>.</p>
+		{% endif %}
 	</div>
 {% endblock %}

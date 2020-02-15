@@ -84,7 +84,7 @@ class View {
             $twig->addGlobal('site_name', $settings['site_name']);
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
             $twig->addGlobal('dev', $dev);
-			$twig->addGlobal('curruser', Auth::getUser() ?: new stdClass);
+            $twig->addGlobal('curruser', Auth::getUser() ?: new stdClass);
 
             if($dev) {
                 $twig->addExtension(new DebugExtension());

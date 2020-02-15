@@ -1,7 +1,7 @@
 {
-  "name": "@clowerweb/lightning",
-  "version": "2.0.0",
-  "private": false,
+  "name": "@clowerweb/tithe",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "build": "vue-cli-service build --modern",
     "dev": "vue-cli-service serve"
@@ -25,7 +25,8 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-toasted": "^1.1.27"
   },
   "browserslist": [
     "> 1%",

@@ -2,13 +2,7 @@
     <div class="container">
         <h3 class="page-title">Register</h3>
 
-        <div v-if="errors" class="errors alert alert-error">
-            <strong>Please correct the following error(s):</strong>
-
-            <ul>
-                <li v-for="error in errors">{{ error }}</li>
-            </ul>
-        </div>
+        <flash-messages :messages="errors" :type="'error'"></flash-messages>
 
         <p>
             <strong>Already have an account? <a href="/login">Login</a></strong>
@@ -32,8 +26,22 @@
 </template>
 
 <script>
+    import FlashMessages from "../global/FlashMessages";
+
     export default {
         name: 'register-form',
-        props: ['email', 'errors']
+        components: {FlashMessages},
+        props: {
+            email: {
+                type: String,
+                required: false
+            },
+            errors: {
+                type: {
+                    type: Array,
+                    required: false
+                }
+            }
+        }
     };
 </script>

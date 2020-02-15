@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Settings;
 use \Exception;
 use Core\View;
 use Core\Controller;
@@ -42,16 +43,18 @@ class Login extends Controller {
 	 */
 	private function create(): void {
 		if(isset($_POST['email'])) {
-			$user     = User::authenticate($_POST['email'], $_POST['password']);
-			$remember = isset($_POST['remember_me']);
+			$user       = User::authenticate($_POST['email'], $_POST['password']);
+			$remember   = isset($_POST['remember_me']);
+			$settings   = Settings::getSettings();
+			$activation = $settings['require_activation'];
 
 			if($user) {
-				if($user->is_active) {
+				if($user->is_active || $activation === '0') {
 					Auth::login($user, $remember);
 					Flash::addMessage('Login successful');
 					Utilities::redirect(Auth::getReturnToPage());
 				} else {
-					Flash::addMessage('You have not yet activated your account. Please check your email and click the activation link. <a href="/register/resend-activation/' . $user->resend_token . '">Resend activation email</a>', Flash::INFO);
+					Flash::addMessage('You have not yet activated your account. Please check your email and click the activation link. <a href="/register/resend-activation/' . $user->resend_token . '">Resend activation email</a>', Flash::WARNING);
 				}
 			} else {
 				Flash::addMessage('The email or password was incorrect, please try again', Flash::WARNING);
