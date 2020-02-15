@@ -15,7 +15,6 @@
                     <th>Activated</th>
                     <th>Registered</th>
                     <th>Role</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +32,6 @@
                     <td>{{ user.registered_date }}</td>
                     <td>
                         <sel :options="roles" :selected="user.role" @change="changeRole(user.id, $event)"></sel>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-error actions" title="Delete User">
-                            <i class="fas fa-trash-alt"></i>
-                            <span class="sr">Delete User</span>
-                        </a>
                     </td>
                 </tr>
             </tbody>
