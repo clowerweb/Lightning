@@ -15,7 +15,9 @@
 					<a href="/register/resend-activation/{{ resend_token }}">Resend activation email</a>.
 				{% endif %}
 			</p>
-		{% else %}
+		{% endif %}
+
+		{% if not settings.require_activation and not settings.require_approval %}
 			<p>You can now <a href="/login">log in</a>.</p>
 		{% endif %}
 	</div>

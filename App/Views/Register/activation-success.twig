@@ -5,6 +5,11 @@
 {% block body %}
 	<div class="container">
 		<h3 class="page-title">Your email has been verified</h2>
-		<p>Your account is now activated, and you can now <a href="/login">log in</a>.</p>
+
+		{% if not settings.require_approval %}
+			<p>Your account is now activated, and you can now <a href="/login">log in</a>.</p>
+		{% else %}
+			<p>{{ settings.site_name }} requires administrator approval for all new users. You will be notified via email when your account has been approved.</p>
+		{% endif %}
 	</div>
 {% endblock %}

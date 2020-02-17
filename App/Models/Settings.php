@@ -23,6 +23,7 @@ class Settings extends Model {
 				`site_tagline`,
 				`allow_registration`,
 				`require_activation`,
+				`require_approval`,
 				`default_timezone`
 			FROM
 				`settings`
@@ -43,8 +44,9 @@ class Settings extends Model {
 	 * @return bool
 	 */
 	public static function saveSettings($data) {
-		$allow_registration = isset($data['allow_registration']) ? 1 : 0;
-		$require_activation = isset($data['require_activation']) ? 1 : 0;
+		$allow_registration = isset($data['allow_registration']);
+		$require_activation = isset($data['require_activation']);
+		$require_approval   = isset($data['require_approval']);
 
 		$sql = "
 			UPDATE
@@ -54,6 +56,7 @@ class Settings extends Model {
 				`site_tagline`       = :site_tagline,
 				`allow_registration` = :allow_registration,
 				`require_activation` = :require_activation,
+				`require_approval`   = :require_approval,
 				`default_timezone`   = :default_timezone
 			WHERE
 				`id` = 1;
@@ -64,8 +67,9 @@ class Settings extends Model {
 
 		$stmt->bindValue(':site_name',          $data['site_name'],        PDO::PARAM_STR);
 		$stmt->bindValue(':site_tagline',       $data['site_tagline'],     PDO::PARAM_STR);
-		$stmt->bindValue(':allow_registration', $allow_registration,       PDO::PARAM_INT);
-		$stmt->bindValue(':require_activation', $require_activation,       PDO::PARAM_INT);
+		$stmt->bindValue(':allow_registration', $allow_registration,       PDO::PARAM_BOOL);
+		$stmt->bindValue(':require_activation', $require_activation,       PDO::PARAM_BOOL);
+		$stmt->bindValue(':require_approval',   $require_approval,         PDO::PARAM_BOOL);
 		$stmt->bindValue(':default_timezone',   $data['default_timezone'], PDO::PARAM_STR);
 
 		return $stmt->execute();

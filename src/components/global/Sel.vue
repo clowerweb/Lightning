@@ -4,7 +4,7 @@
             <option
                 v-for="option in options"
                 :value="option.id"
-                :selected="selected === option.name"
+                :selected="selected === true || selected === option.name"
             >
                 {{ option.name }}
             </option>
@@ -21,7 +21,7 @@
                 required: false
             },
             selected: {
-                type: String,
+                type: String|Boolean,
                 required: false
             },
             options: {

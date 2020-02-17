@@ -47,14 +47,21 @@ class Login extends Controller {
 			$remember   = isset($_POST['remember_me']);
 			$settings   = Settings::getSettings();
 			$activation = $settings['require_activation'];
+			$approval   = $settings['require_approval'];
 
 			if($user) {
-				if($user->is_active || $activation === '0') {
+				if(($user->is_active || $activation === '0') && ($user->is_approved || $approval === '0') && !$user->deactivated) {
 					Auth::login($user, $remember);
 					Flash::addMessage('Login successful');
 					Utilities::redirect(Auth::getReturnToPage());
 				} else {
-					Flash::addMessage('You have not yet activated your account. Please check your email and click the activation link. <a href="/register/resend-activation/' . $user->resend_token . '">Resend activation email</a>', Flash::WARNING);
+					if(!$user->is_active) {
+						Flash::addMessage('You have not yet activated your account. Please check your email and click the activation link. <a href="/register/resend-activation/' . $user->resend_token . '">Resend activation email</a>', Flash::WARNING);
+					} else if(!$user->is_approved) {
+						Flash::addMessage('Your account has not yet been approved by an administrator.', Flash::WARNING);
+					} else if($user->deactivated) {
+						Flash::addMessage('Your account has been deactivated.', Flash::ERROR);
+					}
 				}
 			} else {
 				Flash::addMessage('The email or password was incorrect, please try again', Flash::WARNING);

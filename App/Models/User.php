@@ -28,6 +28,8 @@ class User extends Model {
     public $registered_date;
     public $name;
     public $role;
+    public $is_approved;
+    public $deactivated;
     // Private properties
     private $password_reset_token;
     private $password_reset_expiry;
@@ -57,8 +59,9 @@ class User extends Model {
 
         if(empty($this->errors)) {
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-            $settings  = Settings::getSettings();
-            $is_active = 0;
+            $settings       = Settings::getSettings();
+            $is_active      = 0;
+            $auto_approve   = $settings['require_approval'] === '0';
 
             if($settings['require_activation']) {
 				// account activation token
@@ -71,7 +74,7 @@ class User extends Model {
 				$this->resend_token = $resend->getValue();
 			} else {
 				$this->activation_hash = null;
-				$is_active = 1;
+				$is_active = true;
 			}
 
             $this->registered_date = date('Y-m-d H:i:s');
@@ -84,6 +87,7 @@ class User extends Model {
 						`activation_hash`,
 						`resend_token`,
 						`is_active`,
+						`is_approved`,
 						`registered_date`
 					)
 				VALUES (
@@ -92,6 +96,7 @@ class User extends Model {
 					:hash,
 					:resend_token,
 					:is_active,
+					:is_approved,
 					:registered_date
 				);
 			";
@@ -103,7 +108,8 @@ class User extends Model {
             $stmt->bindValue(':password',        $this->password,        PDO::PARAM_STR);
             $stmt->bindValue(':hash',            $this->activation_hash, PDO::PARAM_STR);
             $stmt->bindValue(':resend_token',    $this->resend_token,    PDO::PARAM_STR);
-            $stmt->bindValue(':is_active',       $is_active,             PDO::PARAM_INT);
+            $stmt->bindValue(':is_active',       $is_active,             PDO::PARAM_BOOL);
+            $stmt->bindValue(':is_approved',     $auto_approve,          PDO::PARAM_BOOL);
             $stmt->bindValue(':registered_date', $this->registered_date, PDO::PARAM_STR);
 
             return $stmt->execute();
@@ -202,6 +208,8 @@ class User extends Model {
 				`resend_token`,
 				`role`,
 				`is_active`,
+				`is_approved`,
+				`deactivated`,
 				`registered_date`
 			FROM
 				`users`
@@ -259,6 +267,8 @@ class User extends Model {
 				`resend_token`,
 				`role`,
 				`is_active`,
+				`is_approved`,
+				`deactivated`,
 				`registered_date`
 			FROM
 				`users`
@@ -402,7 +412,9 @@ class User extends Model {
 				`activation_hash`,
 				`role`,
 				`resend_token`,
-				`is_active`
+				`is_active`,
+				`is_approved`,
+				`deactivated`
 			FROM
 				`users`
 			WHERE
@@ -522,6 +534,95 @@ class User extends Model {
         return $stmt->rowCount();
     }
 
+	/**
+	 * Approve the new user account
+	 *
+	 * @param int  $user        - user id
+	 * @param bool $is_approved - whether to approve or not
+	 *
+	 * @throws Exception
+	 *
+	 * @return integer - 1 success, 0 if not
+	 */
+	public static function approve(int $user, bool $is_approved): int {
+		$sql = "
+			UPDATE
+				`users`
+			SET
+				`is_approved` = :is_approved
+			WHERE
+			    `users`.id = :user_id;
+		";
+
+		$db   = static::getDB();
+		$stmt = $db->prepare($sql);
+
+		$stmt->bindValue(':is_approved', $is_approved, PDO::PARAM_BOOL);
+		$stmt->bindValue(':user_id',     $user,        PDO::PARAM_INT);
+
+		$stmt->execute();
+
+		return $stmt->rowCount();
+	}
+
+	/**
+	 * Deactivate the user account
+	 *
+	 * @param int $user - user id
+	 *
+	 * @throws Exception
+	 *
+	 * @return integer - 1 deactivation successful, 0 if not
+	 */
+	public static function deactivate(int $user): int {
+		$sql = "
+			UPDATE
+				`users`
+			SET
+				`deactivated` = 1
+			WHERE
+			    `users`.id = :user_id;
+		";
+
+		$db   = static::getDB();
+		$stmt = $db->prepare($sql);
+
+		$stmt->bindValue(':user_id', $user, PDO::PARAM_INT);
+
+		$stmt->execute();
+
+		return $stmt->rowCount();
+	}
+
+	/**
+	 * Reactivate the user account
+	 *
+	 * @param int $user - user id
+	 *
+	 * @throws Exception
+	 *
+	 * @return integer - 1 reactivation successful, 0 if not
+	 */
+	public static function reactivate(int $user): int {
+		$sql = "
+			UPDATE
+				`users`
+			SET
+				`deactivated` = 0
+			WHERE
+			    `users`.id = :user_id;
+		";
+
+		$db   = static::getDB();
+		$stmt = $db->prepare($sql);
+
+		$stmt->bindValue(':user_id', $user, PDO::PARAM_INT);
+
+		$stmt->execute();
+
+		return $stmt->rowCount();
+	}
+
     /**
      * Update a user's activation hash for resending activation emails
      *
@@ -571,7 +672,9 @@ class User extends Model {
 				`activation_hash`,
 				`resend_token`,
 				`role`,
-				`is_active`
+				`is_active`,
+				`is_approved`,
+				`deactivated`
 			FROM
 				`users`
 			WHERE

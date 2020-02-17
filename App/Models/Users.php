@@ -36,6 +36,8 @@ class Users extends Model {
 				u.`name`,
 				u.`email`,
 				u.`is_active`,
+				u.`is_approved`,
+				u.`deactivated`,
 				u.`registered_date`,
 				r.`id` AS role_id,
 				r.`name` AS role

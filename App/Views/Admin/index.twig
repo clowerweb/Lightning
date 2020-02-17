@@ -9,7 +9,7 @@
         <div class="tab-panes">
             <flash-messages :messages="{{ flash_messages|json_encode }}"></flash-messages>
 
-            <users-list :roles="{{ roles|json_encode }}"></users-list>
+            <users-list :roles="{{ roles|json_encode }}" :settings="{{ settings|json_encode }}"></users-list>
             <settings-form :settings="{{ settings|json_encode }}"></settings-form>
         </div>
     </div>

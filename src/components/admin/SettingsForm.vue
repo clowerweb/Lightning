@@ -34,6 +34,13 @@
             </div>
 
             <div>
+                <label>
+                    Require Admin Approval for New Users?
+                    <input type="checkbox" name="require_approval" :checked="settings.require_approval === '1'"/>
+                </label>
+            </div>
+
+            <div>
                 <label for="timezone">Default Timezone:</label>
                 <input type="text" id="timezone" name="default_timezone" :value="settings.default_timezone"/>
             </div>
