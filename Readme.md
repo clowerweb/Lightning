@@ -55,6 +55,10 @@ That's it! You can now navigate to `/admin` and log in.
 It's possible to accidentally deactivate your own user account in the admin section by clicking on the "Deactivate User" button from the Users list.
 If this happens, just open the database in your preferred database administration program (such as PHPMyAdmin), and for your user row, change the `deactivated` column from `1` to `0`.
 
+**Production Build**
+
+From the project root, run `npm run build`, and change `ENVIRONMENT` in your `.env` file to `prod`.
+
 **Framework Reference Docs**
 
 ***Framework Methods and Usage coming soon!***
