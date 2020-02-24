@@ -40,7 +40,21 @@ All settings are found in `.env` and should be relatively straightforward.
 4. Go to `Tasks->dev` and click the "Run task" button.
 5. Navigate to your local URL for the project (for example http://lightning.local/ or whatever you set up for it on your local server); assets will automatically be served from http://localhost:8080/ (so you don't need to go to this address) when in `dev` mode in `.env`, and the real URL when in `prod`.
 
+**Creating the Admin User and Accessing the Admin Interface**
 
-**Reference Docs**
+Since Lightning doesn't have an installer (yet), you'll need to go through the regular user registration process and set yourself as admin:
+
+1. Go to `/register` and input your desired email and password
+2. Go to PHPMyAdmin or your preferred database administration tool, and go to the `users` table.
+3. Find your user and set the `is_active`, and `is_approved` columns from `0` to `1`, and change the `role` column from `2` to `1`
+
+That's it! You can now navigate to `/admin` and log in.
+
+**If You Accidentally Deactivate Yourself in the Admin Section**
+
+It's possible to accidentally deactivate your own user account in the admin section by clicking on the "Deactivate User" button from the Users list.
+If this happens, just open the database in your preferred database administration program (such as PHPMyAdmin), and for your user row, change the `deactivated` column from `1` to `0`.
+
+**Framework Reference Docs**
 
 ***Framework Methods and Usage coming soon!***
