@@ -15,6 +15,12 @@
                     <li v-else>
                         <a href="/login">Log In</a>
                     </li>
+                    <li v-if="!user_exists">
+                        <a href="/register">Register</a>
+                    </li>
+                    <li v-if="user_exists && user.role === '1'">
+                        <a href="/admin">Admin</a>
+                    </li>
                 </ul>
             </nav>
         </div>
