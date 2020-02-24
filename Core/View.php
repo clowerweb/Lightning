@@ -85,6 +85,8 @@ class View {
             $twig->addGlobal('site_tagline', $settings['site_tagline']);
             $twig->addGlobal('dev', $dev);
             $twig->addGlobal('curruser', Auth::getUser() ?: new stdClass);
+            $twig->addGlobal('all_timezones', \DateTimeZone::listIdentifiers(\DateTimeZone::ALL));
+            $twig->addGlobal('timezone', $settings['default_timezone']);
 
             if($dev) {
                 $twig->addExtension(new DebugExtension());

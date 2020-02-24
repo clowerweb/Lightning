@@ -42,7 +42,7 @@
 
             <div>
                 <label for="timezone">Default Timezone:</label>
-                <input type="text" id="timezone" name="default_timezone" :value="settings.default_timezone"/>
+                <sel :name="'default_timezone'" :options="timezones" :selected="settings.default_timezone"></sel>
             </div>
 
             <button type="submit" class="btn btn-primary">Save</button>
@@ -56,6 +56,10 @@
         props: {
             settings: {
                 type: Object,
+                required: true
+            },
+            timezones: {
+                type: Array,
                 required: true
             }
         },

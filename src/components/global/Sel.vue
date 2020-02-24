@@ -3,10 +3,10 @@
         <select :name="name" @change="change">
             <option
                 v-for="option in options"
-                :value="option.id"
-                :selected="selected === true || selected === option.name"
+                :value="getOption(option, 'id')"
+                :selected="selected === true || selected === getOption(option, 'name')"
             >
-                {{ option.name }}
+                {{ getOption(option, 'name') }}
             </option>
         </select>
     </span>
@@ -30,6 +30,9 @@
             }
         },
         methods: {
+            getOption(option, type) {
+                return option[type] ? option[type] : option;
+            },
             change(e) {
                 this.$emit('change', e.target.value);
             }

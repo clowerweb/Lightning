@@ -46,7 +46,7 @@
                         ></sel>
                     </td>
 
-                    <td>{{ user.registered_date }}</td>
+                    <td>{{ convertTime(user.registered_date) }}</td>
 
                     <td>
                         <sel :options="roles" :selected="user.role" @change="changeRole(user.id, $event)"></sel>
@@ -86,6 +86,8 @@
 </template>
 
 <script>
+    import moment from 'moment-timezone';
+
     export default {
         name: 'users-list',
         props: {
@@ -218,6 +220,10 @@
                         });
                     }
                 });
+            },
+
+            convertTime(time) {
+                return moment.utc(time).tz(this.settings.default_timezone).format('LLL');
             },
         }
     }
