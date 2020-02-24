@@ -5,7 +5,9 @@
                 <a href="/">{{ site_name }}</a>
             </h1>
 
-            <h2 v-if="site_tagline">{{ site_tagline }}</h2>
+            <h2 v-if="site_tagline">
+                {{ site_tagline }}
+            </h2>
 
             <nav role="navigation" class="text-right">
                 <ul>
@@ -80,9 +82,21 @@
             }
 
             > nav {
+
                 flex: 1;
                 max-width: 100%;
                 width: 100%;
+
+                > ul > li {
+
+                    display: inline;
+
+                    + li {
+                        margin-left: rem(10);
+                    }
+
+                }
+
             }
 
         }
