@@ -26,7 +26,7 @@
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "vue": "^2.6.11",
     "vue-toasted": "^1.1.27"
   },
