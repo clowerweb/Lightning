@@ -1,36 +1,25 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace App\Controllers;
 
-use App\Auth;
-use \Exception;
-use Core\View;
-use Core\Controller;
+use Lightning\Controller;
+use Lightning\Lightning;
 
 /**
- * Home controller
+ * Home controller for Lightning 3
  *
- * PHP version 7.2
+ * PHP version 8.2
+ *
+ * @since 3.0.0
+ * @package App\Controllers
  */
 class Home extends Controller {
-    private $user;
-
-    public function before(): void {
-		$this->user = Auth::getUser();
+    /**
+     * Show the index page
+     *
+     * @return void
+     */
+    public function actionIndex(): void {
+        Lightning::render('Home');
     }
-
-	/**
-	 * Show the index page
-	 *
-	 * @throws Exception from Twig\Error
-	 *
-	 * @return void
-	 */
-	public function indexAction(): void {
-		View::renderTemplate('Home/index.twig', [
-		    'user' => $this->user
-        ]);
-	}
 }

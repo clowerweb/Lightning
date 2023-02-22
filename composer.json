@@ -1,16 +1,12 @@
 {
-	"require": {
-		"twig/twig": "^3.0",
-		"ezyang/htmlpurifier": "^4.12",
-		"ext-pdo": "*",
-		"ext-iconv": "*",
-		"vlucas/phpdotenv": "^4.1",
-      	"ext-json": "*"
+    "require": {
+        "ezyang/htmlpurifier": "^4.16",
+        "vlucas/phpdotenv": "^5.5"
     },
-	"autoload": {
-		"psr-4": {
-			"Core\\": "Core/",
-			"App\\": "App/"
-		}
-	}
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "Lightning\\": "Lightning/"
+        }
+    }
 }

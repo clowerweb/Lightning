@@ -1,5 +1,0 @@
-Account activation
-
-Thank you for registering at {{ settings.site_name }}. Please click or paste the following link to activate your account:
-
-{{ url }}

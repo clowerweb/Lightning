@@ -1,28 +1,16 @@
-import "./scss/main.scss";
-import "./js/main";
-import Vue from "vue";
-import Components from "./components";
-import axios from "axios";
-import Toasted from 'vue-toasted';
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import http from '@/plugins/http'
 
-Vue.prototype.$http = axios;
-Vue.prototype.axios = axios;
+import App from '@/App.vue'
+import router from '@/router'
+import '@/assets/css/app.css'
+import '@/assets/css/styles.css'
 
-Vue.config.productionTip = false;
+const app = createApp(App)
 
-Vue.use(Toasted, {
-    iconPack : 'fontawesome',
-    position: 'bottom-right',
-    duration: 5000,
-    action : {
-        text : 'Close',
-        onClick : (e, toastObject) => {
-            toastObject.goAway(0);
-        }
-    }
-});
+app.use(createPinia())
+app.use(router)
+app.use(http)
 
-new Vue({
-    el: "#app",
-    delimiters: ["${", "}"]
-});
+app.mount('#app')
