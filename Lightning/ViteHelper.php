@@ -20,7 +20,6 @@ class ViteHelper {
      */
     public static function vite(string $entry): void {
         echo self::jsPreloadImports($entry) . self::cssTag($entry);
-        require_once __DIR__ . '/../index.php';
     }
 
     /**

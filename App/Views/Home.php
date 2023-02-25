@@ -3,5 +3,6 @@
 use Lightning\ViteHelper;
 
 // Render the font-end app
-    ViteHelper::vite('main.js');
+require_once dirname(__DIR__) . '/../index.php';
+
 ?>

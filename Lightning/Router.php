@@ -4,6 +4,8 @@ namespace Lightning;
 
 use Exception;
 
+use Lightning\Utilities;
+
 /**
  * Router class for Lightning 3
  *
@@ -69,18 +71,17 @@ class Router {
             Utilities::convertToStudlyCaps($this->params['controller']);
 
         // Check if the controller class exists; if not, use the Home controller and index action.
-        // 404s should be handled in the SPA
+        // 404s should be handled in the SPA, but send a 404 response from here
         if (!class_exists($controllerClass)) {
-            $controller = new ($this->getNamespace() . 'Home')();
-            $action = 'index';
+            http_response_code(404);
+            self::rerouteToVue();
         } else {
             $action = ucfirst($this->params['action']);
 
             // Create a new instance of the controller and call the action method
             $controller = new $controllerClass($this->params);
             if (!method_exists($controller, 'action' . $action)) {
-                $controller = new ($this->getNamespace() . 'Home')();
-                $action = 'index';
+                self::rerouteToVue();
             }
         }
 
@@ -95,6 +96,8 @@ class Router {
      * @return bool True if the URL matches a route in the router, false otherwise.
      */
     private function match(string $url): bool {
+        $url = Utilities::convertToStudlyCaps($url);
+
         // Iterate over each route in the router
         foreach ($this->routes as $route => $params) {
             // Try to match the URL to the current route using a regular expression
@@ -125,5 +128,16 @@ class Router {
     private function getNamespace(): string {
         // Get the namespace for the current controller from the router parameters
         return 'App\Controllers\\' . ($this->params['namespace'] ?? '');
+    }
+
+    /**
+     * Reroutes to the Vue SPA.
+     *
+     * @return void
+     */
+    private function rerouteToVue(): void {
+        $controller = new ($this->getNamespace() . 'Home')();
+        $action = 'index';
+        $controller->$action();
     }
 }

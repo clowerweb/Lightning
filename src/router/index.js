@@ -9,19 +9,38 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: 'Lightning 3'
+      }
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutView
+      component: AboutView,
+      meta: {
+        title: 'About Lightning 3'
+      }
     },
     {
       path: '/:pathMatch(.*)',
       name: 'not-found',
-      component: NotFound
+      component: NotFound,
+      meta: {
+        title: 'Uh oh!'
+      },
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const title = to.meta?.title
+
+  if (title) {
+    document.title = title
+  }
+
+  next()
 })
 
 export default router

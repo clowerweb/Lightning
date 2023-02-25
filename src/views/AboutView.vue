@@ -6,7 +6,7 @@
 			}
 		},
 		async created() {
-			await this.http.get('/api/aboutMsg').then(response => {
+			await this.http.get('/api/about-msg').then(response => {
 				this.apiContent = response.data;
 			});
 		}

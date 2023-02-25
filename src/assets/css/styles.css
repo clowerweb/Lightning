@@ -1,3 +1,19 @@
+a,
+button {
+	transition: all .3s ease-in-out;
+}
+
+body,
+html {
+	font-size: 16px;
+}
+
+html {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+
 .container {
 	width: 100rem;
 }
@@ -5,4 +21,15 @@
 h3 {
 	font-size: 2rem;
 	font-weight: 700;
+}
+
+a,
+a:visited {
+	color: theme('colors.red.600');
+
+	&:active,
+	&:focus,
+	&:hover {
+		color: theme('colors.red.800');
+	}
 }

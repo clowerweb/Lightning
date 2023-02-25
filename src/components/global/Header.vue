@@ -37,14 +37,15 @@
 			display: inline-block;
 
 			> a {
+        color: theme('colors.white');
 				transition: color .3s ease-in-out;
 
 				&.router-link-exact-active {
-					color: #f00;
+          color: theme('colors.red.600');
 					position: relative;
 
 					&:after {
-						background: #f00;
+            background: theme('colors.red.600');
 						bottom: 0;
 						content: '';
 						height: 4px;
@@ -57,7 +58,7 @@
 				&:active,
 				&:focus,
 				&:hover {
-					color: #f00;
+          color: theme('colors.red.600');
 				}
 			}
 		}

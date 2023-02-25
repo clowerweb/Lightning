@@ -170,31 +170,24 @@ class Utilities {
     /**
      * Remove the query string variables from the URL (if any). As the full
      * query string is used for the route, any variables at the end will need
-     * to be removed before the route is matched to the routing table. For
-     * example:
-     *
-     * URL                           $_SERVER['QUERY_STRING']  Route
-     * -------------------------------------------------------------------
-     * localhost                     ''                        ''
-     * localhost/?                   ''                        ''
-     * localhost/?page               page=                     ''
-     * localhost/?page=1             page=1                    ''
-     * localhost/posts?page=1        posts&page=1              posts
-     * localhost/posts/index         posts/index               posts/index
-     * localhost/posts/index?page=1  posts/index&page=1        posts/index
-     *
-     * A URL of the format localhost/?page (one variable name, no value) won't
-     * work, however. Nor will localhost/?page&other=1.
+     * to be removed before the route is matched to the routing table.
      *
      * @param string $url The full URL
      *
      * @return string The URL with the query string variables removed
      */
-    public static function removeQueryStringVars(string $url): string {
-        if ($pos = strpos($url, '?')) {
-            $url = substr($url, 0, $pos);
+    public static function removeQueryStringVars(string $url) : string {
+        if($url != '') {
+            $parts = explode('&', $url, 2);
+
+            if(!str_contains($parts[0], '=')) {
+                $url = $parts[0];
+            } else {
+                $url = '';
+            }
         }
-        return rtrim($url, '/');
+
+        return $url;
     }
 
     /**
