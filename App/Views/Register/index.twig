@@ -1,7 +1,0 @@
-{% extends "base.twig" %}
-
-{% block title %}Register - {{ site_name }}{% endblock %}
-
-{% block body %}
-	<register-form :email="{{ user.email|json_encode }}" :errors="{{ user.errors|json_encode }}"></register-form>
-{% endblock %}

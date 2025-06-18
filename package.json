@@ -1,37 +1,15 @@
 {
-  "name": "@clowerweb/tithe",
-  "version": "1.0.0",
+  "name": "lightning",
+  "version": "2.0.0",
+  "description": "Root project runner for Lightning sites.",
   "private": true,
   "scripts": {
-    "build": "vue-cli-service build --modern",
-    "dev": "vue-cli-service serve"
+    "install": "node ./run-template-script.js install",
+    "dev": "node ./run-template-script.js dev",
+    "generate": "node ./run-template-script.js generate",
+    "build": "node ./run-template-script.js build",
+    "test": "node ./run-template-script.js test"
   },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.2",
-    "@vue/cli-service": "^4.2.2",
-    "babel-preset-vue": "^2.0.2",
-    "dotenv": "^8.2.0",
-    "fibers": "^4.0.2",
-    "filemanager-webpack-plugin": "^2.0.5",
-    "glob-all": "^3.1.0",
-    "node-sass": "^4.13.1",
-    "purgecss-webpack-plugin": "^2.0.5",
-    "purgecss-whitelister": "^2.4.0",
-    "sass": "^1.25.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "core-js": "^3.6.4",
-    "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.28",
-    "vue": "^2.6.11",
-    "vue-toasted": "^1.1.27"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+  "author": "Clowerweb",
+  "license": "Apache 2.0"
 }
